@@ -994,7 +994,7 @@ By leveraging the Virtual DOM, React provides a performant and developer-friendl
 
 ### 2. Describe the change detection mechanism in Angular and compare it with React's re-rendering strategy.
 
-=> 
+=>
 
 Angular and React employ different strategies for change detection and re-rendering, which influence how they update the UI in response to changes in application state. Let's discuss the change detection mechanism in Angular and compare it with React's re-rendering strategy:
 
