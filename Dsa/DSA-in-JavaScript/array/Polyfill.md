@@ -194,7 +194,7 @@ In this example:
 - We use the `myFilter()` method (polyfilled) to filter out only the even numbers from the array, producing a new array `evenNumbers`.
 - Finally, we log the `evenNumbers` array to the console, which will output `[2, 4, 6]`.
 
-## 3. `reduce()` In JavaScript
+## 3. `reduce()`
 
 **=>** In JavaScript, the `reduce()` method is used to apply a function to each element of the array to reduce the array to a single value. It executes a reducer function (that you provide) on each element of the array, resulting in a single output value. The `reduce()` method takes two parameters: a reducer function and an optional initial value.
 
