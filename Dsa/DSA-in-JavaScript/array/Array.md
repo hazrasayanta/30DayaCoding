@@ -15,6 +15,8 @@
 
 Overall, JavaScript arrays are versatile and powerful data structures that are commonly used for storing and manipulating collections of data in JavaScript programs.
 
+# `<Understand Array>`
+
 ## 2. Arrays in javaScript
 
 **=>** Arrays in JavaScript are used to store multiple values in a single variable. They are a special type of object used to store a collection of data, and the data can be of any type (e.g., strings, numbers, objects, functions). Arrays in JavaScript are zero-indexed, meaning the first element is at index 0, the second element at index 1, and so on.
@@ -111,7 +113,9 @@ In this example, even though `staticArray1` was created with a length of 5, only
 
 So, while you can create arrays with a predetermined size in JavaScript, they're still fundamentally dynamic in terms of their behavior, and they can grow or shrink as needed, similar to dynamically sized arrays in other languages.
 
-## 4. Memort Allocation (Access and Storage) in Array Js
+# `<Memory Allocation>`
+
+## 4. Memory Allocation (Access and Storage) in Array Js
 
 => In JavaScript, memory allocation, access, and storage for arrays are handled dynamically by the JavaScript engine. When you create an array in JavaScript, memory is allocated dynamically to accommodate the elements you add to the array.
 
@@ -142,6 +146,8 @@ While JavaScript abstracts away many memory management concerns, it's essential 
 3. **Optimizations**: JavaScript engines often employ optimizations to improve the performance of array operations. For example, some engines may use techniques like "sparse arrays" to optimize memory usage for arrays with a large number of uninitialized or sparse elements.
 
 Overall, while JavaScript abstracts away low-level memory management details, understanding how memory allocation, access, and storage work in JavaScript arrays can help you write more efficient and performant code.
+
+# `<Operations>`
 
 ## 5. Js Array Accessing and Updating Operations
 
@@ -394,6 +400,8 @@ for (let fruit of arr.reverse()) {
 - While backward traversal methods like `reverse()` modify the original array, the order of elements in the original array will be reversed after the operation. If you don't want to modify the original array, you may need to create a copy of it before using these methods.
 - Each method has its advantages and use cases. Choose the method that best fits your specific requirements and coding style.
 
+# `<Multi Dimensional>`
+
 ## 8. Js Array Multi Dimensional Access
 
 **=>** In JavaScript, you can create multi-dimensional arrays to store data in a tabular format. Accessing elements in a multi-dimensional array involves specifying both the row and column indices. Here's how you can access elements in a multi-dimensional array:
@@ -452,6 +460,8 @@ This nested loop will iterate over each row of the array, and for each row, it w
 - You can have arrays of more than two dimensions as well, though they are less common.
 - Multi-dimensional arrays are commonly used to represent grids, matrices, or tables of data.
 - Be mindful of array bounds when accessing elements in multi-dimensional arrays to avoid out-of-bounds errors.
+
+# `<Manipulation>`
 
 ## 9. Js Array Manipulation Reverse
 
@@ -583,6 +593,8 @@ console.log(getRandomElement(arr)); // Output: Random element from the array
 - The `shuffleArray` function shuffles the array in place using the Fisher-Yates shuffle algorithm.
 - The `getRandomElement` function selects a random element from the array by generating a random index.
 - These functions provide flexibility for randomizing arrays in JavaScript. You can use them based on your specific requirements, such as shuffling the array or selecting random elements from it.
+
+# `<Patterns>`
 
 ## 13. Js Array Patterns Two Pointers
 
