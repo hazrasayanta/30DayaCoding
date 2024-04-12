@@ -226,3 +226,76 @@ In this implementation:
 4. **Complexity**: While queues are relatively simple data structures, managing and debugging code involving queues can become complex, especially in large-scale applications with multiple modules or components interacting with the queue.
 
 Despite these disadvantages, queues remain a fundamental data structure in JavaScript and are widely used in various applications for their simplicity and effectiveness in managing data flow.
+
+# ***Implement Queue using Stacks
+
+**=>** You can implement a queue using two stacks. Here's how you can do it in JavaScript:
+
+```javascript
+class Queue {
+  constructor() {
+    this.stack1 = [];
+    this.stack2 = [];
+  }
+
+  // Add element to the queue
+  enqueue(element) {
+    // Push the element onto stack1
+    this.stack1.push(element);
+  }
+
+  // Remove and return the first element from the queue
+  dequeue() {
+    // If stack2 is empty, transfer elements from stack1 to stack2
+    if (this.stack2.length === 0) {
+      // Transfer all elements from stack1 to stack2
+      while (this.stack1.length > 0) {
+        this.stack2.push(this.stack1.pop());
+      }
+    }
+    // Pop from stack2
+    return this.stack2.pop();
+  }
+
+  // Return the first element of the queue without removing it
+  front() {
+    // If stack2 is empty, transfer elements from stack1 to stack2
+    if (this.stack2.length === 0) {
+      // Transfer all elements from stack1 to stack2
+      while (this.stack1.length > 0) {
+        this.stack2.push(this.stack1.pop());
+      }
+    }
+    // Return the top element of stack2
+    return this.stack2[this.stack2.length - 1];
+  }
+
+  // Check if the queue is empty
+  isEmpty() {
+    return this.stack1.length === 0 && this.stack2.length === 0;
+  }
+
+  // Return the size of the queue
+  size() {
+    return this.stack1.length + this.stack2.length;
+  }
+}
+
+// Usage Example:
+
+const queue = new Queue();
+queue.enqueue(10);
+queue.enqueue(20);
+queue.enqueue(30);
+console.log(queue.front()); // Output: 10
+console.log(queue.dequeue()); // Output: 10
+console.log(queue.front()); // Output: 20
+console.log(queue.size()); // Output: 2
+console.log(queue.isEmpty()); // Output: false
+```
+
+In this implementation:
+
+- `stack1` is used to enqueue elements, and `stack2` is used to dequeue elements.
+- When dequeue or front operation is called, if `stack2` is empty, all elements are transferred from `stack1` to `stack2`. This operation is performed only when necessary, ensuring that elements are dequeued in the correct order.
+- Operations like `enqueue`, `dequeue`, `front`, `isEmpty`, and `size` are implemented to manipulate and interact with the queue.

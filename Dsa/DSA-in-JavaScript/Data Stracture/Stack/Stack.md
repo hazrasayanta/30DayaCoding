@@ -241,3 +241,87 @@ In this implementation, we use a linked list to represent the stack. The `push`,
 5. **Limited Use Cases:** Stacks are suitable for a specific set of problems, such as managing function calls, implementing backtracking algorithms, expression evaluation, etc. They may not be the best choice for all scenarios.
 
 Understanding these advantages and disadvantages can help in making informed decisions about when to use a stack data structure in JavaScript and when to explore alternative solutions.
+
+# Implement Stack using Queues
+
+**=>** You can implement a stack using two queues. The idea is to use one queue for maintaining the elements of the stack and another auxiliary queue for various operations. Here's how you can implement it in JavaScript:
+
+```javascript
+class Stack {
+  constructor() {
+    this.queue1 = [];
+    this.queue2 = [];
+  }
+
+  // Push element onto the stack
+  push(element) {
+    // Push the new element onto queue1
+    this.queue1.push(element);
+  }
+
+  // Pop element from the stack and return it
+  pop() {
+    if (this.isEmpty()) {
+      return "Underflow";
+    }
+  
+    // Move all elements except the last one from queue1 to queue2
+    while (this.queue1.length > 1) {
+      this.queue2.push(this.queue1.shift());
+    }
+  
+    // Pop the last element from queue1 (which is the top of the stack)
+    const poppedElement = this.queue1.shift();
+  
+    // Swap queue1 and queue2 references
+    [this.queue1, this.queue2] = [this.queue2, this.queue1];
+  
+    return poppedElement;
+  }
+
+  // Return the top element of the stack without removing it
+  peek() {
+    if (this.isEmpty()) {
+      return null;
+    }
+  
+    // Move all elements from queue1 to queue2
+    while (this.queue1.length > 1) {
+      this.queue2.push(this.queue1.shift());
+    }
+  
+    // Peek at the last element of queue1 (which is the top of the stack)
+    const topElement = this.queue1[0];
+  
+    // Move the top element back to queue1
+    this.queue2.push(this.queue1.shift());
+  
+    // Swap queue1 and queue2 references
+    [this.queue1, this.queue2] = [this.queue2, this.queue1];
+  
+    return topElement;
+  }
+
+  // Check if the stack is empty
+  isEmpty() {
+    return this.queue1.length === 0;
+  }
+
+  // Get the size of the stack
+  size() {
+    return this.queue1.length;
+  }
+}
+
+// Example usage:
+const stack = new Stack();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+console.log(stack.pop()); // Output: 3
+console.log(stack.peek()); // Output: 2
+console.log(stack.size()); // Output: 2
+console.log(stack.isEmpty()); // Output: false
+```
+
+In this implementation, `queue1` is used to store elements of the stack, and `queue2` is used as an auxiliary queue for various operations. The `push` operation simply adds elements to `queue1`. For `pop` and `peek` operations, elements are moved from `queue1` to `queue2`, leaving only the last element (which corresponds to the top of the stack) in `queue1`. Then, the top element is returned for `peek` or removed and returned for `pop`. Finally, `queue1` and `queue2` references are swapped to maintain consistency for further operations.
