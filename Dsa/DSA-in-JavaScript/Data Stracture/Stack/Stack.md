@@ -66,7 +66,7 @@ console.log(stack.isEmpty()); // Output: true
 
 In this implementation, we use an array to store the stack elements. The `push()` method adds an element to the top of the stack, the `pop()` method removes and returns the top element, the `peek()` method returns the top element without removing it, `isEmpty()` checks if the stack is empty, `size()` returns the size of the stack, `clear()` clears the stack, and `print()` prints the elements of the stack.
 
-# Stack implementation in JavaScript (Cheat Sheet) Using Arrays
+# Stack implementation in JavaScript Using Arrays
 
 **=>** Here's a concise cheat sheet for implementing a stack in JavaScript:
 

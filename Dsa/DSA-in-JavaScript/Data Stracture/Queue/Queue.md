@@ -61,7 +61,7 @@ console.log(queue.isEmpty()); // Output: false
 
 This implementation uses an array to store the elements of the queue and provides methods like `enqueue`, `dequeue`, `front`, `isEmpty`, `size`, and `print` to manipulate and interact with the queue.
 
-# Queue Implementation in JavaScript (Cheat Sheet) Using Arrays
+# Queue Implementation in JavaScript Using Arrays
 
 **=>** Here's a concise cheat sheet for queues in JavaScript:
 
