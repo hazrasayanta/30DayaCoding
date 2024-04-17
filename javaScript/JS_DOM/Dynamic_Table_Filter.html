@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table Filter</title>
+    <style>
+        /* CSS for table and search box */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Search box -->
+    <input type="text" id="searchInput" placeholder="Search..." aria-label="Search input">
+
+    <!-- Data table -->
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Sayanta Hazra</td>
+                <td>hazrasayanta@gmail.com</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>John Doe</td>
+                <td>john@example.com</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Jane Smith</td>
+                <td>jane@example.com</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Alice Johnson</td>
+                <td>alice@example.com</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        // Get elements
+        const searchInput = document.getElementById('searchInput');
+        const dataTable = document.getElementById('dataTable');
+        const tableRows = dataTable.getElementsByTagName('tr');
+
+        // Add event listener for search input
+        searchInput.addEventListener('input', filterTable);
+
+        // Function to filter table based on search input
+        function filterTable() {
+            const query = searchInput.value.toLowerCase();
+            for (let i = 1; i < tableRows.length; i++) {
+                const row = tableRows[i];
+                let found = false;
+                for (let j = 0; j < row.cells.length; j++) {
+                    const cell = row.cells[j];
+                    if (cell.textContent.toLowerCase().indexOf(query) > -1) {
+                        found = true;
+                        break;
+                    }
+                }
+                row.style.display = found ? '' : 'none';
+            }
+        }
+    </script>
+
+</body>
+
+</html>

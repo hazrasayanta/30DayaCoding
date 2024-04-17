@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Video Player</title>
+    <style>
+        /* CSS for custom video player */
+        .video-container {
+            position: relative;
+            width: 600px;
+            margin: 20px auto;
+        }
+
+        video {
+            width: 100%;
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 10px;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .video-container:hover .controls {
+            opacity: 1;
+        }
+
+        .controls button {
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background-color: #555;
+            position: relative;
+            margin-top: 5px;
+        }
+
+        .progress-bar .progress {
+            height: 100%;
+            background-color: #0a84ff;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .time-display {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="video-container">
+        <video id="videoPlayer" controls>
+            <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="controls">
+            <button id="playPauseBtn">▶</button>
+            <button id="volumeBtn">🔊</button>
+            <div class="progress-bar" id="progressBar">
+                <div class="progress" id="progress"></div>
+            </div>
+            <div class="time-display" id="timeDisplay">0:00 / 0:00</div>
+            <button id="fullscreenBtn">⛶</button>
+        </div>
+    </div>
+
+    <script>
+        // Get video element and controls
+        const video = document.getElementById('videoPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const volumeBtn = document.getElementById('volumeBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progress = document.getElementById('progress');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+        // Play or pause video
+        playPauseBtn.addEventListener('click', function () {
+            if (video.paused) {
+                video.play();
+                playPauseBtn.textContent = '❚❚';
+            } else {
+                video.pause();
+                playPauseBtn.textContent = '▶';
+            }
+        });
+
+        // Toggle mute/unmute
+        volumeBtn.addEventListener('click', function () {
+            if (video.muted) {
+                video.muted = false;
+                volumeBtn.textContent = '🔊';
+            } else {
+                video.muted = true;
+                volumeBtn.textContent = '🔇';
+            }
+        });
+
+        // Update progress bar and time display
+        video.addEventListener('timeupdate', function () {
+            const currentTime = video.currentTime;
+            const duration = video.duration;
+            progress.style.width = (currentTime / duration) * 100 + '%';
+            const currentMinutes = Math.floor(currentTime / 60);
+            const currentSeconds = Math.floor(currentTime % 60);
+            const durationMinutes = Math.floor(duration / 60);
+            const durationSeconds = Math.floor(duration % 60);
+            timeDisplay.textContent = `${currentMinutes}:${currentSeconds < 10 ? '0' : ''}${currentSeconds} / ${durationMinutes}:${durationSeconds < 10 ? '0' : ''}${durationSeconds}`;
+        });
+
+        // Seek video by clicking on progress bar
+        progressBar.addEventListener('click', function (event) {
+            const clickX = event.offsetX;
+            const progressBarWidth = progressBar.offsetWidth;
+            const percentage = clickX / progressBarWidth;
+            video.currentTime = percentage * video.duration;
+        });
+
+        // Toggle fullscreen mode
+        fullscreenBtn.addEventListener('click', function () {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) { /* Safari */
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) { /* IE11 */
+                video.msRequestFullscreen();
+            }
+        });
+
+        // Update fullscreen button text when exiting fullscreen
+        document.addEventListener('fullscreenchange', function () {
+            if (!document.fullscreenElement) {
+                fullscreenBtn.textContent = '⛶';
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

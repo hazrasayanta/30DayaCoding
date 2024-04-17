@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordion Menu</title>
+    <style>
+        /* CSS for accordion menu */
+        .accordion {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .accordion li {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .accordion li:last-child {
+            border-bottom: none;
+        }
+
+        .accordion button {
+            width: 100%;
+            padding: 10px;
+            text-align: left;
+            background-color: #f9f9f9;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s;
+        }
+
+        .accordion button:hover {
+            background-color: #ddd;
+        }
+
+        .accordion button.active {
+            background-color: #ddd;
+        }
+
+        .accordion .panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+
+    <ul class="accordion">
+        <li>
+            <button class="accordion-btn">Section 1</button>
+            <div class="panel">
+                <p>Content for Section 1</p>
+            </div>
+        </li>
+        <li>
+            <button class="accordion-btn">Section 2</button>
+            <div class="panel">
+                <p>Content for Section 2</p>
+            </div>
+        </li>
+        <li>
+            <button class="accordion-btn">Section 3</button>
+            <div class="panel">
+                <p>Content for Section 3</p>
+            </div>
+        </li>
+    </ul>
+
+    <script>
+        // Get all accordion buttons
+        const accordionButtons = document.querySelectorAll('.accordion-btn');
+
+        // Add click event listener to each button
+        accordionButtons.forEach(button => {
+            button.addEventListener('click', toggleAccordion);
+        });
+
+        // Function to toggle accordion panel
+        function toggleAccordion(event) {
+            const button = event.target;
+            const panel = button.nextElementSibling;
+
+            // Close all other panels
+            const allPanels = document.querySelectorAll('.panel');
+            allPanels.forEach(otherPanel => {
+                if (otherPanel !== panel) {
+                    otherPanel.style.maxHeight = '0';
+                    otherPanel.parentElement.querySelector('.accordion-btn').classList.remove('active');
+                }
+            });
+
+            // Toggle active class on button
+            button.classList.toggle('active');
+
+            // Toggle max-height of panel
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + 'px';
+            }
+        }
+
+        // Add keyboard navigation using arrow keys
+        document.addEventListener('keydown', function (event) {
+            const activeButton = document.querySelector('.accordion-btn.active');
+            let nextButton;
+
+            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+                event.preventDefault();
+
+                if (event.key === 'ArrowUp') {
+                    nextButton = activeButton.parentElement.previousElementSibling;
+                    if (!nextButton) {
+                        nextButton = activeButton.parentElement.parentElement.lastElementChild;
+                    }
+                } else {
+                    nextButton = activeButton.parentElement.nextElementSibling;
+                    if (!nextButton) {
+                        nextButton = activeButton.parentElement.parentElement.firstElementChild;
+                    }
+                }
+
+                nextButton.querySelector('.accordion-btn').focus();
+                toggleAccordion({ target: nextButton.querySelector('.accordion-btn') });
+            }
+        });
+    </script>
+
+</body>
+
+</html>

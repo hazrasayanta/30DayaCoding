@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Image Carousel</title>
+    <style>
+        /* CSS for image carousel */
+        #carouselContainer {
+            max-width: 600px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #mainImage {
+            width: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        #thumbnailContainer {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .thumbnail {
+            width: 50px;
+            height: auto;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .thumbnail:hover {
+            opacity: 0.7;
+        }
+
+        .active {
+            border: 2px solid blue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="carouselContainer">
+        <img id="mainImage"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlTSk6VGjyvf0rlnVmTW8TI21wbkeRYeE38z3GnrfSyA&s"
+            alt="Image">
+    </div>
+
+    <div id="thumbnailContainer"></div>
+
+    <script>
+        const images = ['https://scontent.fblr24-1.fna.fbcdn.net/v/t39.30808-6/414477421_6915221928568321_4170964408779956390_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=J9qG9YGkS3sAb6rpLZY&_nc_ht=scontent.fblr24-1.fna&oh=00_AfD-JnGWOTg_hirk3wfSv25HCS80MNWt7IYPp53bCo7XVA&oe=66255220',
+            'https://scontent.fblr24-1.fna.fbcdn.net/v/t39.30808-6/415452325_18330721972097473_5058898849660267593_n.jpg?stp=dst-jpg_p960x960&_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=72b0mshZYXAAb42YmtP&_nc_ht=scontent.fblr24-1.fna&oh=00_AfD6ktVBc1e9GrUZU8vVf2f2NhIFaV8C7EPXCJmhMrS1dg&oe=66254E20',
+            'https://scontent.fblr24-3.fna.fbcdn.net/v/t39.30808-6/415451865_18330721918097473_868172806412801578_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ADw8lzssO-EAb5-vIxP&_nc_ht=scontent.fblr24-3.fna&oh=00_AfBHMGvmwiTt9nVrRAzcoM_B-BSpVcyanAigeGcmjqUqjQ&oe=66253751',
+            'https://scontent.fblr24-1.fna.fbcdn.net/v/t39.30808-6/415707827_18330721957097473_6635975228499531342_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=mZvvRjQRr8wAb63DN-s&_nc_ht=scontent.fblr24-1.fna&oh=00_AfCISmX9ZWFSh-shLdmxYcPLyQiF3lnb2SiY9Bh1N1GreA&oe=66254E32']; // Add your image URLs here
+
+        const mainImage = document.getElementById('mainImage');
+        const thumbnailContainer = document.getElementById('thumbnailContainer');
+
+        let currentIndex = 0;
+
+        // Display thumbnails
+        images.forEach((image, index) => {
+            const thumbnail = document.createElement('img');
+            thumbnail.src = image;
+            thumbnail.classList.add('thumbnail');
+            if (index === currentIndex) {
+                thumbnail.classList.add('active');
+            }
+            thumbnail.onclick = () => showImage(index);
+            thumbnailContainer.appendChild(thumbnail);
+        });
+
+        // Display initial main image
+        mainImage.src = images[currentIndex];
+
+        function showImage(index) {
+            currentIndex = index;
+            mainImage.src = images[currentIndex];
+            updateThumbnails();
+        }
+
+        function updateThumbnails() {
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach((thumbnail, index) => {
+                if (index === currentIndex) {
+                    thumbnail.classList.add('active');
+                } else {
+                    thumbnail.classList.remove('active');
+                }
+            });
+        }
+
+        // Next and Previous buttons
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            mainImage.src = images[currentIndex];
+            updateThumbnails();
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            mainImage.src = images[currentIndex];
+            updateThumbnails();
+        }
+
+        // Auto-play feature
+        let autoPlayInterval;
+
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(nextImage, 2000);
+        }
+
+        function stopAutoPlay() {
+            clearInterval(autoPlayInterval);
+        }
+
+        // Event listeners for buttons
+        mainImage.addEventListener('mouseenter', stopAutoPlay);
+        mainImage.addEventListener('mouseleave', startAutoPlay);
+
+        startAutoPlay();
+    </script>
+
+</body>
+
+</html>

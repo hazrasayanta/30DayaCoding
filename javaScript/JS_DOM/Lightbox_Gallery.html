@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lightbox Gallery</title>
+    <style>
+        /* CSS for lightbox gallery */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .thumbnail {
+            width: 150px;
+            height: 300px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.2s;
+        }
+
+        .thumbnail img:hover {
+            transform: scale(1.1);
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 999;
+            text-align: center;
+        }
+
+        .lightbox img {
+            max-width: 80%;
+            max-height: 80%;
+            margin-top: 50px;
+            border: 5px solid #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Thumbnail gallery -->
+    <div class="gallery">
+        <div class="thumbnail" onclick="openLightbox(0)">
+            <img src="https://scontent.fblr24-1.fna.fbcdn.net/v/t39.30808-6/415452325_18330721972097473_5058898849660267593_n.jpg?stp=dst-jpg_p960x960&_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=72b0mshZYXAAb42YmtP&_nc_ht=scontent.fblr24-1.fna&oh=00_AfD6ktVBc1e9GrUZU8vVf2f2NhIFaV8C7EPXCJmhMrS1dg&oe=66254E20" alt="Thumbnail 1">
+        </div>
+        <div class="thumbnail" onclick="openLightbox(1)">
+            <img src="https://scontent.fblr24-3.fna.fbcdn.net/v/t39.30808-6/415451865_18330721918097473_868172806412801578_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ADw8lzssO-EAb5-vIxP&_nc_ht=scontent.fblr24-3.fna&oh=00_AfBHMGvmwiTt9nVrRAzcoM_B-BSpVcyanAigeGcmjqUqjQ&oe=66253751" alt="Thumbnail 2">
+        </div>
+        <div class="thumbnail" onclick="openLightbox(2)">
+            <img src="https://scontent.fblr24-1.fna.fbcdn.net/v/t39.30808-6/415707827_18330721957097473_6635975228499531342_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=mZvvRjQRr8wAb63DN-s&_nc_ht=scontent.fblr24-1.fna&oh=00_AfCISmX9ZWFSh-shLdmxYcPLyQiF3lnb2SiY9Bh1N1GreA&oe=66254E32" alt="Thumbnail 3">
+        </div>
+        <!-- Add more thumbnails here -->
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-btn" onclick="closeLightbox()">&times;</span>
+        <img id="lightboxImage" src="" alt="Enlarged Image">
+    </div>
+
+    <script>
+        // Open lightbox function
+        function openLightbox(index) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const thumbnails = document.querySelectorAll('.thumbnail img');
+
+            lightbox.style.display = 'block';
+            lightboxImage.src = thumbnails[index].src;
+            lightboxImage.alt = thumbnails[index].alt;
+        }
+
+        // Close lightbox function
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // Keyboard navigation for lightbox
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

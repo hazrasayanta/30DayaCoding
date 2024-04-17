@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky Navigation Bar</title>
+    <style>
+        /* CSS for sticky navigation bar */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #333;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            top: -50px;
+            transition: top 0.3s;
+        }
+
+        .navbar.sticky {
+            top: 0;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar" id="navbar">
+        <h2>Sticky Navigation Bar</h2>
+    </div>
+
+    <div class="content">
+        <h2>Lorem Ipsum</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat euismod sapien, ac posuere arcu tempor
+            sit amet. Duis sed lectus eget mauris dapibus fermentum. Aliquam non est sit amet mi dignissim pharetra.
+            Nulla eget quam id urna hendrerit congue. Nulla interdum vel turpis at facilisis. Nulla facilisi. Integer
+            consequat nulla nec mauris condimentum, ut dignissim lorem ullamcorper. Nam sagittis ultrices facilisis.
+            Vivamus blandit vehicula ante, id iaculis justo ultrices nec.</p>
+    </div>
+
+    <button class="scroll-top-btn" id="scrollTopBtn">Scroll to Top</button>
+
+    <script>
+        // Get the navbar and scroll top button
+        const navbar = document.getElementById('navbar');
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        // When the user scrolls down, hide/show the navbar and show/hide the scroll top button
+        let prevScrollPos = window.pageYOffset;
+        window.onscroll = function () {
+            const currentScrollPos = window.pageYOffset;
+            if (prevScrollPos > currentScrollPos) {
+                navbar.style.top = '0';
+            } else {
+                navbar.style.top = '-50px';
+                scrollTopBtn.style.display = 'block';
+            }
+            prevScrollPos = currentScrollPos;
+        };
+
+        // When the user clicks on the scroll top button, scroll to the top of the page
+        scrollTopBtn.addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+</body>
+
+</html>

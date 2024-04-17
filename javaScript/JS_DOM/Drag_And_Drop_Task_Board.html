@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag-and-Drop Task Board</title>
+    <style>
+        /* CSS for task board */
+        .task-board {
+            display: flex;
+        }
+
+        .column {
+            flex: 1;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+
+        .column h2 {
+            margin-top: 0;
+        }
+
+        .task {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: grab;
+        }
+
+        .task.dragging {
+            opacity: 0.5;
+        }
+
+        .column.drag-over {
+            border-style: dashed;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="task-board">
+        <div id="todoColumn" class="column" ondrop="drop(event, 'todo')" ondragover="allowDrop(event)">
+            <h2>To Do</h2>
+            <div id="todoTasks"></div>
+        </div>
+        <div id="inProgressColumn" class="column" ondrop="drop(event, 'inProgress')" ondragover="allowDrop(event)">
+            <h2>In Progress</h2>
+            <div id="inProgressTasks"></div>
+        </div>
+        <div id="doneColumn" class="column" ondrop="drop(event, 'done')" ondragover="allowDrop(event)">
+            <h2>Done</h2>
+            <div id="doneTasks"></div>
+        </div>
+    </div>
+
+    <div>
+        <label for="taskName">Task Name:</label>
+        <input type="text" id="taskName" placeholder="Enter task name">
+        <label for="taskDescription">Task Description:</label>
+        <input type="text" id="taskDescription" placeholder="Enter task description">
+        <button onclick="createTask()">Create Task</button>
+    </div>
+
+    <script>
+        // Create a task counter for unique task IDs
+        let taskIdCounter = 1;
+
+        // Function to create a new task
+        function createTask() {
+            const taskName = document.getElementById('taskName').value;
+            const taskDescription = document.getElementById('taskDescription').value;
+
+            if (!taskName) {
+                alert('Please enter a task name');
+                return;
+            }
+
+            const task = document.createElement('div');
+            task.classList.add('task');
+            task.setAttribute('draggable', 'true');
+            task.setAttribute('id', `task${taskIdCounter}`);
+            task.innerHTML = `
+    <h3>${taskName}</h3>
+    <p>${taskDescription}</p>
+  `;
+
+            // Add drag event listeners
+            task.addEventListener('dragstart', dragStart);
+            task.addEventListener('dragend', dragEnd);
+
+            // Add task to "To Do" column
+            document.getElementById('todoTasks').appendChild(task);
+
+            // Increment task counter
+            taskIdCounter++;
+        }
+
+        // Drag-and-drop event handlers
+        function dragStart(event) {
+            event.dataTransfer.setData('text/plain', event.target.id);
+            setTimeout(() => event.target.classList.add('dragging'), 0);
+        }
+
+        function dragEnd(event) {
+            event.target.classList.remove('dragging');
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drop(event, targetColumn) {
+            event.preventDefault();
+            const taskId = event.dataTransfer.getData('text/plain');
+            const task = document.getElementById(taskId);
+            const targetColumnElement = document.getElementById(`${targetColumn}Tasks`);
+
+            // Move task to target column
+            targetColumnElement.appendChild(task);
+
+            // Remove dashed border from target column
+            document.querySelectorAll('.column').forEach(column => column.classList.remove('drag-over'));
+        }
+
+        // Highlight drop zone when dragging over a column
+        document.querySelectorAll('.column').forEach(column => {
+            column.addEventListener('dragover', () => column.classList.add('drag-over'));
+            column.addEventListener('dragleave', () => column.classList.remove('drag-over'));
+        });
+    </script>
+
+</body>
+
+</html>

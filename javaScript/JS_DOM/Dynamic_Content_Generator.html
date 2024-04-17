@@ -1,80 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dynamic Content Generator</title>
-<style>
-  /* CSS for content boxes */
-  .content-box {
-    border: 1px solid #000;
-    padding: 10px;
-    margin: 10px;
-    width: 300px;
-    display: inline-block;
-    vertical-align: top;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Content Generator</title>
+  <style>
+    /* CSS for content boxes */
+    .content-box {
+      border: 1px solid #000;
+      padding: 10px;
+      margin: 10px;
+      width: 300px;
+      display: inline-block;
+      vertical-align: top;
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- Input fields for content and box properties -->
-<input type="text" id="contentInput" placeholder="Enter content">
-<input type="color" id="bgColorInput" value="#ffffff">
-<input type="number" id="borderInput" placeholder="Border width">
-<input type="number" id="paddingInput" placeholder="Padding">
-<input type="number" id="marginInput" placeholder="Margin">
-<button onclick="generateContent()">Generate</button>
+  <!-- Input fields for content and box properties -->
+  <input type="text" id="contentInput" placeholder="Enter content" aria-label="Content input">
+  <input type="color" id="bgColorInput" value="#ffffff" aria-label="Background color">
+  <input type="number" id="borderInput" placeholder="Border width" aria-label="Border width">
+  <input type="number" id="paddingInput" placeholder="Padding" aria-label="Padding">
+  <input type="number" id="marginInput" placeholder="Margin" aria-label="Margin">
+  <button onclick="generateContent()">Generate</button>
 
-<!-- Container for generated content boxes -->
-<div id="contentContainer"></div>
+  <!-- Container for generated content boxes -->
+  <div id="contentContainer"></div>
 
-<script>
-function generateContent() {
-  // Get input values
-  var content = document.getElementById('contentInput').value;
-  var bgColor = document.getElementById('bgColorInput').value;
-  var borderWidth = document.getElementById('borderInput').value + 'px';
-  var padding = document.getElementById('paddingInput').value + 'px';
-  var margin = document.getElementById('marginInput').value + 'px';
-  
-  // Create content box element
-  var contentBox = document.createElement('div');
-  contentBox.className = 'content-box';
-  contentBox.style.backgroundColor = bgColor;
-  contentBox.style.borderWidth = borderWidth;
-  contentBox.style.padding = padding;
-  contentBox.style.margin = margin;
-  contentBox.innerHTML = content;
-  
-  // Create edit and remove buttons
-  var editButton = document.createElement('button');
-  editButton.textContent = 'Edit';
-  editButton.onclick = function() {
-    editContent(contentBox);
-  };
-  
-  var removeButton = document.createElement('button');
-  removeButton.textContent = 'Remove';
-  removeButton.onclick = function() {
-    contentBox.parentNode.removeChild(contentBox);
-  };
-  
-  // Append buttons to content box
-  contentBox.appendChild(editButton);
-  contentBox.appendChild(removeButton);
-  
-  // Append content box to container
-  document.getElementById('contentContainer').appendChild(contentBox);
-}
+  <script>
+    function generateContent() {
+      // Get input values
+      var content = document.getElementById('contentInput').value;
+      var bgColor = document.getElementById('bgColorInput').value;
+      var borderWidth = document.getElementById('borderInput').value + 'px';
+      var padding = document.getElementById('paddingInput').value + 'px';
+      var margin = document.getElementById('marginInput').value + 'px';
 
-function editContent(contentBox) {
-  var newContent = prompt('Enter new content:');
-  if (newContent !== null) {
-    contentBox.innerHTML = newContent;
-  }
-}
-</script>
+      // Create content box element
+      var contentBox = document.createElement('div');
+      contentBox.className = 'content-box';
+      contentBox.style.backgroundColor = bgColor;
+      contentBox.style.borderWidth = borderWidth;
+      contentBox.style.padding = padding;
+      contentBox.style.margin = margin;
+      contentBox.innerHTML = content;
+
+      // Create edit and remove buttons
+      var editButton = document.createElement('button');
+      editButton.textContent = 'Edit';
+      editButton.onclick = function () {
+        editContent(contentBox);
+      };
+
+      var removeButton = document.createElement('button');
+      removeButton.textContent = 'Remove';
+      removeButton.onclick = function () {
+        contentBox.parentNode.removeChild(contentBox);
+      };
+
+      // Append buttons to content box
+      contentBox.appendChild(editButton);
+      contentBox.appendChild(removeButton);
+
+      // Append content box to container
+      document.getElementById('contentContainer').appendChild(contentBox);
+    }
+
+    function editContent(contentBox) {
+      var newContent = prompt('Enter new content:');
+      if (newContent !== null) {
+        contentBox.innerHTML = newContent;
+      }
+    }
+  </script>
 
 </body>
+
 </html>

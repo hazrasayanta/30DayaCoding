@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Tabs Panel</title>
+<style>
+  /* CSS for interactive tabs panel */
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .tab {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    margin-right: 5px;
+  }
+  
+  .tab.active {
+    background-color: #fff;
+  }
+  
+  .content {
+    display: none;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 0 0 5px 5px;
+  }
+  
+  .content.active {
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<div id="tabs">
+  <div class="tab" onclick="showContent(0)">Tab 1</div>
+  <div class="tab" onclick="showContent(1)">Tab 2</div>
+  <div class="tab" onclick="showContent(2)">Tab 3</div>
+</div>
+
+<div class="content" id="content1">Content for Tab 1</div>
+<div class="content" id="content2">Content for Tab 2</div>
+<div class="content" id="content3">Content for Tab 3</div>
+
+<script>
+  // Show content function
+  function showContent(index) {
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.content');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    contents.forEach(content => content.classList.remove('active'));
+    tabs[index].classList.add('active');
+    contents[index].classList.add('active');
+  }
+</script>
+
+</body>
+</html>
