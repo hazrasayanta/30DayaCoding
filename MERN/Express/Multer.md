@@ -1,4 +1,4 @@
-# Multer
+# Multer Basics
 
 **=>** `Multer` is a middleware for handling `multipart/form-data`, which is primarily used for uploading files in Node.js and Express.js applications. It provides easy handling of file uploads by parsing and storing them in disk storage or memory. Here's a cheatsheet for `multer`:
 
