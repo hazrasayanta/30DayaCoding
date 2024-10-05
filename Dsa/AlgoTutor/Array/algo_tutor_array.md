@@ -2647,3 +2647,1349 @@ console.log(matrix2); // Output: [[0, 0, 0, 0], [0, 4, 5, 0], [0, 3, 1, 0]]
 - **Space Complexity**: O(m + n) for the two sets used to store the row and column indices.
 
 Feel free to test the function with other matrices or adjust it according to your needs! If you have any further questions or need additional help, let me know!
+
+## 2. Two Sum
+
+**=>** To solve the problem of finding two indices in an array that add up to a specified target, we can use a hash map (object in JavaScript) to store the indices of the numbers as we iterate through the array. This allows us to find the complement of each number efficiently. Here’s how the algorithm works:
+
+### Steps:
+
+1. **Initialize a Map**: Create an empty map to store the value and its corresponding index as we iterate through the array.
+2. **Iterate Through the Array**: For each element in the array:
+
+   - Calculate its complement by subtracting the current element from the target.
+   - Check if the complement exists in the map. If it does, return the indices of the current element and the complement.
+   - If the complement does not exist, add the current element and its index to the map.
+
+### Implementation:
+
+Here's how you can implement this in JavaScript:
+
+```javascript
+function twoSum(nums, target) {
+    const numMap = new Map(); // Create a map to store numbers and their indices
+
+    for (let i = 0; i < nums.length; i++) {
+        const complement = target - nums[i]; // Calculate the complement
+      
+        // Check if the complement is already in the map
+        if (numMap.has(complement)) {
+            return [numMap.get(complement), i]; // Return the indices
+        }
+      
+        // Add the current number and its index to the map
+        numMap.set(nums[i], i);
+    }
+
+    // Return an empty array if no solution is found (though the problem guarantees one solution)
+    return [];
+}
+
+// Example usage:
+console.log(twoSum([2, 7, 11, 15], 9)); // Output: [0, 1]
+console.log(twoSum([3, 2, 4], 6));      // Output: [1, 2]
+console.log(twoSum([3, 3], 6));         // Output: [0, 1]
+```
+
+### Explanation:
+
+- **Map Initialization**: We use a `Map` to store the numbers we have seen so far along with their indices.
+- **Finding the Complement**: For each number in the array, we check if the complement (the number needed to reach the target) exists in our map.
+- **Returning the Result**: If we find a match, we return the indices of the complement and the current number.
+
+### Complexity Analysis:
+
+- **Time Complexity**: O(n), where n is the number of elements in the array. We traverse the array only once.
+- **Space Complexity**: O(n), as we may store up to n elements in the map.
+
+This approach is efficient and straightforward, allowing us to find the solution in linear time. Let me know if you have any questions or need further assistance!
+
+## 3. Best Time to Buy and Sell Stock II
+
+**=>** To solve the problem of maximizing profit from stock prices given in an array, we can follow a simple approach where we buy and sell the stock on every profitable day. The strategy involves iterating through the prices and calculating the profit whenever there is a price increase from one day to the next.
+
+### Approach:
+
+1. **Initialize Profit**: Start with a profit variable set to zero.
+2. **Iterate Through Prices**: For each day in the prices array, check if the price of the current day is higher than the previous day. If it is, add the difference to the profit.
+3. **Return Total Profit**: At the end of the iteration, return the total profit.
+
+### Implementation:
+
+Here's the JavaScript code that implements this approach:
+
+```javascript
+function maxProfit(prices) {
+    let profit = 0; // Initialize profit to 0
+
+    // Iterate through the prices
+    for (let i = 1; i < prices.length; i++) {
+        // If the price has increased from the previous day, add the profit
+        if (prices[i] > prices[i - 1]) {
+            profit += prices[i] - prices[i - 1];
+        }
+    }
+
+    return profit; // Return the total profit
+}
+
+// Example usage:
+console.log(maxProfit([7, 1, 5, 3, 6, 4])); // Output: 7
+console.log(maxProfit([1, 2, 3, 4, 5]));    // Output: 4
+console.log(maxProfit([7, 6, 4, 3, 1]));    // Output: 0
+```
+
+### Explanation:
+
+- **Profit Calculation**: We only add to our profit when we find a price that is higher than the price on the previous day. This simulates buying on the previous day and selling on the current day.
+- **No Holding Restriction**: Since you can buy and sell on the same day, we treat every price increase as a potential profit opportunity.
+
+### Complexity Analysis:
+
+- **Time Complexity**: O(n), where n is the number of days (length of the prices array). We only need a single pass through the prices.
+- **Space Complexity**: O(1), since we are using a constant amount of extra space for the profit variable.
+
+This method efficiently calculates the maximum profit you can achieve with the given stock prices. If you have further questions or need additional help, feel free to ask!
+
+## 4. Best Time to Buy and Sell Stock
+
+**=>** To solve the problem of maximizing profit from stock prices with the condition that you can buy on one day and sell on a later day, we can use a simple approach that tracks the minimum price seen so far and calculates the maximum profit accordingly.
+
+### Approach:
+
+1. **Initialize Variables**: Start with a variable to keep track of the minimum price and another for the maximum profit.
+2. **Iterate Through Prices**: For each price in the array:
+   - Update the minimum price if the current price is lower than the minimum price.
+   - Calculate the potential profit by subtracting the minimum price from the current price.
+   - Update the maximum profit if the calculated profit is greater than the current maximum profit.
+3. **Return Maximum Profit**: At the end of the iteration, return the maximum profit.
+
+### Implementation:
+
+Here's how this can be implemented in JavaScript:
+
+```javascript
+function maxProfit(prices) {
+    let minPrice = Infinity; // Start with a high minimum price
+    let maxProfit = 0; // Initialize max profit to 0
+
+    for (let price of prices) {
+        // Update the minimum price if the current price is lower
+        if (price < minPrice) {
+            minPrice = price;
+        }
+
+        // Calculate potential profit
+        const profit = price - minPrice;
+
+        // Update the maximum profit if the current profit is higher
+        if (profit > maxProfit) {
+            maxProfit = profit;
+        }
+    }
+
+    return maxProfit; // Return the maximum profit
+}
+
+// Example usage:
+console.log(maxProfit([7, 1, 5, 3, 6, 4])); // Output: 5
+console.log(maxProfit([7, 6, 4, 3, 1]));    // Output: 0
+```
+
+### Explanation:
+
+- **Track Minimum Price**: As we iterate through the prices, we continuously check if the current price is the lowest we've seen, updating our `minPrice` accordingly.
+- **Calculate Profit**: For each price, we calculate the profit that could be made if we bought at the `minPrice` and sold at the current price.
+- **Update Maximum Profit**: If this potential profit exceeds our recorded `maxProfit`, we update it.
+
+### Complexity Analysis:
+
+- **Time Complexity**: O(n), where n is the number of days (length of the prices array). We only need a single pass through the prices.
+- **Space Complexity**: O(1), since we are using a constant amount of extra space for the `minPrice` and `maxProfit` variables.
+
+This approach efficiently calculates the maximum profit achievable from buying and selling stock under the given constraints. If you have any more questions or need further clarification, feel free to ask!
+
+## 5. Sort Colors
+
+**=>** To solve the problem of sorting an array of integers representing colors (0 for red, 1 for white, and 2 for blue), we can utilize the **Dutch National Flag algorithm**. This algorithm allows us to sort the array in one pass (O(n) time complexity) and uses constant space (O(1) space complexity).
+
+### Approach:
+
+1. **Initialize Pointers**:
+
+   - `low` pointer to track the next position for `0` (red).
+   - `mid` pointer to track the current element.
+   - `high` pointer to track the next position for `2` (blue).
+2. **Iterate Through the Array**:
+
+   - If the element at the `mid` pointer is `0`, swap it with the element at the `low` pointer and increment both `low` and `mid`.
+   - If the element at the `mid` pointer is `1`, just increment `mid`.
+   - If the element at the `mid` pointer is `2`, swap it with the element at the `high` pointer and decrement `high` (do not increment `mid` immediately because the swapped value needs to be checked).
+3. **Continue Until the `mid` Pointer Exceeds the `high` Pointer**.
+
+### Implementation:
+
+Here’s how this can be implemented in JavaScript:
+
+```javascript
+function sortColors(nums) {
+    let low = 0;        // Pointer for the next position of 0
+    let mid = 0;        // Current element pointer
+    let high = nums.length - 1; // Pointer for the next position of 2
+
+    while (mid <= high) {
+        if (nums[mid] === 0) {
+            // Swap nums[low] and nums[mid]
+            [nums[low], nums[mid]] = [nums[mid], nums[low]];
+            low++;
+            mid++;
+        } else if (nums[mid] === 1) {
+            mid++;
+        } else {
+            // Swap nums[mid] and nums[high]
+            [nums[mid], nums[high]] = [nums[high], nums[mid]];
+            high--;
+        }
+    }
+}
+
+// Example usage:
+const nums1 = [2, 0, 2, 1, 1, 0];
+sortColors(nums1);
+console.log(nums1); // Output: [0, 0, 1, 1, 2, 2]
+
+const nums2 = [2, 0, 1];
+sortColors(nums2);
+console.log(nums2); // Output: [0, 1, 2]
+```
+
+### Explanation:
+
+- **Pointer Initialization**: The `low`, `mid`, and `high` pointers are initialized to point to the start, start, and end of the array, respectively.
+- **Element Check and Swap**:
+  - If the current element (`nums[mid]`) is `0`, it is swapped with the element at the `low` pointer, and both pointers are moved forward.
+  - If the current element is `1`, we just move the `mid` pointer forward.
+  - If the current element is `2`, we swap it with the element at the `high` pointer, moving `high` backwards.
+
+### Complexity Analysis:
+
+- **Time Complexity**: O(n), where n is the number of elements in the array. We make a single pass through the array.
+- **Space Complexity**: O(1), as we are sorting in place and using a constant amount of additional space for pointers.
+
+This algorithm efficiently sorts the colors in a single pass. If you have any further questions or need additional explanations, feel free to ask!
+
+## 6. Find All Duplicates in an Array
+
+**=>** To solve the problem of finding all integers that appear twice in the given integer array, we can use the input array itself to track which numbers we've seen. Since the integers are in the range ([1, n]) (where (n) is the length of the array), we can utilize the indices of the array to mark the numbers we've encountered.
+
+### Approach:
+
+1. **Iterate Through the Array**: For each number in the array, calculate its corresponding index by taking the absolute value of the number and subtracting 1 (because array indices start at 0).
+2. **Check the Value at the Index**:
+   - If the value at that index is negative, it means we have already seen this number, so we add it to the result list.
+   - If it is positive, we negate the value at that index to mark that we have seen this number.
+3. **Return the Result**: At the end of the loop, return the list of duplicates.
+
+### Implementation:
+
+Here's how you can implement this in JavaScript:
+
+```javascript
+function findDuplicates(nums) {
+    const duplicates = [];
+  
+    for (let i = 0; i < nums.length; i++) {
+        // Calculate the index for the current number
+        const index = Math.abs(nums[i]) - 1;
+
+        // Check if the number at that index is already negative
+        if (nums[index] < 0) {
+            duplicates.push(index + 1); // Add the number to the result (convert back to 1-based)
+        } else {
+            nums[index] = -nums[index]; // Mark the number as seen
+        }
+    }
+  
+    return duplicates;
+}
+
+// Example usage:
+const nums1 = [4, 3, 2, 7, 8, 2, 3, 1];
+console.log(findDuplicates(nums1)); // Output: [2, 3]
+
+const nums2 = [1, 1, 2];
+console.log(findDuplicates(nums2)); // Output: [1]
+
+const nums3 = [1];
+console.log(findDuplicates(nums3)); // Output: []
+```
+
+### Explanation:
+
+- **Index Calculation**: We compute the index for each number as `Math.abs(nums[i]) - 1`. We use `Math.abs()` to handle cases where we have already negated the value at that index.
+- **Negation**: By negating the value at the calculated index, we mark that we have seen the number corresponding to that index.
+- **Duplicates Collection**: If we encounter a number whose corresponding index already holds a negative value, it means the number has appeared before, and we add it to the `duplicates` list.
+
+### Complexity Analysis:
+
+- **Time Complexity**: O(n), where n is the length of the input array. We make a single pass through the array.
+- **Space Complexity**: O(1), as we are using the input array for marking duplicates and only a constant amount of space for the duplicates array.
+
+This solution meets the requirements of running in O(n) time and using constant extra space. If you have any further questions or need clarifications, feel free to ask!
+
+## 7. 3 Sum
+
+**=>** To solve the problem of finding all unique triplets in an integer array that sum up to zero, we can use a combination of sorting and the two-pointer technique. This approach helps efficiently find triplets without needing to check every possible combination, thus reducing the time complexity.
+
+### Approach:
+
+1. **Sort the Array**: First, sort the input array. This helps in avoiding duplicates and makes it easier to apply the two-pointer technique.
+2. **Iterate Through the Array**: For each element in the array, treat it as the first element of the triplet. Then use two pointers to find the other two elements that, together with the first element, sum to zero.
+3. **Two-Pointer Technique**:
+   - Initialize two pointers: one at the beginning of the remaining elements (after the current element) and the other at the end of the array.
+   - Move the pointers towards each other, adjusting them based on whether the sum of the triplet is less than, greater than, or equal to zero.
+   - Skip duplicates by moving the pointers appropriately.
+4. **Collect Unique Triplets**: Store the triplets in a result array while ensuring there are no duplicates.
+
+### Implementation:
+
+Here's how you can implement this in JavaScript:
+
+```javascript
+function threeSum(nums) {
+    const result = [];
+    nums.sort((a, b) => a - b); // Sort the array
+
+    for (let i = 0; i < nums.length - 2; i++) {
+        // Skip duplicates for the first element
+        if (i > 0 && nums[i] === nums[i - 1]) continue;
+
+        let left = i + 1;
+        let right = nums.length - 1;
+
+        while (left < right) {
+            const sum = nums[i] + nums[left] + nums[right];
+
+            if (sum === 0) {
+                result.push([nums[i], nums[left], nums[right]]);
+              
+                // Skip duplicates for the second element
+                while (left < right && nums[left] === nums[left + 1]) left++;
+                // Skip duplicates for the third element
+                while (left < right && nums[right] === nums[right - 1]) right--;
+
+                left++;
+                right--;
+            } else if (sum < 0) {
+                left++; // Move the left pointer to the right to increase the sum
+            } else {
+                right--; // Move the right pointer to the left to decrease the sum
+            }
+        }
+    }
+  
+    return result;
+}
+
+// Example usage:
+const nums1 = [-1, 0, 1, 2, -1, -4];
+console.log(threeSum(nums1)); // Output: [[-1,-1,2],[-1,0,1]]
+
+const nums2 = [0, 1, 1];
+console.log(threeSum(nums2)); // Output: []
+
+const nums3 = [0, 0, 0];
+console.log(threeSum(nums3)); // Output: [[0,0,0]]
+```
+
+### Explanation:
+
+1. **Sorting**: The input array is sorted first, which allows us to efficiently find triplets while avoiding duplicates.
+2. **Looping Through the Array**: We iterate through each element and use the two-pointer technique to find pairs that sum with the current element to zero.
+3. **Duplicate Check**: By skipping duplicates during the iteration, we ensure that the triplets added to the result are unique.
+4. **Result Storage**: The valid triplets found are pushed into the result array, which is returned at the end.
+
+### Complexity Analysis:
+
+- **Time Complexity**: O(n²), where n is the length of the input array. The outer loop runs in O(n), and for each iteration, the two-pointer search runs in O(n).
+- **Space Complexity**: O(1) for the two-pointer approach, but O(k) for storing the result triplets, where k is the number of triplets found.
+
+This approach efficiently finds all unique triplets that sum to zero. If you have any questions or need further explanations, feel free to ask!
+
+## 8. 4 Sum
+
+**=>** To solve the problem of finding all unique quadruplets in an integer array that sum up to a given target, we can use a similar approach to the three-sum problem but with an additional loop to accommodate the fourth number. This approach involves sorting the array and using a combination of nested loops and the two-pointer technique to efficiently find the quadruplets.
+
+### Approach:
+
+1. **Sort the Array**: This helps in avoiding duplicates and makes it easier to apply the two-pointer technique.
+2. **Iterate Through the Array**: Use a nested loop structure where the outer two loops will fix the first two numbers of the quadruplet, and the inner two pointers will find the remaining two numbers that complete the quadruplet to meet the target sum.
+3. **Two-Pointer Technique**: For the remaining two numbers, use two pointers to find pairs that sum to the target minus the sum of the two fixed numbers.
+4. **Avoid Duplicates**: After finding a quadruplet, skip duplicate values for both fixed and pointer variables to ensure all quadruplets are unique.
+5. **Store Results**: Push valid quadruplets to a result array and return it at the end.
+
+### Implementation:
+
+Here's how you can implement this in JavaScript:
+
+```javascript
+function fourSum(nums, target) {
+    const result = [];
+    nums.sort((a, b) => a - b); // Sort the array
+
+    const n = nums.length;
+
+    for (let i = 0; i < n - 3; i++) {
+        // Skip duplicates for the first element
+        if (i > 0 && nums[i] === nums[i - 1]) continue;
+
+        for (let j = i + 1; j < n - 2; j++) {
+            // Skip duplicates for the second element
+            if (j > i + 1 && nums[j] === nums[j - 1]) continue;
+
+            let left = j + 1;
+            let right = n - 1;
+
+            while (left < right) {
+                const sum = nums[i] + nums[j] + nums[left] + nums[right];
+
+                if (sum === target) {
+                    result.push([nums[i], nums[j], nums[left], nums[right]]);
+                  
+                    // Skip duplicates for the third element
+                    while (left < right && nums[left] === nums[left + 1]) left++;
+                    // Skip duplicates for the fourth element
+                    while (left < right && nums[right] === nums[right - 1]) right--;
+
+                    left++;
+                    right--;
+                } else if (sum < target) {
+                    left++; // Move the left pointer to the right to increase the sum
+                } else {
+                    right--; // Move the right pointer to the left to decrease the sum
+                }
+            }
+        }
+    }
+
+    return result;
+}
+
+// Example usage:
+const nums1 = [1, 0, -1, 0, -2, 2];
+const target1 = 0;
+console.log(fourSum(nums1, target1)); 
+// Output: [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+
+const nums2 = [2, 2, 2, 2, 2];
+const target2 = 8;
+console.log(fourSum(nums2, target2)); 
+// Output: [[2,2,2,2]]
+```
+
+### Explanation:
+
+1. **Sorting**: The input array is sorted first, which allows us to efficiently find quadruplets while avoiding duplicates.
+2. **Nested Loops**: The outer two loops (with indices `i` and `j`) are used to fix the first two numbers. The inner while loop with the two pointers (`left` and `right`) finds the remaining two numbers.
+3. **Duplicate Check**: By skipping duplicates during the iterations, we ensure that the quadruplets added to the result are unique.
+4. **Result Storage**: The valid quadruplets found are pushed into the result array, which is returned at the end.
+
+### Complexity Analysis:
+
+- **Time Complexity**: O(n³), where n is the length of the input array. The outer two loops run in O(n²), and for each pair, the two-pointer search runs in O(n).
+- **Space Complexity**: O(1) for the pointers, but O(k) for storing the result quadruplets, where k is the number of quadruplets found.
+
+This approach efficiently finds all unique quadruplets that sum to the target. If you have any further questions or need clarifications, feel free to ask!
+
+## 9. Search a 2D Matrix
+
+**=>** To solve the problem of searching for a target integer in a matrix with the properties described, we can treat the matrix as a single sorted array. Since each row is sorted and the first integer of each row is greater than the last integer of the previous row, we can perform a binary search.
+
+### Approach:
+
+1. **Understanding the Matrix as a 1D Array**:
+
+   - Given that the matrix is sorted row-wise and that each row's first element is greater than the last element of the previous row, we can imagine the matrix as a single sorted array.
+   - The element at position `(i, j)` in the matrix can be accessed as if it were in a 1D array using the formula: `index = i * n + j`, where `n` is the number of columns in the matrix.
+2. **Binary Search**:
+
+   - Use binary search to find the target. The search space is defined by the total number of elements in the matrix, which is `m * n`, where `m` is the number of rows and `n` is the number of columns.
+   - We will calculate the middle index and map it back to its corresponding row and column in the matrix.
+
+### Implementation:
+
+Here's the JavaScript code that implements the binary search approach:
+
+```javascript
+function searchMatrix(matrix, target) {
+    if (matrix.length === 0 || matrix[0].length === 0) {
+        return false; // Handle empty matrix
+    }
+  
+    const m = matrix.length; // number of rows
+    const n = matrix[0].length; // number of columns
+    let left = 0;
+    let right = m * n - 1; // total number of elements - 1
+
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+        const midValue = matrix[Math.floor(mid / n)][mid % n]; // convert mid back to 2D index
+
+        if (midValue === target) {
+            return true; // target found
+        } else if (midValue < target) {
+            left = mid + 1; // move to the right half
+        } else {
+            right = mid - 1; // move to the left half
+        }
+    }
+
+    return false; // target not found
+}
+
+// Example usage:
+const matrix1 = [
+    [1, 3, 5, 7],
+    [10, 11, 16, 20],
+    [23, 30, 34, 60]
+];
+const target1 = 3;
+console.log(searchMatrix(matrix1, target1)); // Output: true
+
+const matrix2 = [
+    [1, 3, 5, 7],
+    [10, 11, 16, 20],
+    [23, 30, 34, 60]
+];
+const target2 = 13;
+console.log(searchMatrix(matrix2, target2)); // Output: false
+```
+
+### Explanation:
+
+1. **Input Handling**: The function first checks if the matrix is empty. If it is, it returns `false`.
+2. **Binary Search Logic**:
+   - We define the search space using `left` and `right` pointers, starting from the beginning to the end of the flattened matrix.
+   - The `mid` index is calculated, and we convert it back to the corresponding row and column in the matrix using integer division and modulo operations.
+3. **Comparison**:
+   - If the value at the `mid` position matches the target, we return `true`.
+   - If the value is less than the target, we move the `left` pointer to `mid + 1`.
+   - If the value is greater than the target, we move the `right` pointer to `mid - 1`.
+4. **Completion**: If the loop finishes without finding the target, we return `false`.
+
+### Complexity Analysis:
+
+- **Time Complexity**: O(log(m * n)), as required, because we are effectively performing a binary search on `m * n` elements.
+- **Space Complexity**: O(1), since we are using only a few variables for indexing and tracking the search space.
+
+This approach efficiently finds whether the target exists in the matrix, adhering to the specified time complexity constraints. If you have any questions or need further clarification, feel free to ask!
+
+## **10. Longest Consecutive Sequence**
+
+**=>** To solve the problem of finding the length of the longest consecutive elements sequence in an unsorted array of integers in O(n) time, we can use a HashSet. The idea is to use the HashSet to store all the numbers from the array and then check for the longest consecutive sequence starting from each number.
+
+### Approach:
+
+1. **Use a HashSet**: Store all the numbers in a HashSet for O(1) average-time complexity lookups.
+2. **Iterate through the array**: For each number, check if it's the start of a sequence (i.e., `num - 1` is not in the set). If it is, count how long the consecutive sequence is by checking for the presence of `num + 1`, `num + 2`, and so on in the HashSet.
+3. **Track the maximum length**: Keep track of the maximum length of consecutive sequences found.
+
+### Implementation:
+
+Here’s the JavaScript code to implement this logic:
+
+```javascript
+function longestConsecutive(nums) {
+    const numSet = new Set(nums); // Create a HashSet of all numbers
+    let maxLength = 0; // To track the maximum length of consecutive sequence
+
+    for (const num of nums) {
+        // Check if it's the start of a sequence
+        if (!numSet.has(num - 1)) {
+            let currentNum = num;
+            let currentStreak = 1; // Current streak length
+          
+            // Count consecutive numbers
+            while (numSet.has(currentNum + 1)) {
+                currentNum++;
+                currentStreak++;
+            }
+          
+            // Update max length if current streak is greater
+            maxLength = Math.max(maxLength, currentStreak);
+        }
+    }
+  
+    return maxLength; // Return the length of the longest consecutive sequence
+}
+
+// Example usage:
+const nums1 = [100, 4, 200, 1, 3, 2];
+console.log(longestConsecutive(nums1)); // Output: 4
+
+const nums2 = [0, 3, 7, 2, 5, 8, 4, 6, 0, 1];
+console.log(longestConsecutive(nums2)); // Output: 9
+```
+
+### Explanation:
+
+1. **Initialization**:
+
+   - A `Set` is created to store all the numbers from the array for fast lookups.
+   - A variable `maxLength` is initialized to keep track of the longest sequence found.
+2. **Iteration**:
+
+   - For each number in the input array, we first check if it is the start of a sequence by confirming that `num - 1` is not in the set.
+   - If it is the start, we enter a while loop to check how many consecutive numbers follow it (`num + 1`, `num + 2`, etc.), counting them until we reach a number that isn’t in the set.
+3. **Updating Maximum Length**:
+
+   - After counting the length of the current sequence, we update `maxLength` if the current streak exceeds the previously recorded maximum.
+4. **Return Result**:
+
+   - Finally, we return the `maxLength`, which contains the length of the longest consecutive sequence found.
+
+### Complexity Analysis:
+
+- **Time Complexity**: O(n), where n is the number of elements in the input array. Each number is processed at most twice (once during the outer loop and once during the inner loop).
+- **Space Complexity**: O(n), for storing the numbers in the HashSet.
+
+This approach efficiently finds the longest consecutive sequence while adhering to the O(n) time complexity requirement. If you have any questions or need further clarification, feel free to ask!
+
+## 11. Find Peak Element
+
+**=>** To solve the problem of finding a peak element in an array in O(log n) time complexity, we can use a modified binary search approach. The key idea is to exploit the property of peaks in the array. If the middle element is not a peak, then at least one of its neighbors must be greater, allowing us to focus our search on one half of the array.
+
+### Steps:
+
+1. **Define a Binary Search**: We will use two pointers, `left` and `right`, to maintain the search range.
+2. **Calculate the Middle Index**: At each step, calculate the middle index and check if it is a peak.
+3. **Check the Neighbors**: If the middle element is not a peak, determine which side of the array to search next:
+   - If the left neighbor is greater, then there must be a peak in the left half (including the left neighbor).
+   - If the right neighbor is greater, then there must be a peak in the right half (including the right neighbor).
+4. **Repeat Until Found**: Continue this process until a peak is found.
+
+### Implementation:
+
+Here’s how you can implement this approach in JavaScript:
+
+```javascript
+function findPeakElement(nums) {
+    let left = 0;
+    let right = nums.length - 1;
+
+    while (left < right) {
+        const mid = Math.floor((left + right) / 2);
+      
+        // Compare the middle element with its right neighbor
+        if (nums[mid] < nums[mid + 1]) {
+            // If the right neighbor is greater, search in the right half
+            left = mid + 1;
+        } else {
+            // If the middle element is greater or equal, search in the left half
+            right = mid;
+        }
+    }
+  
+    // At the end of the loop, left == right, which is the peak's index
+    return left;
+}
+
+// Example usage:
+const nums1 = [1, 2, 3, 1];
+console.log(findPeakElement(nums1)); // Output: 2
+
+const nums2 = [1, 2, 1, 3, 5, 6, 4];
+console.log(findPeakElement(nums2)); // Output: 5
+```
+
+### Explanation:
+
+1. **Initialization**: We set `left` to 0 and `right` to the last index of the array.
+2. **While Loop**: The loop runs as long as `left` is less than `right`.
+   - We calculate the `mid` index.
+   - We compare `nums[mid]` with `nums[mid + 1]`:
+     - If `nums[mid] < nums[mid + 1]`, it indicates that there is a peak in the right half of the array, so we adjust `left` to `mid + 1`.
+     - If `nums[mid] >= nums[mid + 1]`, it suggests a peak might exist in the left half, so we adjust `right` to `mid`.
+3. **Return**: When `left` equals `right`, we return `left`, which is the index of a peak element.
+
+### Complexity Analysis:
+
+- **Time Complexity**: O(log n) because we are halving the search space at each step.
+- **Space Complexity**: O(1) since we are using a constant amount of extra space.
+
+This method efficiently finds a peak element index in logarithmic time. Let me know if you have any questions or need further assistance!
+
+## 12. Single Element in a Sorted Array
+
+**=>** To find the single element in a sorted array where every other element appears exactly twice, we can use a binary search approach. The key insight is that the positions of the elements will help us determine which half of the array to search.
+
+### Key Observations:
+
+1. In a sorted array where every element appears twice except for one, if we look at the index of the elements, we can observe:
+
+   - If the single element is to the left of a pair, then all elements to the left of it will be in positions where the index is even.
+   - If the single element is to the right of a pair, then all elements to the left of it will be in positions where the index is odd.
+2. The property of pairs in the array allows us to adjust our search based on the parity (even or odd) of the mid index.
+
+### Steps:
+
+1. **Initialize pointers**: Use `left` and `right` to represent the bounds of our search space.
+2. **Binary Search**: Calculate the mid-point:
+   - If `mid` is even and `nums[mid]` is equal to `nums[mid + 1]`, it means the single element is to the right.
+   - If `mid` is even and `nums[mid]` is not equal to `nums[mid + 1]`, the single element is on the left including mid.
+   - If `mid` is odd, reverse the conditions.
+3. **Narrow down the search** until we find the single element.
+
+### Implementation:
+
+Here’s the implementation in JavaScript:
+
+```javascript
+function singleNonDuplicate(nums) {
+    let left = 0;
+    let right = nums.length - 1;
+
+    while (left < right) {
+        const mid = Math.floor((left + right) / 2);
+      
+        // Ensure mid is even
+        if (mid % 2 === 1) {
+            mid--; // Make it even to compare with the next element
+        }
+      
+        // Compare pairs
+        if (nums[mid] === nums[mid + 1]) {
+            // The single element must be in the right half
+            left = mid + 2;
+        } else {
+            // The single element is in the left half
+            right = mid;
+        }
+    }
+  
+    // left will point to the single element
+    return nums[left];
+}
+
+// Example usage:
+const nums1 = [1, 1, 2, 3, 3, 4, 4, 8, 8];
+console.log(singleNonDuplicate(nums1)); // Output: 2
+
+const nums2 = [3, 3, 7, 7, 10, 11, 11];
+console.log(singleNonDuplicate(nums2)); // Output: 10
+```
+
+### Explanation:
+
+1. **Initialization**: `left` starts at 0 and `right` at the last index of the array.
+2. **While Loop**: The loop continues until `left` equals `right`.
+   - Calculate `mid` and ensure it is even for pair comparison.
+   - Depending on the comparison of `nums[mid]` and `nums[mid + 1]`, update `left` or `right` to narrow down the search.
+3. **Return the Result**: After exiting the loop, `left` will be at the index of the single element.
+
+### Complexity Analysis:
+
+- **Time Complexity**: O(log n) because we are halving the search space with each iteration.
+- **Space Complexity**: O(1) since we are using a constant amount of space.
+
+This method efficiently finds the single non-duplicate element in a sorted array. Let me know if you have any questions or need further assistance!
+
+## 13. Find Minimum in Rotated Sorted Array
+
+**=>** To find the minimum element in a sorted and rotated array in O(log n) time, we can use a modified binary search algorithm. The key observation is that even though the array is rotated, one half of the array will always be sorted.
+
+### Steps:
+
+1. **Initialize pointers**: Use two pointers, `left` and `right`, to represent the bounds of the search space.
+2. **Binary Search**: While `left` is less than `right`:
+   - Calculate the mid-point.
+   - Compare the middle element with the rightmost element:
+     - If `nums[mid]` is greater than `nums[right]`, it means the minimum element must be in the right half (because the right half is unsorted).
+     - If `nums[mid]` is less than or equal to `nums[right]`, it means the minimum element must be in the left half (because the left half is sorted).
+3. **Narrow down the search** until `left` equals `right`, which will be the minimum element.
+
+### Implementation:
+
+Here’s how you can implement this in JavaScript:
+
+```javascript
+function findMin(nums) {
+    let left = 0;
+    let right = nums.length - 1;
+
+    while (left < right) {
+        const mid = Math.floor((left + right) / 2);
+      
+        // Compare mid element with the rightmost element
+        if (nums[mid] > nums[right]) {
+            // Minimum must be in the right half
+            left = mid + 1;
+        } else {
+            // Minimum is in the left half including mid
+            right = mid;
+        }
+    }
+  
+    // left will be pointing to the minimum element
+    return nums[left];
+}
+
+// Example usage:
+const nums1 = [3, 4, 5, 1, 2];
+console.log(findMin(nums1)); // Output: 1
+
+const nums2 = [4, 5, 6, 7, 0, 1, 2];
+console.log(findMin(nums2)); // Output: 0
+
+const nums3 = [11, 13, 15, 17];
+console.log(findMin(nums3)); // Output: 11
+```
+
+### Explanation:
+
+1. **Initialization**: We start with `left` at index 0 and `right` at the last index of the array.
+2. **While Loop**: We perform binary search until `left` is less than `right`.
+   - Calculate `mid`.
+   - If the middle element is greater than the rightmost element, this means the smallest value is in the right portion, so we move `left` to `mid + 1`.
+   - If the middle element is less than or equal to the rightmost element, this means the smallest value is in the left portion (including the middle), so we set `right` to `mid`.
+3. **Return Result**: After the loop exits, `left` will be pointing to the minimum element in the array.
+
+### Complexity Analysis:
+
+- **Time Complexity**: O(log n) since we are halving the search space in each iteration.
+- **Space Complexity**: O(1) because we are using a constant amount of space.
+
+This method efficiently finds the minimum element in a rotated sorted array. Let me know if you have any questions or need further explanations!
+
+## 14. Search in Rotated Sorted Array II
+
+**=>** To determine if a target value exists in a rotated sorted array that may contain duplicates, we can use a modified binary search algorithm. The key here is to handle the duplicates effectively while still maintaining a logarithmic time complexity as much as possible.
+
+### Approach:
+
+1. **Initialization**: Set two pointers, `left` and `right`, to the start and end of the array.
+2. **Binary Search**: While `left` is less than or equal to `right`:
+   - Calculate the mid-point.
+   - If the middle element equals the target, return `true`.
+   - If the left element equals the middle element, increment `left` by one to skip duplicates.
+   - Determine which half is sorted:
+     - If the left half is sorted (`nums[left] <= nums[mid]`):
+       - Check if the target is in the sorted half:
+         - If `nums[left] <= target < nums[mid]`, adjust `right` to `mid - 1`.
+         - Otherwise, move `left` to `mid + 1`.
+     - If the right half is sorted (`nums[mid] <= nums[right]`):
+       - Check if the target is in the sorted half:
+         - If `nums[mid] < target <= nums[right]`, adjust `left` to `mid + 1`.
+         - Otherwise, move `right` to `mid - 1`.
+3. If the loop exits without finding the target, return `false`.
+
+### Implementation:
+
+Here’s how you can implement this in JavaScript:
+
+```javascript
+function search(nums, target) {
+    let left = 0;
+    let right = nums.length - 1;
+
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+
+        // Check if the middle element is the target
+        if (nums[mid] === target) {
+            return true;
+        }
+
+        // If duplicates are encountered, skip them
+        if (nums[left] === nums[mid]) {
+            left++; // Move left pointer to the right
+        } else if (nums[left] <= nums[mid]) { // Left half is sorted
+            if (nums[left] <= target && target < nums[mid]) {
+                right = mid - 1; // Target is in the left half
+            } else {
+                left = mid + 1; // Target is in the right half
+            }
+        } else { // Right half is sorted
+            if (nums[mid] < target && target <= nums[right]) {
+                left = mid + 1; // Target is in the right half
+            } else {
+                right = mid - 1; // Target is in the left half
+            }
+        }
+    }
+
+    return false; // Target not found
+}
+
+// Example usage:
+const nums1 = [2, 5, 6, 0, 0, 1, 2];
+const target1 = 0;
+console.log(search(nums1, target1)); // Output: true
+
+const nums2 = [2, 5, 6, 0, 0, 1, 2];
+const target2 = 3;
+console.log(search(nums2, target2)); // Output: false
+```
+
+### Explanation of the Code:
+
+1. **Initialization**: The `left` pointer starts at 0 and the `right` pointer starts at the last index of the array.
+2. **Loop**: While `left` is less than or equal to `right`, we calculate the mid-point and check for the target.
+3. **Handling Duplicates**: If we encounter duplicates at the left and mid, we simply move the left pointer right by one to bypass the duplicate value.
+4. **Determining the Sorted Half**: We check which half is sorted and adjust our search space accordingly based on whether the target could lie in the sorted half.
+5. **Result**: If the target is found, we return `true`; otherwise, if the loop completes without finding the target, we return `false`.
+
+### Complexity Analysis:
+
+- **Time Complexity**: O(log n) in average case, but can degrade to O(n) in the worst case due to duplicates.
+- **Space Complexity**: O(1) since we are using a constant amount of space.
+
+This method efficiently checks for the existence of the target in a rotated sorted array, even when duplicates are present. Let me know if you have any questions or need further clarification!
+
+## 15. Search in Rotated Sorted Array
+
+**=>** To find the index of a target value in a rotated sorted array, we can use a modified binary search algorithm. The algorithm is efficient, with a time complexity of ( O(\log n) ).
+
+### Approach:
+
+1. **Initialization**: Set two pointers, `left` and `right`, to the start and end of the array.
+2. **Binary Search**: While `left` is less than or equal to `right`:
+   - Calculate the mid-point.
+   - Check if the middle element is equal to the target. If it is, return the mid index.
+   - Determine which half of the array is sorted:
+     - If the left half is sorted:
+       - Check if the target is in the left half. If it is, adjust the `right` pointer to `mid - 1`. If not, move the `left` pointer to `mid + 1`.
+     - If the right half is sorted:
+       - Check if the target is in the right half. If it is, adjust the `left` pointer to `mid + 1`. If not, move the `right` pointer to `mid - 1`.
+3. If the loop exits without finding the target, return -1.
+
+### Implementation:
+
+Here’s the implementation in JavaScript:
+
+```javascript
+function search(nums, target) {
+    let left = 0;
+    let right = nums.length - 1;
+
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+
+        // Check if the middle element is the target
+        if (nums[mid] === target) {
+            return mid;
+        }
+
+        // Determine which half is sorted
+        if (nums[left] <= nums[mid]) { // Left half is sorted
+            if (nums[left] <= target && target < nums[mid]) {
+                right = mid - 1; // Target is in the left half
+            } else {
+                left = mid + 1; // Target is in the right half
+            }
+        } else { // Right half is sorted
+            if (nums[mid] < target && target <= nums[right]) {
+                left = mid + 1; // Target is in the right half
+            } else {
+                right = mid - 1; // Target is in the left half
+            }
+        }
+    }
+
+    return -1; // Target not found
+}
+
+// Example usage:
+const nums1 = [4, 5, 6, 7, 0, 1, 2];
+const target1 = 0;
+console.log(search(nums1, target1)); // Output: 4
+
+const nums2 = [4, 5, 6, 7, 0, 1, 2];
+const target2 = 3;
+console.log(search(nums2, target2)); // Output: -1
+```
+
+### Explanation of the Code:
+
+1. **Initialization**: The `left` pointer starts at the beginning of the array, and the `right` pointer starts at the end.
+2. **Loop**: As long as `left` is less than or equal to `right`, we calculate the mid-point and check if the mid element matches the target.
+3. **Identifying Sorted Halves**:
+   - If the left part is sorted (`nums[left] <= nums[mid]`), we check if the target lies within this part and adjust pointers accordingly.
+   - If the right part is sorted, we do the same check and adjustment for the right half.
+4. **Return Result**: If the target is found, return its index. If the search completes without finding the target, return -1.
+
+### Complexity Analysis:
+
+- **Time Complexity**: \( O(\log n) \) due to the binary search approach.
+- **Space Complexity**: \( O(1) \) as we are using a constant amount of space.
+
+This approach is efficient and well-suited for searching in a rotated sorted array. Let me know if you have any questions or need further clarification!
+
+## 16. Find First and Last Position of Element in Sorted Array
+
+**=>** To find the starting and ending positions of a given target value in a sorted array, we can use a modified binary search approach. The goal is to find the first and last positions of the target efficiently with a time complexity of ( O(\log n) ).
+
+### Approach:
+
+1. **Binary Search for First Occurrence**: Perform a binary search to find the first occurrence of the target.
+2. **Binary Search for Last Occurrence**: Perform another binary search to find the last occurrence of the target.
+3. If the target is found, return the positions. If not, return `[-1, -1]`.
+
+### Implementation:
+
+Here’s the implementation in JavaScript:
+
+```javascript
+function searchRange(nums, target) {
+    const findFirst = (nums, target) => {
+        let left = 0;
+        let right = nums.length - 1;
+        let firstPosition = -1;
+
+        while (left <= right) {
+            const mid = Math.floor((left + right) / 2);
+
+            if (nums[mid] === target) {
+                firstPosition = mid; // Update firstPosition
+                right = mid - 1; // Look for an earlier occurrence
+            } else if (nums[mid] < target) {
+                left = mid + 1; // Move right
+            } else {
+                right = mid - 1; // Move left
+            }
+        }
+
+        return firstPosition;
+    };
+
+    const findLast = (nums, target) => {
+        let left = 0;
+        let right = nums.length - 1;
+        let lastPosition = -1;
+
+        while (left <= right) {
+            const mid = Math.floor((left + right) / 2);
+
+            if (nums[mid] === target) {
+                lastPosition = mid; // Update lastPosition
+                left = mid + 1; // Look for a later occurrence
+            } else if (nums[mid] < target) {
+                left = mid + 1; // Move right
+            } else {
+                right = mid - 1; // Move left
+            }
+        }
+
+        return lastPosition;
+    };
+
+    const start = findFirst(nums, target);
+    const end = findLast(nums, target);
+
+    return start === -1 ? [-1, -1] : [start, end];
+}
+
+// Example usage:
+const nums1 = [5, 7, 7, 8, 8, 10];
+const target1 = 8;
+console.log(searchRange(nums1, target1)); // Output: [3, 4]
+
+const nums2 = [5, 7, 7, 8, 8, 10];
+const target2 = 6;
+console.log(searchRange(nums2, target2)); // Output: [-1, -1]
+```
+
+### Explanation of the Code:
+
+1. **Function `findFirst`**:
+
+   - This function performs binary search to find the first occurrence of the target. When the target is found, it updates `firstPosition` and continues to search in the left half of the array to find earlier occurrences.
+2. **Function `findLast`**:
+
+   - This function performs binary search to find the last occurrence of the target. When the target is found, it updates `lastPosition` and continues to search in the right half of the array to find later occurrences.
+3. **Main Function**:
+
+   - The main function `searchRange` calls `findFirst` and `findLast` to get the starting and ending positions. If the starting position is `-1`, it indicates that the target is not present in the array, so it returns `[-1, -1]`. Otherwise, it returns the positions.
+
+### Complexity Analysis:
+
+- **Time Complexity**: \( O(\log n) \) for each of the two binary searches, leading to a total of \( O(\log n) \).
+- **Space Complexity**: \( O(1) \) since we are using a constant amount of extra space.
+
+This approach efficiently finds the required positions in a sorted array. Let me know if you have any questions or need further clarification!
+
+## 17. Search a 2D Matrix II
+
+**=>** To efficiently search for a target value in a 2D matrix with the properties that each row is sorted in ascending order from left to right and each column is sorted in ascending order from top to bottom, we can utilize a zigzag search approach starting from the top-right corner of the matrix.
+
+### Approach:
+
+1. **Start from the Top-Right Corner**:
+   - If the current element is equal to the target, return `true`.
+   - If the current element is greater than the target, move left to the next column (decrease the column index).
+   - If the current element is less than the target, move down to the next row (increase the row index).
+2. **Continue Until the Search Space is Exhausted**: If you go out of bounds of the matrix, return `false`.
+
+### Implementation:
+
+Here’s the implementation in JavaScript:
+
+```javascript
+function searchMatrix(matrix, target) {
+    if (matrix.length === 0 || matrix[0].length === 0) {
+        return false; // Early exit for empty matrix
+    }
+
+    const rows = matrix.length;
+    const cols = matrix[0].length;
+    let row = 0; // Start from the first row
+    let col = cols - 1; // Start from the last column
+
+    while (row < rows && col >= 0) {
+        const currentElement = matrix[row][col];
+
+        if (currentElement === target) {
+            return true; // Target found
+        } else if (currentElement > target) {
+            col--; // Move left
+        } else {
+            row++; // Move down
+        }
+    }
+
+    return false; // Target not found
+}
+
+// Example usage:
+const matrix1 = [
+    [1, 4, 7, 11, 15],
+    [2, 5, 8, 12, 19],
+    [3, 6, 9, 16, 22],
+    [10, 13, 14, 17, 24],
+    [18, 21, 23, 26, 30]
+];
+const target1 = 5;
+console.log(searchMatrix(matrix1, target1)); // Output: true
+
+const target2 = 20;
+console.log(searchMatrix(matrix1, target2)); // Output: false
+```
+
+### Explanation of the Code:
+
+1. **Initial Checks**: We check if the matrix is empty. If it is, we return `false`.
+2. **Variables**: We define `rows` and `cols` to store the number of rows and columns in the matrix. We start from the top-right corner by initializing `row` to `0` and `col` to `cols - 1`.
+3. **Loop**: We continue to loop while the `row` is within bounds and `col` is non-negative:
+   - **Current Element Check**: We check the value of the current element.
+   - If it equals the target, we return `true`.
+   - If it’s greater, we move left (decrease `col`).
+   - If it’s less, we move down (increase `row`).
+4. **Return**: If the loop ends without finding the target, we return `false`.
+
+### Complexity Analysis:
+
+- **Time Complexity**: \( O(m + n) \), where \( m \) is the number of rows and \( n \) is the number of columns. In the worst case, we may traverse the entire height and width of the matrix.
+- **Space Complexity**: \( O(1) \) since we are using a constant amount of space.
+
+This approach effectively utilizes the properties of the sorted matrix to efficiently search for the target. If you have any further questions or need additional explanations, feel free to ask!
+
+## 18. Find a Peak Element II
+
+**=>** To find a peak element in a 2D grid with the properties described, we can utilize a modified binary search approach that efficiently narrows down the search space. Here's how we can implement this algorithm:
+
+### Approach:
+
+1. **Binary Search in Columns**: Choose the middle column and find the global maximum in that column. This element has the potential to be a peak.
+2. **Check Neighbors**: Compare the selected maximum element with its neighbors (up, down, left, right).
+   - If it is greater than its neighbors, we have found a peak, and we can return its position.
+   - If it is less than the neighbor above, we move to the upper half of the current column.
+   - If it is less than the neighbor below, we move to the lower half of the current column.
+3. **Repeat**: This process continues until we find a peak.
+
+### Implementation:
+
+Here's the implementation in Python:
+
+```python
+def findPeakGrid(mat):
+    if not mat or not mat[0]:
+        return [-1, -1]  # Handle edge case for empty matrix
+  
+    m, n = len(mat), len(mat[0])
+  
+    left, right = 0, n - 1
+  
+    while left < right:
+        mid_col = (left + right) // 2
+      
+        # Find the maximum element in the mid_col
+        max_row = 0
+        for i in range(m):
+            if mat[i][mid_col] > mat[max_row][mid_col]:
+                max_row = i
+      
+        # Compare the maximum element with its neighbors
+        # Check if it's greater than the right neighbor
+        if mid_col + 1 < n and mat[max_row][mid_col] < mat[max_row][mid_col + 1]:
+            left = mid_col + 1  # Move to the right side
+        else:
+            # If it's not smaller than the right neighbor, we check the left neighbor
+            right = mid_col  # Move to the left side
+          
+    # After narrowing down, we find the maximum in the last narrowed column
+    max_row = 0
+    for i in range(m):
+        if mat[i][left] > mat[max_row][left]:
+            max_row = i
+          
+    return [max_row, left]
+
+# Example usage
+mat1 = [[1, 4], [3, 2]]
+print(findPeakGrid(mat1))  # Output: [0, 1]
+```
+
+### Explanation of the Code:
+
+1. **Initialization**: We determine the dimensions of the matrix (`m` for rows and `n` for columns). We set our binary search bounds with `left` and `right`.
+2. **Binary Search Loop**: We perform the binary search in the columns until `left` is equal to `right`:
+   - We calculate the middle column `mid_col`.
+   - We find the maximum element's row index in the current `mid_col`.
+3. **Comparison**:
+   - If the maximum element is less than its right neighbor, we narrow our search to the right half (moving `left` to `mid_col + 1`).
+   - If it's greater than or equal to its right neighbor, we narrow our search to the left half (moving `right` to `mid_col`).
+4. **Final Check**: After determining the narrow column, we find the maximum element in that column, which is guaranteed to be a peak.
+5. **Return**: Finally, we return the coordinates of the peak.
+
+### Complexity Analysis:
+
+- **Time Complexity**: The algorithm runs in \( O(m \log(n)) \) or \( O(n \log(m)) \) because for each column selection, we scan the rows to find the maximum.
+- **Space Complexity**: The space complexity is \( O(1) \) as we are using a constant amount of space.
+
+This approach efficiently finds a peak element in the 2D grid while adhering to the constraints provided. If you have any further questions or need more explanations, feel free to ask!
+
+## 19. Search Insert Position
+
+**=>** To solve the problem of finding the index of a target value in a sorted array or determining where it should be inserted, we can use a binary search approach. The binary search will allow us to achieve the required O(log n) runtime complexity.
+
+### Approach:
+
+1. **Initialize Pointers**: We will maintain two pointers, `left` and `right`, to represent the current search bounds within the array.
+2. **Binary Search Loop**: We will continue to adjust the bounds based on the middle element:
+   - If the middle element equals the target, we return the index of that element.
+   - If the middle element is less than the target, we move the `left` pointer to `mid + 1`.
+   - If the middle element is greater than the target, we move the `right` pointer to `mid - 1`.
+3. **Insertion Point**: If the target is not found, the loop will terminate when `left` exceeds `right`. The `left` pointer will then represent the index where the target should be inserted.
+
+### Implementation:
+
+Here’s the implementation in Python:
+
+```python
+def searchInsert(nums, target):
+    left, right = 0, len(nums) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+      
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+  
+    # If we exit the loop, left is the index to insert the target
+    return left
+
+# Example usage
+nums1 = [1, 3, 5, 6]
+target1 = 5
+print(searchInsert(nums1, target1))  # Output: 2
+
+nums2 = [1, 3, 5, 6]
+target2 = 2
+print(searchInsert(nums2, target2))  # Output: 1
+```
+
+### Explanation of the Code:
+
+1. **Initialization**: We set `left` to the start of the array (0) and `right` to the end of the array (length - 1).
+2. **Binary Search Loop**:
+   - We calculate the middle index `mid` as the average of `left` and `right`.
+   - We check if the element at `mid` is equal to the target. If so, we return `mid`.
+   - If the element at `mid` is less than the target, we adjust `left` to `mid + 1` to search in the right half.
+   - If the element at `mid` is greater than the target, we adjust `right` to `mid - 1` to search in the left half.
+3. **Insertion Point**: When the loop exits, it means the target was not found. At this point, `left` points to the correct insertion index for the target.
+
+### Complexity Analysis:
+
+- **Time Complexity**: The algorithm runs in \( O(\log n) \) due to the binary search mechanism.
+- **Space Complexity**: The space complexity is \( O(1) \) since we are using a constant amount of space for pointers.
+
+This implementation effectively finds the target's index or the correct insertion position in a sorted array. Let me know if you need any further assistance or explanations!
+
+## 20. Binary Search
+
+**=>** To search for a target value in a sorted array with a runtime complexity of (O(\log n)), we can implement a binary search algorithm. Here’s how it works:
+
+### Steps of the Binary Search Algorithm:
+
+1. **Initialize Pointers**: Start with two pointers, `left` at the beginning of the array and `right` at the end of the array.
+2. **Iterate Until Found or Exhausted**:
+   - Calculate the middle index `mid` as the average of `left` and `right`.
+   - Compare the value at the `mid` index with the target:
+     - If they are equal, return `mid`.
+     - If the value at `mid` is less than the target, move the `left` pointer to `mid + 1` (search in the right half).
+     - If the value at `mid` is greater than the target, move the `right` pointer to `mid - 1` (search in the left half).
+3. **Return -1**: If the target is not found after the loop exits, return -1.
+
+### Implementation:
+
+Here is the Python implementation of the binary search algorithm:
+
+```python
+def search(nums, target):
+    left, right = 0, len(nums) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+      
+        # Check if the target is present at mid
+        if nums[mid] == target:
+            return mid
+        # If target is greater, ignore the left half
+        elif nums[mid] < target:
+            left = mid + 1
+        # If target is smaller, ignore the right half
+        else:
+            right = mid - 1
+
+    # Target not found
+    return -1
+
+# Example usage
+nums1 = [-1, 0, 3, 5, 9, 12]
+target1 = 9
+print(search(nums1, target1))  # Output: 4
+
+nums2 = [-1, 0, 3, 5, 9, 12]
+target2 = 2
+print(search(nums2, target2))  # Output: -1
+```
+
+### Explanation of the Code:
+
+- **Initialization**: We set `left` to 0 (the first index) and `right` to `len(nums) - 1` (the last index).
+- **Binary Search Loop**:
+  - We continuously check the mid-point until the `left` pointer exceeds the `right` pointer.
+  - If the middle element equals the target, we return the index `mid`.
+  - Depending on whether the middle element is less than or greater than the target, we adjust the `left` or `right` pointers accordingly.
+- **Returning -1**: If we exit the loop without finding the target, we return -1.
+
+### Complexity Analysis:
+
+- **Time Complexity**: The time complexity is \(O(\log n)\) because we halve the search space with each iteration.
+- **Space Complexity**: The space complexity is \(O(1)\) as we use a constant amount of extra space.
+
+This implementation effectively finds the index of the target in a sorted array or indicates that it is not present. Let me know if you have any questions or need further clarifications!
