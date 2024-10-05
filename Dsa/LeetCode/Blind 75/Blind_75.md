@@ -6344,4 +6344,668 @@ Input: strs = ["abc", "bca", "cab", "cba"]
 Output: [["abc", "bca", "cab", "cba"]]
 ```
 
-Let me know if you’d like to continue with the next problem!
+## 53. Minimum Window Substring
+
+**=>** Here's the solution for the **Minimum Window Substring** problem, including a detailed explanation and time/space complexity analysis.
+
+### Problem Statement
+
+Given two strings `s` and `t`, return the minimum window substring of `s` such that every character in `t` (including duplicates) is included in the window. If there is no such substring, return the empty string `""`.
+
+### Example
+
+```plaintext
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+```
+
+### JavaScript Solution
+
+We can solve this problem using the sliding window technique with two pointers. We will use a hash map to count the characters in `t`, and a second hash map to keep track of the characters in the current window of `s`.
+
+Here's the implementation:
+
+```javascript
+class Solution {
+    minWindow(s, t) {
+        if (!s || !t) return "";
+
+        const charCount = {};
+        for (const char of t) {
+            charCount[char] = (charCount[char] || 0) + 1;
+        }
+
+        let required = Object.keys(charCount).length;
+        let left = 0, right = 0;
+        let formed = 0;
+        const windowCounts = {};
+        let minLength = Infinity;
+        let minWindow = "";
+
+        while (right < s.length) {
+            const char = s[right];
+            windowCounts[char] = (windowCounts[char] || 0) + 1;
+
+            // Check if this character is part of t and if we've met the required count
+            if (char in charCount && windowCounts[char] === charCount[char]) {
+                formed++;
+            }
+
+            // Try to contract the window until it ceases to be 'desirable'
+            while (left <= right && formed === required) {
+                const charLeft = s[left];
+
+                // Update the minimum window if the current window is smaller
+                if (right - left + 1 < minLength) {
+                    minLength = right - left + 1;
+                    minWindow = s.substring(left, right + 1);
+                }
+
+                // The character at the position pointed by `left` is no longer a part of the window
+                windowCounts[charLeft]--;
+                if (charLeft in charCount && windowCounts[charLeft] < charCount[charLeft]) {
+                    formed--;
+                }
+
+                // Move left pointer ahead
+                left++;
+            }
+
+            // Keep expanding the window by moving right pointer
+            right++;
+        }
+
+        return minWindow;
+    }
+}
+```
+
+### Explanation
+
+1. **Character Count for `t`**:
+
+   - We first create a hash map (`charCount`) to store the frequency of each character in `t`.
+2. **Sliding Window**:
+
+   - We initialize two pointers, `left` and `right`, to represent the current window in `s`.
+   - We also keep a count of how many characters from `t` we have formed in the current window (`formed`).
+3. **Expanding the Window**:
+
+   - We expand the window by moving the `right` pointer. For each character in `s`, we update its count in `windowCounts`.
+4. **Checking for a Valid Window**:
+
+   - If the current window contains all characters in `t` (i.e., `formed === required`), we try to shrink the window from the left by moving the `left` pointer until the window is no longer valid.
+5. **Updating the Minimum Window**:
+
+   - Whenever we find a valid window, we check if its length is smaller than the previously recorded minimum length. If it is, we update the minimum window substring.
+6. **Returning the Result**:
+
+   - Finally, we return the minimum window substring. If no such window exists, we return an empty string.
+
+### Time and Space Complexity
+
+- **Time Complexity**:
+
+  - The time complexity is \( O(S + T) \) where \( S \) is the length of string `s` and \( T \) is the length of string `t`. We traverse each character in `s` and `t` at most once.
+- **Space Complexity**:
+
+  - The space complexity is \( O(T) \) for storing the character counts in the hash maps.
+
+### Example Usage
+
+```javascript
+const solution = new Solution();
+const s = "ADOBECODEBANC";
+const t = "ABC";
+console.log(solution.minWindow(s, t)); // Output: "BANC"
+```
+
+### Additional Test Cases
+
+```plaintext
+Input: s = "a", t = "a"
+Output: "a"
+
+Input: s = "a", t = "aa"
+Output: ""
+
+Input: s = "AA", t = "AA"
+Output: "AA"
+```
+
+## 54. Top K Frequent Elements
+
+**=>** Here's the solution for the **Top K Frequent Elements** problem, including a detailed explanation and time/space complexity analysis.
+
+### Problem Statement
+
+Given an integer array `nums` and an integer `k`, return the `k` most frequent elements. You may return the answer in any order.
+
+### Example
+
+```plaintext
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1, 2]
+```
+
+### JavaScript Solution
+
+We can solve this problem using a hash map to count the frequency of each element, and then we can use a min-heap (or an array sorted by frequency) to keep track of the top `k` frequent elements.
+
+Here's the implementation using a hash map and sorting:
+
+```javascript
+class Solution {
+    topKFrequent(nums, k) {
+        // Step 1: Count the frequency of each number
+        const frequencyMap = {};
+        for (const num of nums) {
+            frequencyMap[num] = (frequencyMap[num] || 0) + 1;
+        }
+
+        // Step 2: Sort the numbers based on their frequency
+        const sorted = Object.entries(frequencyMap).sort((a, b) => b[1] - a[1]);
+
+        // Step 3: Extract the top k frequent elements
+        return sorted.slice(0, k).map(item => Number(item[0]));
+    }
+}
+```
+
+### Explanation
+
+1. **Counting Frequencies**:
+
+   - We first create a hash map (`frequencyMap`) to count the frequency of each element in the `nums` array. The key is the number, and the value is its frequency.
+2. **Sorting**:
+
+   - We convert the frequency map into an array of entries and sort it based on the frequency (the second element of the entry) in descending order.
+3. **Extracting Top K Elements**:
+
+   - After sorting, we take the first `k` entries from the sorted array, map them to get just the numbers, and return that as the result.
+
+### Time and Space Complexity
+
+- **Time Complexity**:
+
+  - The time complexity is \( O(N \log N) \) where \( N \) is the number of elements in `nums`. This is due to the sorting step. The counting step runs in \( O(N) \).
+- **Space Complexity**:
+
+  - The space complexity is \( O(N) \) to store the frequency map.
+
+### Example Usage
+
+```javascript
+const solution = new Solution();
+const nums = [1, 1, 1, 2, 2, 3];
+const k = 2;
+console.log(solution.topKFrequent(nums, k)); // Output: [1, 2]
+```
+
+### Additional Test Cases
+
+```plaintext
+Input: nums = [1], k = 1
+Output: [1]
+
+Input: nums = [1, 2], k = 2
+Output: [1, 2]
+
+Input: nums = [1, 1, 1, 2, 2, 3, 3, 3], k = 3
+Output: [1, 2, 3] (order may vary)
+```
+
+If you're interested, we can also solve this problem using a min-heap approach for potentially better performance in some cases. Let me know if you'd like to see that or if you want to continue with the next problem!
+
+## 55. Daily Temperatures
+
+**=>** Here’s the solution for the **Daily Temperatures** problem, including a detailed explanation and time/space complexity analysis.
+
+### Problem Statement
+
+Given an array of integers `temperatures` representing daily temperatures, return an array `answer` such that `answer[i]` is the number of days until a warmer temperature. If there is no future day for which this is possible, keep `answer[i] == 0` instead.
+
+### Example
+
+```plaintext
+Input: temperatures = [73, 74, 75, 71, 69, 72, 76, 73]
+Output: [1, 1, 4, 2, 1, 1, 0, 0]
+```
+
+### JavaScript Solution
+
+We can solve this problem using a stack to keep track of indices of the temperatures that we need to compare. This allows us to efficiently find the number of days until a warmer temperature.
+
+Here's the implementation:
+
+```javascript
+class Solution {
+    dailyTemperatures(temperatures) {
+        const n = temperatures.length;
+        const answer = new Array(n).fill(0);
+        const stack = []; // stack to store indices of temperatures
+
+        for (let i = 0; i < n; i++) {
+            while (stack.length > 0 && temperatures[i] > temperatures[stack[stack.length - 1]]) {
+                const index = stack.pop();
+                answer[index] = i - index; // Calculate the number of days until a warmer temperature
+            }
+            stack.push(i); // Push the current index onto the stack
+        }
+
+        return answer;
+    }
+}
+```
+
+### Explanation
+
+1. **Initialization**:
+
+   - We initialize an `answer` array with the same length as `temperatures`, filled with zeros.
+   - We also initialize a stack to keep track of indices of the temperatures.
+2. **Iterating through Temperatures**:
+
+   - We iterate through each temperature using its index `i`.
+   - While the stack is not empty and the current temperature is greater than the temperature at the index stored at the top of the stack, we pop the index from the stack.
+3. **Calculating Days**:
+
+   - For each index popped from the stack, we calculate the difference between the current index `i` and the popped index. This gives us the number of days until a warmer temperature.
+4. **Pushing Current Index**:
+
+   - After processing, we push the current index `i` onto the stack to potentially find a warmer temperature for it later.
+5. **Returning the Result**:
+
+   - Finally, we return the `answer` array.
+
+### Time and Space Complexity
+
+- **Time Complexity**:
+
+  - The time complexity is \( O(N) \) where \( N \) is the length of the `temperatures` array. Each temperature is pushed and popped from the stack at most once.
+- **Space Complexity**:
+
+  - The space complexity is \( O(N) \) for the stack and the answer array.
+
+### Example Usage
+
+```javascript
+const solution = new Solution();
+const temperatures = [73, 74, 75, 71, 69, 72, 76, 73];
+console.log(solution.dailyTemperatures(temperatures)); // Output: [1, 1, 4, 2, 1, 1, 0, 0]
+```
+
+### Additional Test Cases
+
+```plaintext
+Input: temperatures = [30, 40, 50, 60]
+Output: [1, 1, 1, 0]
+
+Input: temperatures = [30, 60, 90]
+Output: [1, 1, 0]
+
+Input: temperatures = [70, 60, 50, 40]
+Output: [0, 0, 0, 0]
+```
+
+## 56. Sliding Window Maximum
+
+**=>** Here's the solution for the **Sliding Window Maximum** problem, along with a detailed explanation and time/space complexity analysis.
+
+### Problem Statement
+
+You are given an integer array `nums` and an integer `k`. You need to return an array that contains the maximum value in each sliding window of size `k`.
+
+### Example
+
+```plaintext
+Input: nums = [1, 3, -1, -3, 5, 3, 6, 7], k = 3
+Output: [3, 3, 5, 5, 6, 7]
+```
+
+### JavaScript Solution
+
+We can solve this problem efficiently using a double-ended queue (deque) to maintain the indices of the maximum elements in the current window. This allows us to get the maximum in constant time.
+
+Here's the implementation:
+
+```javascript
+class Solution {
+    slidingWindowMaximum(nums, k) {
+        const n = nums.length;
+        if (n === 0 || k === 0) return [];
+      
+        const result = [];
+        const deque = []; // To store indices of potential max elements
+
+        for (let i = 0; i < n; i++) {
+            // Remove elements not in the sliding window
+            if (deque.length && deque[0] < i - k + 1) {
+                deque.shift(); // Remove from front
+            }
+
+            // Remove smaller elements from the deque
+            while (deque.length && nums[deque[deque.length - 1]] < nums[i]) {
+                deque.pop(); // Remove from back
+            }
+
+            deque.push(i); // Add current index
+
+            // Once we have processed the first k elements, add to results
+            if (i >= k - 1) {
+                result.push(nums[deque[0]]); // The front of the deque is the largest element
+            }
+        }
+
+        return result;
+    }
+}
+```
+
+### Explanation
+
+1. **Initialization**:
+
+   - We first check if the input array is empty or if `k` is zero. If so, we return an empty array.
+   - We initialize an empty array `result` to store the maximums and a `deque` to keep track of indices of potential maximum elements.
+2. **Iterating through the Array**:
+
+   - We iterate through each element in the `nums` array using index `i`.
+3. **Maintain Window**:
+
+   - We remove indices from the front of the deque if they are out of the current sliding window (i.e., if the index is less than `i - k + 1`).
+4. **Remove Smaller Elements**:
+
+   - We maintain the deque such that the values in `nums` corresponding to the indices in the deque are in descending order. If the current element is greater than the element at the index at the back of the deque, we remove indices from the back of the deque until this is no longer true.
+5. **Add Current Index**:
+
+   - We push the current index `i` onto the deque.
+6. **Collect Maximums**:
+
+   - Once we have processed at least `k` elements (i.e., when `i >= k - 1`), we take the value at the front of the deque (which is the maximum for the current window) and add it to `result`.
+7. **Return the Result**:
+
+   - Finally, we return the `result` array containing the maximums of each sliding window.
+
+### Time and Space Complexity
+
+- **Time Complexity**:
+
+  - The time complexity is \( O(N) \) where \( N \) is the length of the `nums` array. Each element is added and removed from the deque at most once.
+- **Space Complexity**:
+
+  - The space complexity is \( O(k) \) for the deque and \( O(N) \) for the result array.
+
+### Example Usage
+
+```javascript
+const solution = new Solution();
+const nums = [1, 3, -1, -3, 5, 3, 6, 7];
+const k = 3;
+console.log(solution.slidingWindowMaximum(nums, k)); // Output: [3, 3, 5, 5, 6, 7]
+```
+
+### Additional Test Cases
+
+```plaintext
+Input: nums = [1], k = 1
+Output: [1]
+
+Input: nums = [1, -1], k = 1
+Output: [1, -1]
+
+Input: nums = [9, 7, 5, 3], k = 2
+Output: [9, 7, 5]
+```
+
+## 57. Course Schedule
+
+**=>** Here’s the solution for the **Course Schedule** problem, including a detailed explanation and time/space complexity analysis.
+
+### Problem Statement
+
+You are given the total number of courses `numCourses` and an array `prerequisites` where `prerequisites[i] = [a, b]` indicates that you must take course `b` before course `a`. Return `true` if you can finish all courses. Otherwise, return `false`.
+
+### Example
+
+```plaintext
+Input: numCourses = 2, prerequisites = [[1, 0]]
+Output: true
+```
+
+```plaintext
+Input: numCourses = 2, prerequisites = [[1, 0], [0, 1]]
+Output: false
+```
+
+### JavaScript Solution
+
+We can solve this problem using **Topological Sorting**. We will use Kahn's Algorithm which is suitable for detecting cycles in a directed graph.
+
+Here's the implementation:
+
+```javascript
+class Solution {
+    canFinish(numCourses, prerequisites) {
+        const indegree = new Array(numCourses).fill(0);
+        const graph = Array.from({ length: numCourses }, () => []);
+      
+        // Build the graph and indegree array
+        for (const [course, prereq] of prerequisites) {
+            graph[prereq].push(course);
+            indegree[course]++;
+        }
+      
+        // Initialize the queue with courses that have no prerequisites
+        const queue = [];
+        for (let i = 0; i < numCourses; i++) {
+            if (indegree[i] === 0) {
+                queue.push(i);
+            }
+        }
+      
+        let count = 0; // To count how many courses we can take
+      
+        while (queue.length > 0) {
+            const course = queue.shift();
+            count++; // We can take this course
+          
+            // Reduce the indegree of neighboring courses
+            for (const neighbor of graph[course]) {
+                indegree[neighbor]--;
+                if (indegree[neighbor] === 0) {
+                    queue.push(neighbor); // Add to queue if no prerequisites remain
+                }
+            }
+        }
+      
+        return count === numCourses; // Check if we can take all courses
+    }
+}
+```
+
+### Explanation
+
+1. **Graph Representation**:
+
+   - We create an adjacency list `graph` to represent the courses and their prerequisites.
+   - We also maintain an `indegree` array where `indegree[i]` represents the number of prerequisites for course `i`.
+2. **Building the Graph**:
+
+   - For each prerequisite pair `[a, b]`, we add course `a` to the list of courses that depend on `b`, and increment the `indegree` of course `a`.
+3. **Initializing the Queue**:
+
+   - We initialize a queue with all courses that have no prerequisites (i.e., courses with `indegree` of `0`).
+4. **Processing the Queue**:
+
+   - We keep processing courses from the queue until it's empty.
+   - For each course we process, we increment a counter (`count`) that tracks how many courses we can take.
+5. **Updating Indegree**:
+
+   - For each neighboring course (courses that depend on the current course), we decrement its `indegree`. If a neighbor's `indegree` becomes `0`, we add it to the queue.
+6. **Final Check**:
+
+   - After processing all courses, we check if the count of courses we could take is equal to `numCourses`. If it is, we can finish all courses; otherwise, we cannot.
+
+### Time and Space Complexity
+
+- **Time Complexity**:
+
+  - The time complexity is \( O(V + E) \) where \( V \) is the number of courses (`numCourses`) and \( E \) is the number of prerequisites.
+- **Space Complexity**:
+
+  - The space complexity is \( O(V + E) \) for the graph and the indegree array.
+
+### Example Usage
+
+```javascript
+const solution = new Solution();
+const numCourses1 = 2;
+const prerequisites1 = [[1, 0];
+console.log(solution.canFinish(numCourses1, prerequisites1)); // Output: true
+
+const numCourses2 = 2;
+const prerequisites2 = [[1, 0], [0, 1]];
+console.log(solution.canFinish(numCourses2, prerequisites2)); // Output: false
+```
+
+### Additional Test Cases
+
+```plaintext
+Input: numCourses = 3, prerequisites = [[0, 1], [0, 2], [1, 2]]
+Output: true
+
+Input: numCourses = 4, prerequisites = [[0, 1], [1, 2], [2, 3], [3, 1]]
+Output: false
+
+Input: numCourses = 5, prerequisites = [[0, 1], [1, 2], [2, 0]]
+Output: false
+```
+
+## 58. Evaluate Reverse Polish Notation
+
+**=>** Here's the solution for the **Evaluate Reverse Polish Notation** problem, including a detailed explanation and time/space complexity analysis.
+
+### Problem Statement
+
+You are given an array of strings `tokens` that represents an expression in Reverse Polish Notation (RPN). Evaluate the expression and return an integer that represents the result.
+
+### Example
+
+```plaintext
+Input: tokens = ["2", "1", "+", "3", "*"]
+Output: 9
+Explanation: ((2 + 1) * 3) = 9
+```
+
+```plaintext
+Input: tokens = ["4", "13", "5", "/", "+"]
+Output: 6
+Explanation: (4 + (13 / 5)) = 6
+```
+
+### JavaScript Solution
+
+We can solve this problem using a stack. We will iterate through the tokens, and for each token:
+
+- If it's a number, we push it onto the stack.
+- If it's an operator, we pop the necessary operands from the stack, apply the operation, and push the result back onto the stack.
+
+Here's the implementation:
+
+```javascript
+class Solution {
+    evalRPN(tokens) {
+        const stack = [];
+      
+        for (const token of tokens) {
+            if (!isNaN(token)) {
+                // If the token is a number, push it onto the stack
+                stack.push(Number(token));
+            } else {
+                // The token is an operator
+                const b = stack.pop();
+                const a = stack.pop();
+                let result;
+              
+                switch (token) {
+                    case '+':
+                        result = a + b;
+                        break;
+                    case '-':
+                        result = a - b;
+                        break;
+                    case '*':
+                        result = a * b;
+                        break;
+                    case '/':
+                        result = Math.trunc(a / b); // Use Math.trunc for correct integer division
+                        break;
+                }
+              
+                // Push the result back onto the stack
+                stack.push(result);
+            }
+        }
+      
+        // The final result will be the only number remaining in the stack
+        return stack.pop();
+    }
+}
+```
+
+### Explanation
+
+1. **Stack Initialization**:
+
+   - We initialize an empty stack to keep track of numbers.
+2. **Iterating Through Tokens**:
+
+   - We iterate through each token in the `tokens` array.
+3. **Number Handling**:
+
+   - If the token is a number (checked using `isNaN`), we convert it to a number and push it onto the stack.
+4. **Operator Handling**:
+
+   - If the token is an operator (`+`, `-`, `*`, `/`):
+     - We pop the top two numbers from the stack (the second number popped is the first operand, and the first number popped is the second operand).
+     - We perform the operation based on the operator and push the result back onto the stack.
+     - For division, we use `Math.trunc` to ensure we get the integer division result (similar to truncating towards zero).
+5. **Final Result**:
+
+   - After processing all tokens, the final result will be the only number remaining in the stack, which we return.
+
+### Time and Space Complexity
+
+- **Time Complexity**:
+
+  - The time complexity is \( O(n) \), where \( n \) is the number of tokens in the input array.
+- **Space Complexity**:
+
+  - The space complexity is \( O(n) \) in the worst case, where all tokens are numbers and we store them in the stack.
+
+### Example Usage
+
+```javascript
+const solution = new Solution();
+const tokens1 = ["2", "1", "+", "3", "*"];
+console.log(solution.evalRPN(tokens1)); // Output: 9
+
+const tokens2 = ["4", "13", "5", "/", "+"];
+console.log(solution.evalRPN(tokens2)); // Output: 6
+
+const tokens3 = ["10", "6", "9", "3", "/", "-", "*"];
+console.log(solution.evalRPN(tokens3)); // Output: -30
+```
+
+### Additional Test Cases
+
+```plaintext
+Input: tokens = ["3", "4", "+", "2", "*", "7", "/"]
+Output: 2
+
+Input: tokens = ["2", "3", "1", "*", "+", "9", "-"]
+Output: -4
+```
+
+Let me know if you want to proceed to another problem or have any questions!
