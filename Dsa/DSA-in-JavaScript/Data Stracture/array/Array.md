@@ -730,3 +730,4 @@ console.log(subarraySum(arr)); // Output: 15 (Sum of all subarrays)
 - Generating all subarrays using nested loops has a time complexity of O(n^3) because there are O(n^2) subarrays and each subarray takes O(n) time to create using `slice()`.
 - You can optimize certain operations on subarrays using techniques like the sliding window pattern or prefix sum techniques.
 - Depending on the problem, you may need to adjust the approach for finding or working with subarrays to optimize performance and meet specific requirements.
+-
