@@ -1,6 +1,5 @@
 # Algorithms and Problem Solving Patterns
 
-
 Here's a comprehensive list of problem-solving patterns you should learn for data structures and algorithms (DSA) in JavaScript. Mastering these patterns will help you approach a wide range of problems efficiently.
 
 ### 1. **Frequency Counter**
@@ -144,8 +143,6 @@ As you advance, move into:
 - **Backtracking**
 
 Mastering these patterns will help you solve most common algorithmic challenges effectively!
-
-
 
 Great! Let's go in-depth on each of these problem-solving patterns. We’ll start with the first pattern, **Frequency Counter**, and work our way through each one step by step.
 
@@ -304,8 +301,6 @@ console.log(twoSum([2, 3, 4, 5, 9], 8));  // [1, 2] => arr[1] + arr[2] == 8
 
 Let me know if you'd like to dive deeper into more patterns, or continue with the next one!
 
-
-
 ### 3. **Sliding Window**
 
 **Concept**:
@@ -441,8 +436,6 @@ For many problems using the sliding window technique, you can use this general a
 ---
 
 Let me know if you want further clarification on the sliding window pattern or if you’re ready to move on to the next pattern, **Divide and Conquer**!
-
-
 
 ### 4. **Divide and Conquer**
 
@@ -583,8 +576,6 @@ console.log(mergeSort([3, 0, -1, 8, 7, 2])); // Output: [-1, 0, 2, 3, 7, 8]
 ---
 
 Let me know if you'd like to dive deeper into more examples of divide and conquer, or if you’re ready to move on to the next pattern, **Dynamic Programming**!
-
-
 
 ### 5. **Dynamic Programming**
 
@@ -784,8 +775,6 @@ console.log(knapsack(weights, values, W));  // Output: 220
 ---
 
 Let me know if you'd like to explore any of the dynamic programming problems further, or if you're ready to move on to the next pattern, **Greedy Algorithms**!
-
-
 
 ### 6. **Greedy Algorithms**
 
@@ -1013,8 +1002,6 @@ console.log(huffmanCoding(frequencies));
 
 Let me know if you'd like to dive deeper into one of these problems or explore the next pattern, **Backtracking**!
 
-
-
 ### 7. **Backtracking**
 
 **Concept**:
@@ -1082,10 +1069,10 @@ function solveNQueens(n) {
       if (isSafe(board, row, col, n)) {
         // Place the queen
         board[row][col] = 'Q';
-      
+  
         // Recurse to place the next queen
         backtrack(board, row + 1, n);
-      
+  
         // Backtrack: remove the queen
         board[row][col] = '.';
       }
@@ -1146,9 +1133,9 @@ function solveSudoku(board) {
           for (let num = '1'; num <= '9'; num++) {
             if (isValid(board, row, col, num)) {
               board[row][col] = num;
-            
+        
               if (solve(board)) return true;  // Recur to solve the rest
-            
+        
               board[row][col] = '.';  // Backtrack
             }
           }
@@ -1258,337 +1245,261 @@ console.log(permute(nums));
  possible subsets of a set.
 
 
-### 8. **Sliding Window**
+### 19. **Recursion**
 
 **Concept**:
-The sliding window technique is a way to optimize problems that involve arrays or sequences by keeping a window of elements that moves over the data. This is especially useful for problems involving finding the maximum, minimum, or sum of subarrays of a given size or some other form of subarray processing.
-
-Instead of recalculating results from scratch each time you move the window, you "slide" it, making small updates at each step. This significantly reduces the time complexity from O(n²) to O(n) in many cases.
+Recursion is a method of solving problems where a function calls itself, directly or indirectly. It involves breaking down a problem into smaller, more manageable subproblems that have the same structure as the original. The recursion terminates when a base case is reached, where the problem becomes simple enough to solve directly.
 
 **Why it’s useful**:
 
-- **Efficiency**: It reduces time complexity by avoiding redundant recalculations.
-- **Common use cases**: It’s great for problems like finding the longest substring, maximum sum subarray, or counting distinct elements in subarrays.
-
-**Types of Sliding Window**:
-
-1. **Fixed-size window**: The window size remains constant as it moves.
-2. **Dynamic-size window**: The window size can grow or shrink depending on the problem constraints.
+- **Simplifies Complex Problems**: Some problems, especially those involving repeated substructures (e.g., trees, fractals), are naturally recursive and can be simplified by breaking them down.
+- **Clean and Elegant Code**: Recursive solutions are often more intuitive and compact than iterative ones for problems that naturally involve repetition or self-similarity.
 
 ---
 
-### Example problem: **Maximum Sum Subarray of Size K**
+### Example problem: **Factorial of a Number**
 
-*Problem*: Given an array of integers and a number `k`, find the maximum sum of a subarray of size `k`.
+*Problem*: Find the factorial of a number `n` (i.e., `n! = n * (n - 1) * ... * 1`).
 
-#### Brute Force Approach:
+#### Recursive Approach:
 
-You could sum every possible subarray of size `k` (using two nested loops), but this would take O(n*k) time, which is inefficient for large arrays.
-
-#### Sliding Window Approach:
-
-We can maintain a window of size `k` and slide it across the array while keeping track of the sum.
+1. The base case is when `n = 1` or `n = 0`, return `1`.
+2. For any other `n`, recursively compute `n!` by multiplying `n` with the factorial of `n - 1`.
 
 #### JavaScript Solution:
 
 ```javascript
-function maxSumSubarray(arr, k) {
-  let maxSum = 0, windowSum = 0;
-
-  // Calculate the sum of the first window
-  for (let i = 0; i < k; i++) {
-    windowSum += arr[i];
-  }
-
-  maxSum = windowSum;
-
-  // Slide the window across the array
-  for (let i = k; i < arr.length; i++) {
-    windowSum += arr[i] - arr[i - k];  // Update the sum by sliding the window
-    maxSum = Math.max(maxSum, windowSum);
-  }
-
-  return maxSum;
+function factorial(n) {
+  if (n === 0 || n === 1) return 1; // Base case
+  return n * factorial(n - 1); // Recursive case
 }
 
 // Test
-const arr = [2, 1, 5, 1, 3, 2];
-const k = 3;
-console.log(maxSumSubarray(arr, k));  // Output: 9 (subarray [5, 1, 3])
+console.log(factorial(5)); // Output: 120
 ```
 
-**Explanation**:
-
-- **Initial window**: Calculate the sum of the first `k` elements.
-- **Slide**: Move the window by adding the next element and removing the previous element from the sum.
-- **Update max sum**: After each slide, check if the current window sum is the maximum.
-
-**Time complexity**: O(n), where `n` is the length of the array.
-**Space complexity**: O(1), since we only need a few extra variables.
+**Time complexity**: O(N), since we make `N` recursive calls.
+**Space complexity**: O(N) for the recursive call stack.
 
 ---
 
-### Example problem: **Longest Substring Without Repeating Characters**
+### Example problem: **Fibonacci Sequence**
 
-*Problem*: Given a string, find the length of the longest substring without repeating characters.
+*Problem*: Compute the `n`th Fibonacci number, where the sequence is defined as:
 
-#### Sliding Window Approach:
+- F(0) = 0
+- F(1) = 1
+- F(n) = F(n-1) + F(n-2) for n ≥ 2.
 
-We can use a dynamic sliding window that grows or shrinks as we find repeating characters.
+#### Recursive Approach:
+
+1. Base cases are F(0) = 0 and F(1) = 1.
+2. For `n ≥ 2`, the function recursively computes the sum of F(n-1) and F(n-2).
 
 #### JavaScript Solution:
 
 ```javascript
-function lengthOfLongestSubstring(s) {
-  let start = 0, maxLength = 0;
-  const seenChars = new Map();
-
-  for (let end = 0; end < s.length; end++) {
-    const char = s[end];
-
-    // If we have seen the character and it's within the current window
-    if (seenChars.has(char) && seenChars.get(char) >= start) {
-      start = seenChars.get(char) + 1;
-    }
-
-    seenChars.set(char, end);
-    maxLength = Math.max(maxLength, end - start + 1);
-  }
-
-  return maxLength;
+function fibonacci(n) {
+  if (n === 0) return 0; // Base case
+  if (n === 1) return 1; // Base case
+  return fibonacci(n - 1) + fibonacci(n - 2); // Recursive case
 }
 
 // Test
-console.log(lengthOfLongestSubstring("abcabcbb"));  // Output: 3 (substring "abc")
+console.log(fibonacci(6)); // Output: 8 (Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8)
 ```
 
-**Explanation**:
+**Time complexity**: O(2^N), as each call spawns two more calls.
+**Space complexity**: O(N) for the call stack.
 
-- **Start with an empty window**: As you iterate over the string, add characters to the window.
-- **If a character repeats**: Adjust the start of the window to exclude the previous occurrence of the repeating character.
-- **Track max length**: After processing each character, check if the current window is the longest one seen so far.
+#### Optimized with **Memoization**:
 
-**Time complexity**: O(n), where `n` is the length of the string.
-**Space complexity**: O(min(n, m)), where `m` is the size of the character set (since we store each unique character).
+You can improve performance by storing already computed values to avoid redundant calculations (dynamic programming).
+
+```javascript
+function fibonacciMemo(n, memo = {}) {
+  if (n in memo) return memo[n]; // Check memo
+  if (n === 0) return 0;
+  if (n === 1) return 1;
+  memo[n] = fibonacciMemo(n - 1, memo) + fibonacciMemo(n - 2, memo); // Store in memo
+  return memo[n];
+}
+
+// Test
+console.log(fibonacciMemo(6)); // Output: 8
+```
+
+**Time complexity (with memoization)**: O(N), as each value is computed once.
+**Space complexity**: O(N), due to memoization and call stack.
 
 ---
 
-### Example problem: **Smallest Subarray with Sum Greater Than or Equal to S**
+### Example problem: **Permutations of a String**
 
-*Problem*: Given an array of positive integers and a positive integer `S`, find the length of the smallest contiguous subarray whose sum is greater than or equal to `S`. Return 0 if no such subarray exists.
+*Problem*: Generate all permutations of a given string.
 
-#### Sliding Window Approach:
+#### Recursive Approach:
 
-We can use a shrinking window. Start by expanding the window (by adding elements) until the sum is greater than or equal to `S`. Then, shrink the window from the left side to find the smallest subarray.
+1. The base case is when the string length is 1, return the string itself.
+2. For each character, recursively compute the permutations of the remaining substring and insert the current character in all possible positions.
 
 #### JavaScript Solution:
 
 ```javascript
-function minSubArrayLen(s, arr) {
-  let minLength = Infinity, windowSum = 0, start = 0;
-
-  for (let end = 0; end < arr.length; end++) {
-    windowSum += arr[end];
-
-    // Shrink the window as small as possible while the window sum is >= S
-    while (windowSum >= s) {
-      minLength = Math.min(minLength, end - start + 1);
-      windowSum -= arr[start];
-      start++;
+function permute(str) {
+  if (str.length === 1) return [str]; // Base case
+  
+  const permutations = [];
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+    const remainingStr = str.slice(0, i) + str.slice(i + 1); // Exclude the current character
+    const remainingPermutations = permute(remainingStr); // Recur on the remaining string
+    for (const perm of remainingPermutations) {
+      permutations.push(char + perm); // Combine current character with each permutation
     }
   }
-
-  return minLength === Infinity ? 0 : minLength;
+  
+  return permutations;
 }
 
 // Test
-console.log(minSubArrayLen(7, [2, 1, 5, 2, 3, 2]));  // Output: 2 (subarray [5, 2])
+console.log(permute("abc")); // Output: [ 'abc', 'acb', 'bac', 'bca', 'cab', 'cba' ]
 ```
 
-**Explanation**:
-
-- **Expand the window**: Increase the window size by adding elements until the sum of the window is greater than or equal to `S`.
-- **Shrink the window**: Try to minimize the window size by removing elements from the left while maintaining the sum constraint.
-
-**Time complexity**: O(n), where `n` is the length of the array.
-**Space complexity**: O(1), since we only need extra space for a few variables.
+**Time complexity**: O(N!), as we generate all permutations of the string.
+**Space complexity**: O(N!), due to the storage of permutations and call stack depth.
 
 ---
 
-### Example problem: **Longest Substring with At Most K Distinct Characters**
+### Recursive Pattern Summary:
 
-*Problem*: Given a string, find the length of the longest substring that contains at most `k` distinct characters.
-
-#### Sliding Window Approach:
-
-Use a dynamic sliding window. Expand the window by adding characters until you have more than `k` distinct characters. Then, shrink the window until you are back to `k` distinct characters.
-
-#### JavaScript Solution:
-
-```javascript
-function longestSubstrKDistinct(s, k) {
-  let start = 0, maxLength = 0;
-  const charCount = new Map();
-
-  for (let end = 0; end < s.length; end++) {
-    const char = s[end];
-
-    // Add the character to the window and count its occurrences
-    charCount.set(char, (charCount.get(char) || 0) + 1);
-
-    // If we have more than k distinct characters, shrink the window
-    while (charCount.size > k) {
-      const leftChar = s[start];
-      charCount.set(leftChar, charCount.get(leftChar) - 1);
-      if (charCount.get(leftChar) === 0) {
-        charCount.delete(leftChar);
-      }
-      start++;
-    }
-
-    maxLength = Math.max(maxLength, end - start + 1);
-  }
-
-  return maxLength;
-}
-
-// Test
-console.log(longestSubstrKDistinct("araaci", 2));  // Output: 4 (substring "araa")
-```
-
-**Explanation**:
-
-- **Expand the window**: Add characters to the window while counting distinct characters.
-- **Shrink the window**: If there are more than `k` distinct characters, remove characters from the left until the constraint is satisfied again.
-
-**Time complexity**: O(n), where `n` is the length of the string.
-**Space complexity**: O(k), where `k` is the number of distinct characters.
-
----
-
-### Sliding Window Pattern Summary:
-
-- **Optimal for subarray or substring problems**: Especially when working with fixed or variable window sizes.
-- **Efficient**: Reduces redundant recalculations by maintaining a window and updating its state incrementally.
-- **Flexible**: Works well for both fixed-size and variable-size windows, depending on the problem.
-- Sliding window is often combined with hash maps or arrays to track elements within the window.
+- **Base Case**: Always define a base case to terminate the recursion.
+- **Recursive Case**: Define how the function calls itself with a simpler or smaller version of the original problem.
+- **Stack Limitations**: Recursive solutions can be elegant but might run into stack overflow issues if the recursion depth is too large.
 
 ---
 
 ### Key Problems to Practice:
 
-1. **Find Maximum in Sliding Window**: Find the maximum value in every subarray of size `k` as the window slides over the array.
-2. **Count Occurrences of Anagrams**: Given a string and a pattern, find all anagrams of the pattern in the string using a sliding window.
-3. **Fruit Into Baskets**: Given a list of trees, find the maximum amount of fruit you can collect from exactly two types of trees.
+1. **Binary Tree Traversals**: Preorder, Inorder, and Postorder tree traversals can be implemented recursively.
+2. **Tower of Hanoi**: Solve the problem of moving discs between pegs recursively.
+3. **Subset Generation**: Generate all subsets (power set) of a given set of elements recursively.
 
 
-### 9. **Two Pointers**
+### 9. **Binary Search**
 
 **Concept**:
-The two-pointer technique involves using two pointers to traverse an array or list. It’s particularly useful for problems that require comparisons or calculations between elements in a single pass. The pointers can move in the same direction (forward) or opposite directions (one from the beginning and one from the end).
+Binary search is an efficient algorithm used to find the position of a target value within a sorted array or collection. It works by repeatedly dividing the search interval in half. If the value of the target is less than the middle element, the search continues in the left half, otherwise in the right half. This divide-and-conquer approach significantly reduces the number of comparisons needed.
 
 **Why it’s useful**:
 
-- **Efficiency**: Reduces time complexity by avoiding nested loops in certain scenarios.
-- **Simplicity**: Often leads to cleaner and more readable code for problems involving pairs, triplets, or subsequences.
+- **Fast Search**: Binary search has a time complexity of O(log N), making it highly efficient for large datasets compared to linear search (O(N)).
+- **Applicability**: It works only on sorted collections, making it particularly useful for ordered data like databases, sorted arrays, and range-based queries.
 
 ---
 
-### Types of Two Pointers:
+### Binary Search Algorithm Steps:
 
-1. **Moving in the same direction**: Both pointers start at the same position and move towards the end, often used for problems like finding a pair that meets a condition.
-2. **Moving in opposite directions**: One pointer starts at the beginning and the other at the end, useful for problems like searching for pairs that add up to a specific value.
+1. **Start** with two pointers, `low` at the start of the array and `high` at the end.
+2. **Find the middle element**: `mid = Math.floor((low + high) / 2)`.
+3. **Compare** the target with the middle element:
+   - If target == `mid`, return the index.
+   - If target < `mid`, move `high` to `mid - 1` (search in the left half).
+   - If target > `mid`, move `low` to `mid + 1` (search in the right half).
+4. **Repeat** the process until `low` > `high`, meaning the target is not in the array.
 
 ---
 
-### Example problem: **Container With Most Water**
+### Example problem: **Binary Search in a Sorted Array**
 
-*Problem*: Given an array of heights representing the height of vertical lines, find two lines that together with the x-axis form a container that can hold the most water.
-
-#### Brute Force Approach:
-
-You could check every possible pair of lines to find the maximum area, which would take O(n²) time.
-
-#### Two Pointers Approach:
-
-Use two pointers, one at the beginning and one at the end of the array. Calculate the area and then move the pointer pointing to the shorter line inward, since moving the taller line will not yield a larger area.
+*Problem*: Given a sorted array of integers, find the index of a target value.
 
 #### JavaScript Solution:
 
 ```javascript
-function maxArea(height) {
-  let maxArea = 0;
-  let left = 0, right = height.length - 1;
+function binarySearch(arr, target) {
+  let low = 0, high = arr.length - 1;
 
-  while (left < right) {
-    const width = right - left;
-    const currentHeight = Math.min(height[left], height[right]);
-    const area = width * currentHeight;
-    maxArea = Math.max(maxArea, area);
+  while (low <= high) {
+    let mid = Math.floor((low + high) / 2); // Find the middle index
 
-    // Move the pointer for the shorter line
-    if (height[left] < height[right]) {
-      left++;
+    if (arr[mid] === target) {
+      return mid; // Target found
+    } else if (arr[mid] < target) {
+      low = mid + 1; // Search in the right half
     } else {
-      right--;
+      high = mid - 1; // Search in the left half
     }
   }
 
-  return maxArea;
+  return -1; // Target not found
 }
 
 // Test
-const heights = [1,8,6,2,5,4,8,3,7];
-console.log(maxArea(heights));  // Output: 49
+const sortedArray = [1, 3, 5, 7, 9, 11, 13];
+console.log(binarySearch(sortedArray, 7));  // Output: 3
+console.log(binarySearch(sortedArray, 4));  // Output: -1 (not found)
 ```
 
-**Explanation**:
-
-- **Calculate the area**: Use the shorter of the two lines as the height and the distance between the two pointers as the width.
-- **Update pointers**: Move the pointer that points to the shorter line to potentially find a taller line.
-
-**Time complexity**: O(n), where `n` is the number of heights.
-**Space complexity**: O(1), since we only use a few extra variables.
+**Time complexity**: O(log N), where N is the number of elements in the array.
+**Space complexity**: O(1), since it uses only a constant amount of extra space.
 
 ---
 
-### Example problem: **3Sum**
+### Recursive Binary Search
 
-*Problem*: Given an array of integers, find all unique triplets in the array that add up to zero.
+Binary search can also be implemented recursively, which has a more intuitive structure but uses more stack space.
 
-#### Two Pointers Approach:
-
-First, sort the array. For each element, use two pointers to find pairs that sum to the negative of the current element.
-
-#### JavaScript Solution:
+#### Recursive JavaScript Solution:
 
 ```javascript
-function threeSum(nums) {
-  const result = [];
-  nums.sort((a, b) => a - b);
+function binarySearchRecursive(arr, target, low = 0, high = arr.length - 1) {
+  if (low > high) return -1; // Base case: Target not found
 
-  for (let i = 0; i < nums.length - 2; i++) {
-    if (i > 0 && nums[i] === nums[i - 1]) continue;  // Skip duplicates
+  let mid = Math.floor((low + high) / 2);
 
-    let left = i + 1;
-    let right = nums.length - 1;
+  if (arr[mid] === target) {
+    return mid; // Target found
+  } else if (arr[mid] < target) {
+    return binarySearchRecursive(arr, target, mid + 1, high); // Search in the right half
+  } else {
+    return binarySearchRecursive(arr, target, low, mid - 1); // Search in the left half
+  }
+}
 
-    while (left < right) {
-      const sum = nums[i] + nums[left] + nums[right];
+// Test
+console.log(binarySearchRecursive(sortedArray, 7));  // Output: 3
+console.log(binarySearchRecursive(sortedArray, 4));  // Output: -1 (not found)
+```
 
-      if (sum === 0) {
-        result.push([nums[i], nums[left], nums[right]]);
-        left++;
-        right--;
+**Time complexity**: O(log N).
+**Space complexity**: O(log N), due to recursive calls and stack usage.
 
-        // Skip duplicates
-        while (left < right && nums[left] === nums[left - 1]) left++;
-        while (left < right && nums[right] === nums[right + 1]) right--;
-      } else if (sum < 0) {
-        left++;
-      } else {
-        right--;
-      }
+---
+
+### Binary Search Variants
+
+#### 1. **Finding First or Last Occurrence**:
+
+In a sorted array with duplicate values, binary search can be adapted to find the first or last occurrence of the target.
+
+#### Finding First Occurrence:
+
+```javascript
+function binarySearchFirst(arr, target) {
+  let low = 0, high = arr.length - 1;
+  let result = -1;
+
+  while (low <= high) {
+    let mid = Math.floor((low + high) / 2);
+
+    if (arr[mid] === target) {
+      result = mid; // Target found, record the index
+      high = mid - 1; // Search left half for first occurrence
+    } else if (arr[mid] < target) {
+      low = mid + 1; // Search in the right half
+    } else {
+      high = mid - 1; // Search in the left half
     }
   }
 
@@ -1596,774 +1507,793 @@ function threeSum(nums) {
 }
 
 // Test
-console.log(threeSum([-1,0,1,2,-1,-4]));  // Output: [[-1,-1,2],[-1,0,1]]
+const duplicatesArray = [1, 2, 4, 4, 4, 5, 6];
+console.log(binarySearchFirst(duplicatesArray, 4)); // Output: 2 (first occurrence of 4)
 ```
 
-**Explanation**:
+#### 2. **Binary Search on Infinite Array**:
 
-- **Sort the array**: This allows you to avoid duplicates and use the two-pointer technique effectively.
-- **Find pairs**: For each element, use two pointers to find pairs that, together with the current element, sum to zero.
+If the array is infinite (or very large), a modified version of binary search is used by expanding the search window exponentially.
 
-**Time complexity**: O(n²), where `n` is the length of the array (due to the nested loop).
-**Space complexity**: O(1), for the result array (excluding the input).
+#### 3. **Binary Search on Rotated Sorted Array**:
+
+In some cases, the sorted array may be rotated, making the binary search trickier but still applicable.
 
 ---
 
-### Example problem: **Remove Duplicates from Sorted Array**
+### Example problem: **Search Insert Position**
 
-*Problem*: Given a sorted array, remove the duplicates in-place such that each element appears only once and returns the new length of the array.
-
-#### Two Pointers Approach:
-
-Use one pointer to iterate through the array and another to track the position of unique elements.
+*Problem*: Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
 
 #### JavaScript Solution:
 
 ```javascript
-function removeDuplicates(nums) {
-  if (nums.length === 0) return 0;
-
-  let uniqueIndex = 1;  // Start from the second element
-
-  for (let i = 1; i < nums.length; i++) {
-    if (nums[i] !== nums[i - 1]) {
-      nums[uniqueIndex] = nums[i];
-      uniqueIndex++;
-    }
-  }
-
-  return uniqueIndex;
-}
-
-// Test
-const nums = [0,0,1,1,1,2,2,3,3,4];
-console.log(removeDuplicates(nums));  // Output: 5 (unique elements are [0,1,2,3,4])
-```
-
-**Explanation**:
-
-- **Iterate through the array**: If the current element is different from the previous one, it is unique.
-- **Update the unique index**: Place the unique element at the current unique index.
-
-**Time complexity**: O(n), where `n` is the length of the array.
-**Space complexity**: O(1), since we modify the array in-place.
-
----
-
-### Example problem: **Valid Palindrome II**
-
-*Problem*: Given a string, determine if it can be a palindrome after deleting at most one character.
-
-#### Two Pointers Approach:
-
-Use two pointers starting from the ends of the string and move toward the center, allowing for one character deletion if characters don't match.
-
-#### JavaScript Solution:
-
-```javascript
-function validPalindrome(s) {
-  const isPalindrome = (str, left, right, count) => {
-    while (left < right) {
-      if (str[left] !== str[right]) {
-        if (count === 1) return false; // Already deleted a character
-        return isPalindrome(str, left + 1, right, count + 1) || isPalindrome(str, left, right - 1, count + 1);
-      }
-      left++;
-      right--;
-    }
-    return true;
-  };
-
-  return isPalindrome(s, 0, s.length - 1, 0);
-}
-
-// Test
-console.log(validPalindrome("abca"));  // Output: true
-```
-
-**Explanation**:
-
-- **Recursive helper function**: Check if the substring is a palindrome, allowing for a character deletion.
-- **Check both possibilities**: If there's a mismatch, check by either removing the left or right character.
-
-**Time complexity**: O(n), where `n` is the length of the string (in the worst case).
-**Space complexity**: O(n) due to recursion stack.
-
----
-
-### Two Pointers Pattern Summary:
-
-- **Efficient for sorted arrays**: Works particularly well when the array is sorted or has a specific order.
-- **Flexible**: Can be adapted for various problems involving pairs, triplets, or subsequences.
-- **Easy to implement**: Often leads to straightforward and efficient solutions.
-
----
-
-### Key Problems to Practice:
-
-1. **Find the Peak Element**: Find an element which is greater than or equal to its neighbors using two pointers.
-2. **Sum of Two Integers**: Given a sorted array, find if there exists a pair with a given sum using two pointers.
-3. **Pair with Given Sum**: Similar to the above but without needing to return the actual pairs.
-
-
-### 10. **Fast and Slow Pointers (Tortoise and Hare)**
-
-**Concept**:
-The fast and slow pointers technique involves using two pointers that move at different speeds—one moving twice as fast as the other. This pattern is especially useful for problems involving cycles in linked lists or finding the middle of a list.
-
-**Why it’s useful**:
-
-- **Cycle Detection**: Efficiently identifies if a cycle exists in a sequence.
-- **Finding Midpoints**: Easily locates the middle element of a linked list or array.
-
----
-
-### Example problem: **Linked List Cycle**
-
-*Problem*: Given a linked list, determine if it has a cycle in it.
-
-#### Approach:
-
-Use one pointer (slow) that moves one step at a time and another pointer (fast) that moves two steps at a time. If they meet, a cycle exists; if the fast pointer reaches the end, there is no cycle.
-
-#### JavaScript Solution:
-
-```javascript
-function hasCycle(head) {
-  if (!head) return false;
-
-  let slow = head;
-  let fast = head;
-
-  while (fast && fast.next) {
-    slow = slow.next;          // Move slow pointer by 1
-    fast = fast.next.next;     // Move fast pointer by 2
-
-    if (slow === fast) {
-      return true;             // Cycle detected
-    }
-  }
-
-  return false;                // No cycle
-}
-
-// Example linked list node structure
-function ListNode(val) {
-  this.val = val;
-  this.next = null;
-}
-
-// Test
-const head = new ListNode(3);
-head.next = new ListNode(2);
-head.next.next = new ListNode(0);
-head.next.next.next = new ListNode(-4);
-head.next.next.next.next = head.next;  // Creates a cycle
-console.log(hasCycle(head));  // Output: true
-```
-
-**Explanation**:
-
-- **Pointers initialization**: Start both pointers at the head of the linked list.
-- **Loop through the list**: Move `slow` by one and `fast` by two until they meet or `fast` reaches the end.
-
-**Time complexity**: O(n), where `n` is the number of nodes in the linked list.
-**Space complexity**: O(1), since only a few pointers are used.
-
----
-
-### Example problem: **Middle of the Linked List**
-
-*Problem*: Given a linked list, return the middle node. If there are two middle nodes, return the second middle node.
-
-#### Approach:
-
-Use the fast and slow pointers to find the middle node. When the fast pointer reaches the end, the slow pointer will be at the middle.
-
-#### JavaScript Solution:
-
-```javascript
-function middleNode(head) {
-  let slow = head;
-  let fast = head;
-
-  while (fast && fast.next) {
-    slow = slow.next;          // Move slow pointer by 1
-    fast = fast.next.next;     // Move fast pointer by 2
-  }
-
-  return slow;                // Slow will be at the middle
-}
-
-// Test
-const head2 = new ListNode(1);
-head2.next = new ListNode(2);
-head2.next.next = new ListNode(3);
-head2.next.next.next = new ListNode(4);
-head2.next.next.next.next = new ListNode(5);
-console.log(middleNode(head2).val);  // Output: 3
-```
-
-**Explanation**:
-
-- **Simultaneous movement**: `slow` moves one step while `fast` moves two steps.
-- **Return the slow pointer**: When `fast` reaches the end, `slow` will be at the middle node.
-
-**Time complexity**: O(n), where `n` is the number of nodes in the linked list.
-**Space complexity**: O(1).
-
----
-
-### Example problem: **Linked List Cycle II**
-
-*Problem*: Given a linked list, return the node where the cycle begins. If there is no cycle, return null.
-
-#### Approach:
-
-First, detect the cycle using the fast and slow pointers. If a cycle is detected, find the entry point by moving one pointer to the head and keeping the other at the meeting point.
-
-#### JavaScript Solution:
-
-```javascript
-function detectCycle(head) {
-  let slow = head;
-  let fast = head;
-
-  // First step: detect cycle
-  while (fast && fast.next) {
-    slow = slow.next;
-    fast = fast.next.next;
-
-    if (slow === fast) { // Cycle detected
-      let entry = head;
-      while (entry !== slow) {
-        entry = entry.next;
-        slow = slow.next;
-      }
-      return entry; // Entry point of the cycle
-    }
-  }
-
-  return null; // No cycle
-}
-
-// Test
-const head3 = new ListNode(1);
-head3.next = new ListNode(2);
-head3.next.next = head3;  // Creates a cycle
-console.log(detectCycle(head3));  // Output: ListNode { val: 1, next: ... }
-```
-
-**Explanation**:
-
-- **Cycle detection**: Similar to the previous cycle detection problem.
-- **Finding the entry point**: Move one pointer to the head and let the other pointer remain at the meeting point; they will meet at the cycle's entry point.
-
-**Time complexity**: O(n).
-**Space complexity**: O(1).
-
----
-
-### Fast and Slow Pointers Pattern Summary:
-
-- **Cycle detection**: Effective for identifying cycles in data structures.
-- **Finding midpoints**: Simple way to find middle elements in lists.
-- **Clean implementation**: Often results in straightforward and readable code.
-
----
-
-### Key Problems to Practice:
-
-1. **Palindrome Linked List**: Determine if a linked list is a palindrome.
-2. **Happy Number**: Use fast and slow pointers to determine if a number is a "happy" number (reaching 1).
-3. **Intersection of Two Linked Lists**: Determine the intersection point of two linked lists.
-
-
-### 11. **Merge Intervals**
-
-**Concept**:
-The merge intervals pattern is used to process a list of intervals, combining overlapping intervals into a single interval. This pattern is commonly used in problems related to scheduling and event handling.
-
-**Why it’s useful**:
-
-- **Overlap resolution**: Efficiently manages overlapping ranges or intervals.
-- **Time complexity reduction**: Helps reduce the time complexity of certain problems by consolidating intervals.
-
----
-
-### Example problem: **Merge Intervals**
-
-*Problem*: Given a collection of intervals, merge all overlapping intervals.
-
-#### Approach:
-
-1. **Sort the intervals** based on the starting time.
-2. Iterate through the sorted intervals and merge them if they overlap.
-3. Add the merged intervals to the result list.
-
-#### JavaScript Solution:
-
-```javascript
-function merge(intervals) {
-  if (intervals.length === 0) return [];
-
-  // Step 1: Sort the intervals based on the start time
-  intervals.sort((a, b) => a[0] - b[0]);
-  
-  const merged = [intervals[0]]; // Start with the first interval
-
-  // Step 2: Iterate through the intervals
-  for (let i = 1; i < intervals.length; i++) {
-    const current = intervals[i];
-    const lastMerged = merged[merged.length - 1];
-
-    // If the current interval overlaps with the last merged one, merge them
-    if (current[0] <= lastMerged[1]) {
-      lastMerged[1] = Math.max(lastMerged[1], current[1]);
+function searchInsert(arr, target) {
+  let low = 0, high = arr.length - 1;
+
+  while (low <= high) {
+    let mid = Math.floor((low + high) / 2);
+
+    if (arr[mid] === target) {
+      return mid; // Target found
+    } else if (arr[mid] < target) {
+      low = mid + 1; // Move right
     } else {
-      // No overlap, add the current interval to merged
-      merged.push(current);
+      high = mid - 1; // Move left
     }
   }
 
-  return merged; // Return the merged intervals
+  return low; // Insert position
 }
 
 // Test
-const intervals = [[1, 3], [2, 6], [8, 10], [15, 18]];
-console.log(merge(intervals)); // Output: [[1, 6], [8, 10], [15, 18]]
+const sortedArray = [1, 3, 5, 6];
+console.log(searchInsert(sortedArray, 5));  // Output: 2
+console.log(searchInsert(sortedArray, 2));  // Output: 1
+console.log(searchInsert(sortedArray, 7));  // Output: 4
 ```
 
-**Explanation**:
-
-- **Sorting**: The intervals are sorted based on the start time to facilitate merging.
-- **Merging**: For each interval, check if it overlaps with the last merged interval. If it does, update the end of the last merged interval; otherwise, add the current interval to the merged list.
-
-**Time complexity**: O(n log n), where n is the number of intervals (due to sorting).
-**Space complexity**: O(n) for storing the merged intervals.
+**Time complexity**: O(log N).
+**Space complexity**: O(1).
 
 ---
 
-### Example problem: **Insert Interval**
+### Binary Search Pattern Summary:
 
-*Problem*: Given a set of non-overlapping intervals and a new interval, insert the new interval into the intervals (merging if necessary).
-
-#### Approach:
-
-1. **Sort** the intervals (if not already sorted).
-2. Iterate through the intervals and determine where to insert the new interval.
-3. Merge as necessary.
-
-#### JavaScript Solution:
-
-```javascript
-function insert(intervals, newInterval) {
-  const merged = [];
-  let i = 0;
-
-  // Step 1: Add all intervals before the new interval
-  while (i < intervals.length && intervals[i][1] < newInterval[0]) {
-    merged.push(intervals[i]);
-    i++;
-  }
-
-  // Step 2: Merge the new interval with overlapping intervals
-  while (i < intervals.length && intervals[i][0] <= newInterval[1]) {
-    newInterval[0] = Math.min(newInterval[0], intervals[i][0]);
-    newInterval[1] = Math.max(newInterval[1], intervals[i][1]);
-    i++;
-  }
-  merged.push(newInterval); // Add the merged new interval
-
-  // Step 3: Add all remaining intervals
-  while (i < intervals.length) {
-    merged.push(intervals[i]);
-    i++;
-  }
-
-  return merged; // Return the merged intervals
-}
-
-// Test
-const intervals2 = [[1, 3], [6, 9]];
-const newInterval = [2, 5];
-console.log(insert(intervals2, newInterval)); // Output: [[1, 5], [6, 9]]
-```
-
-**Explanation**:
-
-- **Adding non-overlapping intervals**: First, include all intervals that end before the new interval starts.
-- **Merging**: Merge the new interval with any overlapping intervals.
-- **Adding remaining intervals**: Finally, include all intervals that start after the new interval ends.
-
-**Time complexity**: O(n), where n is the number of intervals (if sorted).
-**Space complexity**: O(n) for storing the merged intervals.
-
----
-
-### Merge Intervals Pattern Summary:
-
-- **Sorting**: A critical first step in many interval problems.
-- **Efficient merging**: Combining intervals reduces complexity in various applications.
-- **Adaptability**: This pattern can be modified for various constraints (e.g., inclusive vs. exclusive overlaps).
+- **Sorted Input**: Binary search requires the input array (or search space) to be sorted.
+- **Divide and Conquer**: Split the array in half at each step, discarding the half where the target cannot exist.
+- **Logarithmic Time**: With each iteration, the search space is halved, resulting in a logarithmic time complexity.
 
 ---
 
 ### Key Problems to Practice:
 
-1. **Meeting Rooms**: Determine the minimum number of meeting rooms required given a list of meeting time intervals.
-2. **Employee Free Time**: Find the times when all employees are free based on their schedules.
-3. **Minimum Interval to Include Each Query**: For a list of intervals and queries, find the minimum interval that contains each query.
+1. **Peak Element**: Find a peak element in an array where the peak is greater than its neighbors.
+2. **Find Minimum in Rotated Sorted Array**: Given a rotated sorted array, find the minimum element.
+3. **Square Root using Binary Search**: Find the integer square root of a number using binary search.
 
 
-### 12. **0/1 Knapsack Problem**
+### 10. **Kadane’s Algorithm**
 
 **Concept**:
-The 0/1 Knapsack Problem is a classic problem in combinatorial optimization. It involves selecting a subset of items, each with a weight and a value, to maximize the total value without exceeding a given weight capacity. Each item can either be included (1) or excluded (0), hence the name "0/1".
+Kadane’s Algorithm is an efficient algorithm used to find the **maximum sum of a contiguous subarray** within a one-dimensional array of numbers. It operates with a greedy approach and dynamic programming concepts to solve the maximum subarray sum problem.
 
 **Why it’s useful**:
 
-- **Optimization problems**: Common in resource allocation, budget management, and logistics.
-- **Dynamic programming**: Serves as a foundational problem for understanding dynamic programming approaches.
+- **Optimal Substructure**: Kadane’s algorithm makes use of the fact that the maximum sum subarray ending at position `i` can either include the element at `i` or start a new subarray.
+- **Linear Time**: It works in O(N) time, making it highly efficient for solving problems involving maximum sum subarrays in large arrays.
+- **Real-World Usage**: It is widely applicable in financial modeling, weather prediction, and anywhere consecutive data need analysis for peaks or patterns.
 
 ---
 
-### Example problem: **0/1 Knapsack Problem**
+### Kadane’s Algorithm Explanation
 
-*Problem*: Given weights and values of `n` items, and a maximum weight capacity `W`, determine the maximum value that can be accommodated in the knapsack.
+Given an array of integers (which may include negative numbers), the task is to find the subarray with the largest sum.
 
-#### Approach:
+#### Kadane’s Algorithm Steps:
 
-1. **Dynamic Programming Table**: Create a DP table where `dp[i][w]` represents the maximum value that can be attained with the first `i` items and a maximum weight of `w`.
-2. **Transition**: For each item, decide whether to include it or not based on its weight and value.
+1. **Initialize**:
+
+   - `maxEndingHere` = 0: This tracks the maximum sum of the subarray ending at the current position.
+   - `maxSoFar` = `-Infinity`: This keeps track of the global maximum sum found so far.
+2. **Iterate** through the array:
+
+   - For each element `x` in the array, update `maxEndingHere` as:
+     - `maxEndingHere = Math.max(x, maxEndingHere + x)`:
+       - This step decides whether to add the current element `x` to the existing subarray (if it increases the sum) or start a new subarray from `x`.
+   - Update `maxSoFar` as:
+     - `maxSoFar = Math.max(maxSoFar, maxEndingHere)`:
+       - This keeps track of the global maximum across all subarrays.
+3. **Return** `maxSoFar` as the result.
+
+---
+
+### Example problem: **Maximum Subarray Sum**
+
+*Problem*: Given an array of integers, find the contiguous subarray with the largest sum.
 
 #### JavaScript Solution:
 
 ```javascript
-function knapsack(weights, values, capacity) {
-  const n = weights.length;
-  const dp = Array(n + 1).fill(0).map(() => Array(capacity + 1).fill(0));
+function kadane(arr) {
+  let maxEndingHere = 0;
+  let maxSoFar = -Infinity; // Initialize to the smallest possible number to handle negative arrays
 
-  // Build the DP table
-  for (let i = 1; i <= n; i++) {
-    for (let w = 0; w <= capacity; w++) {
-      if (weights[i - 1] <= w) {
-        // Choose the maximum between including the item or not
-        dp[i][w] = Math.max(dp[i - 1][w], values[i - 1] + dp[i - 1][w - weights[i - 1]]);
-      } else {
-        dp[i][w] = dp[i - 1][w]; // Item cannot be included
-      }
-    }
+  for (let i = 0; i < arr.length; i++) {
+    maxEndingHere = Math.max(arr[i], maxEndingHere + arr[i]); // Choose between current element or extending the subarray
+    maxSoFar = Math.max(maxSoFar, maxEndingHere); // Update global maximum sum
   }
 
-  return dp[n][capacity]; // Maximum value that can be obtained
+  return maxSoFar;
 }
 
-// Test
-const weights = [1, 2, 3];
-const values = [10, 15, 40];
-const capacity = 6;
-console.log(knapsack(weights, values, capacity)); // Output: 55
+// Test cases
+console.log(kadane([1, 2, 3, -2, 5])); // Output: 9 (subarray: [1, 2, 3, -2, 5])
+console.log(kadane([-2, -3, 4, -1, -2, 1, 5, -3])); // Output: 7 (subarray: [4, -1, -2, 1, 5])
+console.log(kadane([-1, -2, -3, -4])); // Output: -1 (subarray: [-1])
 ```
 
-**Explanation**:
-
-- **DP Table Initialization**: Create a 2D DP array initialized to 0.
-- **Filling the Table**: For each item and weight, decide whether to include the item based on its weight and value.
-- **Final Result**: The maximum value is found in `dp[n][capacity]`.
-
-**Time complexity**: O(n * W), where n is the number of items and W is the maximum weight.
-**Space complexity**: O(n * W) for the DP table.
+**Time complexity**: O(N), where N is the length of the array.
+**Space complexity**: O(1), since only constant space is used.
 
 ---
 
-### Example problem: **Unbounded Knapsack Problem**
+### Breakdown of the Example:
 
-*Problem*: Similar to the 0/1 Knapsack, but you can use an unlimited number of each item. Find the maximum value that can be obtained with a given capacity.
+Given an array: `[1, 2, 3, -2, 5]`.
 
-#### Approach:
+- **Initial State**:
 
-1. **DP Table**: Similar to the 0/1 Knapsack but with a slight adjustment in the transition step.
-2. **Transition**: Instead of deciding to include the item once, check for each item how many times it can be included.
+  - `maxEndingHere = 0`, `maxSoFar = -Infinity`
+- **Iteration 1 (x = 1)**:
+
+  - `maxEndingHere = Math.max(1, 0 + 1) = 1`
+  - `maxSoFar = Math.max(-Infinity, 1) = 1`
+- **Iteration 2 (x = 2)**:
+
+  - `maxEndingHere = Math.max(2, 1 + 2) = 3`
+  - `maxSoFar = Math.max(1, 3) = 3`
+- **Iteration 3 (x = 3)**:
+
+  - `maxEndingHere = Math.max(3, 3 + 3) = 6`
+  - `maxSoFar = Math.max(3, 6) = 6`
+- **Iteration 4 (x = -2)**:
+
+  - `maxEndingHere = Math.max(-2, 6 - 2) = 4`
+  - `maxSoFar = Math.max(6, 4) = 6`
+- **Iteration 5 (x = 5)**:
+
+  - `maxEndingHere = Math.max(5, 4 + 5) = 9`
+  - `maxSoFar = Math.max(6, 9) = 9`
+
+Thus, the maximum sum is **9**.
+
+---
+
+### Key Intuition:
+
+- **Greedy Approach**: The decision at each step is greedy in that it chooses the current element if the current subarray sum is smaller. This guarantees that we’re always tracking the maximum possible subarray sum.
+- **Dynamic Programming**: The algorithm builds upon previous subarray sums. Each iteration is based on the best solution from the previous iteration, making it a dynamic programming approach.
+
+---
+
+### Edge Cases to Consider:
+
+1. **All Negative Numbers**:
+
+   - The algorithm works even if all elements are negative, as it will choose the least negative number as the maximum subarray.
+   - Example: `[-2, -3, -1, -5]` would return `-1` as the maximum sum.
+2. **Single Element**:
+
+   - If the array contains a single element, that element is the maximum sum.
+3. **Empty Array**:
+
+   - Depending on the problem definition, if the array is empty, you might want to return 0 or handle this edge case separately.
+
+---
+
+### Variants of Kadane's Algorithm
+
+1. **Maximum Circular Subarray**:
+   In some problems, the array is considered circular (i.e., the end of the array connects to the start). This requires modifying Kadane's algorithm to handle cases where the maximum subarray wraps around.
+
+   **Concept**: The maximum circular subarray sum is either the result of normal Kadane’s algorithm or the total sum of the array minus the minimum subarray sum.
+2. **2D Maximum Subarray**:
+   Kadane’s algorithm can be extended to work on 2D matrices, where you find the submatrix with the maximum sum.
+3. **Kadane’s Algorithm with Indices**:
+   Often, you may be asked not just to find the maximum sum, but also to return the indices of the subarray that gives the maximum sum. This can be done by keeping track of the start and end indices during the computation.
+
+---
+
+### Example problem: **Maximum Subarray Sum with Indices**
+
+*Problem*: Given an array of integers, find the contiguous subarray with the largest sum and return the start and end indices.
 
 #### JavaScript Solution:
 
 ```javascript
-function unboundedKnapsack(weights, values, capacity) {
-  const dp = Array(capacity + 1).fill(0);
+function kadaneWithIndices(arr) {
+  let maxEndingHere = 0;
+  let maxSoFar = -Infinity;
+  let start = 0, end = 0, tempStart = 0;
 
-  // Build the DP table
-  for (let w = 0; w <= capacity; w++) {
-    for (let i = 0; i < weights.length; i++) {
-      if (weights[i] <= w) {
-        dp[w] = Math.max(dp[w], dp[w - weights[i]] + values[i]);
-      }
+  for (let i = 0; i < arr.length; i++) {
+    if (maxEndingHere + arr[i] < arr[i]) {
+      maxEndingHere = arr[i];
+      tempStart = i; // Update potential start of the new subarray
+    } else {
+      maxEndingHere += arr[i];
+    }
+
+    if (maxEndingHere > maxSoFar) {
+      maxSoFar = maxEndingHere;
+      start = tempStart;
+      end = i;
     }
   }
 
-  return dp[capacity]; // Maximum value that can be obtained
+  return { maxSum: maxSoFar, start, end };
 }
 
 // Test
-const weights2 = [1, 2, 3];
-const values2 = [10, 15, 40];
-const capacity2 = 6;
-console.log(unboundedKnapsack(weights2, values2, capacity2)); // Output: 80
+console.log(kadaneWithIndices([1, 2, 3, -2, 5])); 
+// Output: { maxSum: 9, start: 0, end: 4 }
+console.log(kadaneWithIndices([-2, -3, 4, -1, -2, 1, 5, -3])); 
+// Output: { maxSum: 7, start: 2, end: 6 }
 ```
 
-**Explanation**:
-
-- **1D DP Array**: Use a single-dimensional array to store the maximum values for weights from `0` to `capacity`.
-- **Updating Values**: For each weight, update the maximum value based on how many times an item can be included.
-
-**Time complexity**: O(W * n), where n is the number of items.
-**Space complexity**: O(W) for the DP array.
+**Time complexity**: O(N)
+**Space complexity**: O(1)
 
 ---
 
-### 0/1 Knapsack Pattern Summary:
+### Kadane's Algorithm Summary:
 
-- **Dynamic Programming**: A fundamental approach for optimization problems.
-- **Adaptability**: The basic idea can be adapted for other variations (e.g., unbounded knapsack, bounded knapsack).
-- **Problem-Solving**: Great for learning how to break down complex problems into simpler subproblems.
+- **Key Idea**: At each step, decide whether to extend the current subarray or start a new subarray with the current element.
+- **Time Efficiency**: It works in linear time, making it suitable for large datasets.
+- **Variants**: The algorithm can be adapted for circular arrays, 2D arrays, and subarrays with additional constraints (e.g., sum within a range).
 
 ---
 
-### Key Problems to Practice:
 
-1. **Subset Sum Problem**: Given a set of integers, determine if there's a subset whose sum equals a given target.
-2. **Minimum Coin Change Problem**: Find the minimum number of coins needed to make a specific amount with given denominations.
-3. **Partition Equal Subset Sum**: Determine if a given set can be partitioned into two subsets with equal sum.
-
-
-### 13. **Dynamic Programming (DP)**
+### 11. **Bit Manipulation**
 
 **Concept**:
-Dynamic programming is a method used to solve complex problems by breaking them down into simpler subproblems. It is particularly useful for optimization problems where overlapping subproblems exist, allowing for the storage of previously computed results to avoid redundant calculations.
+Bit manipulation involves performing operations directly on binary representations of numbers. It utilizes bitwise operators to perform fast, low-level operations that manipulate bits within integers. Understanding and leveraging bit manipulation is crucial in solving problems related to efficiency, as it provides significant performance benefits in both time and space complexity.
 
 **Why it’s useful**:
 
-- **Efficiency**: Reduces the time complexity of problems that can be solved using recursive methods.
-- **Optimality**: Helps in finding the optimal solution in problems that involve making a sequence of interrelated decisions.
+- **Memory Efficiency**: It allows working with data in a compact form.
+- **Speed**: Operations on bits are extremely fast compared to arithmetic operations.
+- **Problem Solving**: Certain problems (such as those related to power of two, subsets, or parity) are naturally suited to bit manipulation techniques.
+- **Security and Cryptography**: Bit-level operations are fundamental in encryption and hashing algorithms.
 
 ---
 
-### Example problem: **Fibonacci Sequence**
+### Common Bitwise Operators in JavaScript
 
-*Problem*: Calculate the nth Fibonacci number.
+| Operator    | Symbol | Description                                                                                            |
+| ----------- | ------ | ------------------------------------------------------------------------------------------------------ |
+| AND         | `&`  | Sets each bit to 1 if both bits are 1                                                                  |
+| OR          | `      | `                                                                                                      |
+| XOR         | `^`  | Sets each bit to 1 if only one of the bits is 1                                                        |
+| NOT         | `~`  | Inverts all the bits (bitwise negation)                                                                |
+| Left Shift  | `<<` | Shifts the bits of a number to the left by a specified number of positions (multiplies by powers of 2) |
+| Right Shift | `>>` | Shifts the bits of a number to the right by a specified number of positions (divides by powers of 2)   |
 
-#### Recursive Approach:
+---
 
-The naive recursive approach has exponential time complexity due to overlapping subproblems.
+### Key Bit Manipulation Techniques and Applications
 
-#### JavaScript Solution (Recursive):
+#### 1. **Checking if a number is even or odd**
+
+- If the least significant bit (LSB) of a number is 1, the number is odd; otherwise, it’s even.
+- **Example**: `n & 1`
 
 ```javascript
-function fibonacci(n) {
-  if (n <= 1) return n;
-  return fibonacci(n - 1) + fibonacci(n - 2);
+function isOdd(n) {
+  return (n & 1) === 1; // If the last bit is 1, the number is odd
 }
 
-// Test
-console.log(fibonacci(10)); // Output: 55
+// Test cases
+console.log(isOdd(5));  // true (5 is odd)
+console.log(isOdd(8));  // false (8 is even)
 ```
 
-**Time complexity**: O(2^n) (exponential).
-**Space complexity**: O(n) (due to the call stack).
+#### 2. **Swapping two numbers without a temporary variable**
 
-#### Dynamic Programming Approach:
-
-We can use memoization or tabulation to solve this efficiently.
-
-##### Memoization (Top-Down):
-
-Store results of subproblems in a cache to avoid redundant calculations.
+- Using XOR (`^`), you can swap two numbers without needing extra space.
 
 ```javascript
-function fibonacciMemo(n, memo = {}) {
-  if (n in memo) return memo[n];
-  if (n <= 1) return n;
-  memo[n] = fibonacciMemo(n - 1, memo) + fibonacciMemo(n - 2, memo);
-  return memo[n];
+function swap(a, b) {
+  a = a ^ b;
+  b = a ^ b;
+  a = a ^ b;
+  return [a, b];
 }
 
-// Test
-console.log(fibonacciMemo(10)); // Output: 55
+// Test cases
+let [x, y] = swap(3, 5);
+console.log(x, y); // Output: 5 3
 ```
 
-**Time complexity**: O(n) (linear).
-**Space complexity**: O(n) (for memo storage).
+#### 3. **Checking if a number is a power of two**
 
-##### Tabulation (Bottom-Up):
-
-Build a table iteratively to store results of all subproblems.
+- A number is a power of two if it has exactly one bit set to 1. This can be verified using the expression `n & (n - 1)` which turns off the lowest set bit.
 
 ```javascript
-function fibonacciTab(n) {
-  if (n <= 1) return n;
-  const dp = Array(n + 1).fill(0);
-  dp[1] = 1;
+function isPowerOfTwo(n) {
+  return (n > 0) && ((n & (n - 1)) === 0);
+}
 
-  for (let i = 2; i <= n; i++) {
-    dp[i] = dp[i - 1] + dp[i - 2];
+// Test cases
+console.log(isPowerOfTwo(16)); // true
+console.log(isPowerOfTwo(18)); // false
+```
+
+#### 4. **Counting the number of set bits (Hamming Weight)**
+
+- You can count how many bits are set to 1 in the binary representation of a number using bit manipulation.
+
+```javascript
+function countSetBits(n) {
+  let count = 0;
+  while (n > 0) {
+    count += (n & 1);  // Check if the least significant bit is 1
+    n >>= 1;           // Shift the number right to process the next bit
   }
-
-  return dp[n];
+  return count;
 }
 
-// Test
-console.log(fibonacciTab(10)); // Output: 55
+// Test cases
+console.log(countSetBits(9));  // Output: 2 (binary 1001 has 2 ones)
+console.log(countSetBits(15)); // Output: 4 (binary 1111 has 4 ones)
 ```
 
-**Time complexity**: O(n) (linear).
-**Space complexity**: O(n) (for the table).
+#### 5. **Finding the only non-repeating element in an array**
 
----
-
-### Example problem: **Longest Common Subsequence (LCS)**
-
-*Problem*: Given two strings, find the length of their longest common subsequence.
-
-#### Approach:
-
-1. Create a 2D DP table where `dp[i][j]` represents the length of the LCS of the first `i` characters of string `A` and the first `j` characters of string `B`.
-2. Use the following relations:
-   - If characters match: `dp[i][j] = dp[i - 1][j - 1] + 1`
-   - If they don’t match: `dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1])`
-
-#### JavaScript Solution:
+- Given an array where every element appears twice except for one, you can find the single element using XOR. XOR of two identical numbers is 0, and XOR of a number with 0 is the number itself.
 
 ```javascript
-function longestCommonSubsequence(A, B) {
-  const dp = Array(A.length + 1).fill(0).map(() => Array(B.length + 1).fill(0));
+function singleNumber(nums) {
+  let result = 0;
+  for (let num of nums) {
+    result ^= num;  // XOR all elements, duplicates cancel each other out
+  }
+  return result;
+}
 
-  for (let i = 1; i <= A.length; i++) {
-    for (let j = 1; j <= B.length; j++) {
-      if (A[i - 1] === B[j - 1]) {
-        dp[i][j] = dp[i - 1][j - 1] + 1; // Characters match
-      } else {
-        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]); // Characters do not match
+// Test cases
+console.log(singleNumber([4, 1, 2, 1, 2])); // Output: 4
+console.log(singleNumber([2, 2, 3, 3, 4])); // Output: 4
+```
+
+#### 6. **Flipping bits of a number**
+
+- To flip all bits in a number (turn 1s to 0s and 0s to 1s), you can use the bitwise NOT (`~`) operator.
+
+```javascript
+function flipBits(n) {
+  return ~n;
+}
+
+// Test case
+console.log(flipBits(5)); // Output: -6 (binary 101 becomes 010)
+```
+
+#### 7. **Extracting the rightmost set bit**
+
+- To isolate the rightmost set bit (the lowest bit that is 1), use `n & (-n)`.
+
+```javascript
+function getRightmostSetBit(n) {
+  return n & -n;
+}
+
+// Test cases
+console.log(getRightmostSetBit(10)); // Output: 2 (binary 1010, rightmost set bit is 0010)
+console.log(getRightmostSetBit(12)); // Output: 4 (binary 1100, rightmost set bit is 0100)
+```
+
+#### 8. **Finding the XOR of all numbers in a range**
+
+- XOR has the property that it cancels itself out. The XOR of all numbers in a range can be computed efficiently without looping through each number.
+
+```javascript
+function xorRange(n) {
+  if (n % 4 === 0) return n;
+  if (n % 4 === 1) return 1;
+  if (n % 4 === 2) return n + 1;
+  return 0;
+}
+
+// Test case
+console.log(xorRange(7)); // Output: 0 (XOR of numbers from 0 to 7 is 0)
+```
+
+#### 9. **Subsets of a set using bit masking**
+
+- Each subset of a set can be represented by a bitmask, where each bit determines whether to include an element. There are `2^n` subsets for a set of size `n`, corresponding to all binary numbers with `n` bits.
+
+```javascript
+function getSubsets(nums) {
+  let subsets = [];
+  let n = nums.length;
+  for (let i = 0; i < (1 << n); i++) {
+    let subset = [];
+    for (let j = 0; j < n; j++) {
+      if (i & (1 << j)) {
+        subset.push(nums[j]);
       }
     }
+    subsets.push(subset);
   }
-
-  return dp[A.length][B.length]; // Length of LCS
+  return subsets;
 }
 
-// Test
-const A = "AGGTAB";
-const B = "GXTXAYB";
-console.log(longestCommonSubsequence(A, B)); // Output: 4 (GTAB)
+// Test case
+console.log(getSubsets([1, 2, 3]));
+/*
+Output:
+[
+  [], [1], [2], [1, 2], 
+  [3], [1, 3], [2, 3], [1, 2, 3]
+]
+*/
 ```
 
-**Time complexity**: O(m * n), where m and n are the lengths of the two strings.
-**Space complexity**: O(m * n) for the DP table.
+---
+
+### Important Bit Manipulation Problems
+
+1. **Reverse Bits**: Given a 32-bit unsigned integer, reverse the bits.
+2. **Counting Bits**: For each number from 0 to a given number `num`, calculate the number of 1's in their binary representation.
+3. **Hamming Distance**: Find the number of positions at which the corresponding bits between two integers are different.
+4. **Gray Code**: Convert a binary number to its corresponding Gray Code, where only one bit changes between successive numbers.
 
 ---
 
-### Dynamic Programming Pattern Summary:
+### Summary:
 
-- **Optimization**: Ideal for problems where we can break down solutions into overlapping subproblems.
-- **Memoization vs. Tabulation**: Understanding both techniques is crucial for solving different types of DP problems effectively.
-- **Flexibility**: Can be adapted for a wide range of problems, including combinatorial, numerical, and optimization problems.
+Bit manipulation is a powerful technique for solving a wide range of problems efficiently. Key applications include checking conditions (e.g., odd/even, power of two), optimizing memory usage, working with sets and subsets, and solving low-level algorithmic challenges. It plays a critical role in cryptography, optimization, and hardware programming.
 
 ---
 
-### Key Problems to Practice:
 
-1. **0/1 Knapsack Problem**: Choose items to maximize value without exceeding capacity.
-2. **Coin Change Problem**: Find the minimum number of coins needed to make a specific amount.
-3. **Edit Distance**: Determine the minimum number of edits (insertions, deletions, substitutions) required to transform one string into another.
-
-
-### 14. **Graph Algorithms**
+### 12. **Breadth-First Search (BFS)**
 
 **Concept**:
-Graph algorithms are used to process and analyze graph structures, which consist of nodes (vertices) and edges connecting them. These algorithms are crucial in a variety of applications, including networking, pathfinding, and social networks.
+Breadth-First Search (BFS) is a graph traversal algorithm that explores vertices level by level. It starts at a given node (source) and visits all the neighboring nodes at the present depth before moving on to nodes at the next depth level. BFS is widely used for searching the shortest path in unweighted graphs or solving problems that require a level-by-level exploration of a graph or tree structure.
 
-**Why it’s useful**:
+**Characteristics**:
 
-- **Networking**: Essential for routing protocols and network topology analysis.
-- **Pathfinding**: Used in navigation systems, games, and robotics.
-- **Data structure understanding**: Provides insights into how to efficiently manage and traverse data.
+- BFS explores all nodes at the current depth level before moving to the next depth level.
+- It is particularly useful for finding the shortest path in unweighted graphs.
+- BFS uses a **queue** (FIFO data structure) to keep track of the next nodes to visit.
+- It ensures that each node is visited in the order it is discovered, so it is excellent for level-order traversal in trees.
 
 ---
 
-### Example problem: **Breadth-First Search (BFS)**
+### BFS Algorithm
 
-*Problem*: Given a graph represented as an adjacency list, traverse the graph starting from a given source node.
+1. **Initialization**:
 
-#### BFS Approach:
+   - Start by placing the source node in a queue.
+   - Mark it as visited.
+2. **Process Queue**:
 
-1. Use a queue to keep track of nodes to explore.
-2. Mark nodes as visited to avoid cycles.
-3. Explore neighbors level by level.
+   - While the queue is not empty:
+     - Remove the front node from the queue.
+     - Visit its unvisited neighbors.
+     - Mark those neighbors as visited and enqueue them.
+3. **Repeat**:
 
-#### JavaScript Solution:
+   - Continue this process until all nodes have been visited, or the desired condition is met.
+
+---
+
+### BFS Example in JavaScript
 
 ```javascript
 function bfs(graph, start) {
-  const queue = [start];
-  const visited = new Set();
-  visited.add(start);
+  let queue = [start];   // Initialize queue with the start node
+  let visited = new Set();  // To keep track of visited nodes
+  visited.add(start);  // Mark the start node as visited
 
   while (queue.length > 0) {
-    const node = queue.shift();
-    console.log(node); // Process the node
+    let node = queue.shift();  // Dequeue the front node
+    console.log(node);  // Process the current node
 
-    // Visit each neighbor
-    for (const neighbor of graph[node]) {
+    // Loop through the neighbors of the current node
+    for (let neighbor of graph[node]) {
       if (!visited.has(neighbor)) {
-        visited.add(neighbor);
-        queue.push(neighbor);
+        queue.push(neighbor);  // Enqueue the unvisited neighbor
+        visited.add(neighbor);  // Mark the neighbor as visited
       }
     }
   }
 }
 
-// Test
+// Example usage
 const graph = {
-  A: ['B', 'C'],
-  B: ['A', 'D', 'E'],
-  C: ['A', 'F'],
-  D: ['B'],
-  E: ['B', 'F'],
-  F: ['C', 'E'],
+  1: [2, 3],
+  2: [4, 5],
+  3: [6, 7],
+  4: [],
+  5: [],
+  6: [],
+  7: []
 };
 
-bfs(graph, 'A'); // Output: A B C D E F
+bfs(graph, 1);  // Output: 1 2 3 4 5 6 7 (Level-order traversal)
 ```
 
-**Time complexity**: O(V + E), where V is the number of vertices and E is the number of edges.
-**Space complexity**: O(V) for the visited set and queue.
+In this example, the BFS function traverses the graph level by level, starting from node `1` and visiting each of its neighbors before proceeding to the next level.
 
 ---
 
-### Example problem: **Depth-First Search (DFS)**
+### BFS on Trees
 
-*Problem*: Traverse the same graph as in the BFS example, but using depth-first search.
-
-#### DFS Approach:
-
-1. Use a stack (or recursion) to explore as far down a branch as possible before backtracking.
-2. Mark nodes as visited.
-
-#### JavaScript Solution (Iterative):
+BFS is frequently used for **level-order traversal** of binary trees.
 
 ```javascript
-function dfs(graph, start) {
-  const stack = [start];
-  const visited = new Set();
+function bfsTree(root) {
+  if (!root) return;
   
-  while (stack.length > 0) {
-    const node = stack.pop();
+  let queue = [root];
   
-    if (!visited.has(node)) {
-      visited.add(node);
-      console.log(node); // Process the node
+  while (queue.length > 0) {
+    let node = queue.shift();
+    console.log(node.value);  // Process the current node
 
-      // Visit each neighbor
-      for (const neighbor of graph[node]) {
+    // Enqueue left child if exists
+    if (node.left) {
+      queue.push(node.left);
+    }
+
+    // Enqueue right child if exists
+    if (node.right) {
+      queue.push(node.right);
+    }
+  }
+}
+
+// Example binary tree node
+class TreeNode {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+// Create binary tree
+let root = new TreeNode(1);
+root.left = new TreeNode(2);
+root.right = new TreeNode(3);
+root.left.left = new TreeNode(4);
+root.left.right = new TreeNode(5);
+root.right.left = new TreeNode(6);
+root.right.right = new TreeNode(7);
+
+bfsTree(root);  // Output: 1 2 3 4 5 6 7
+```
+
+---
+
+### Applications of BFS
+
+1. **Shortest Path in Unweighted Graphs**:
+   BFS is used to find the shortest path between two nodes in an unweighted graph because it explores all nodes level by level. When a node is reached, the shortest path to that node is guaranteed.
+
+```javascript
+function bfsShortestPath(graph, start, target) {
+  let queue = [[start]];  // Queue stores paths instead of just nodes
+  let visited = new Set();
+  visited.add(start);
+
+  while (queue.length > 0) {
+    let path = queue.shift();  // Dequeue the front path
+    let node = path[path.length - 1];  // Get the last node of the path
+
+    // Check if target is reached
+    if (node === target) {
+      return path;  // Return the path if target is found
+    }
+
+    // Explore neighbors
+    for (let neighbor of graph[node]) {
+      if (!visited.has(neighbor)) {
+        visited.add(neighbor);
+        let newPath = [...path, neighbor];  // Create a new path with the neighbor
+        queue.push(newPath);  // Enqueue the new path
+      }
+    }
+  }
+
+  return null;  // Return null if no path is found
+}
+
+// Example graph
+const graphExample = {
+  A: ['B', 'C'],
+  B: ['D', 'E'],
+  C: ['F'],
+  D: [],
+  E: ['F'],
+  F: []
+};
+
+console.log(bfsShortestPath(graphExample, 'A', 'F')); // Output: [ 'A', 'C', 'F' ]
+```
+
+2. **Connected Components**:
+   BFS is used to find connected components in a graph. It explores all nodes connected to a given node, which helps in identifying distinct clusters or regions.
+3. **Cycle Detection**:
+   BFS can be used to detect cycles in an undirected graph by marking visited nodes and checking if a node has been revisited before completing the traversal.
+4. **Solving Maze Problems**:
+   BFS is ideal for solving maze or grid-based problems, as it explores all possible paths in an orderly manner and guarantees finding the shortest path in unweighted grids.
+
+---
+
+### BFS in Grid-Based Problems
+
+BFS is highly useful in grid-based problems, such as solving mazes, finding the shortest path in a grid, or exploring all possible positions in a matrix.
+
+**Example: Finding the Shortest Path in a Grid**
+
+```javascript
+function bfsGridShortestPath(grid, start, end) {
+  const directions = [[1, 0], [-1, 0], [0, 1], [0, -1]];  // Directions for moving up, down, left, and right
+  const rows = grid.length;
+  const cols = grid[0].length;
+  const queue = [[...start, 0]];  // Store [x, y, distance] in queue
+  const visited = new Set();
+  visited.add(start.toString());
+
+  while (queue.length > 0) {
+    const [x, y, dist] = queue.shift();
+
+    // If we reach the end
+    if (x === end[0] && y === end[1]) {
+      return dist;
+    }
+
+    // Explore the four possible directions
+    for (let [dx, dy] of directions) {
+      const newX = x + dx;
+      const newY = y + dy;
+
+      // Check if the new position is within the grid and not visited or blocked
+      if (newX >= 0 && newY >= 0 && newX < rows && newY < cols && grid[newX][newY] === 0 && !visited.has([newX, newY].toString())) {
+        queue.push([newX, newY, dist + 1]);
+        visited.add([newX, newY].toString());
+      }
+    }
+  }
+
+  return -1;  // Return -1 if no path is found
+}
+
+// Example usage
+const grid = [
+  [0, 1, 0, 0, 0],
+  [0, 1, 0, 1, 0],
+  [0, 0, 0, 1, 0],
+  [1, 1, 0, 1, 0],
+  [0, 0, 0, 0, 0]
+];
+
+console.log(bfsGridShortestPath(grid, [0, 0], [4, 4]));  // Output: 8
+```
+
+In this example, BFS explores the grid in a level-order manner to find the shortest path from the top-left corner to the bottom-right corner, avoiding obstacles represented by `1`.
+
+---
+
+### Time and Space Complexity of BFS
+
+- **Time Complexity**: `O(V + E)` where `V` is the number of vertices and `E` is the number of edges in the graph. This is because BFS visits every vertex and explores all its neighbors.
+- **Space Complexity**: `O(V)` where `V` is the number of vertices. This is the space needed to store the visited nodes and the queue.
+
+---
+
+### Summary
+
+- **BFS** explores nodes level by level, making it ideal for problems that require level-order traversal or shortest paths in unweighted graphs.
+- It uses a queue to process nodes in a FIFO manner, ensuring that nodes at the same level are explored before moving deeper.
+- BFS is widely applicable in grid problems, pathfinding, connected components, and more.
+- Understanding BFS is essential for solving many graph-based problems, and its variations (like BFS on trees or grids) are common in coding challenges.
+
+
+### 13. **Depth-First Search (DFS)**
+
+**Concept**:
+Depth-First Search (DFS) is a graph traversal algorithm that explores as far as possible along each branch before backtracking. Unlike BFS, which explores the graph level by level, DFS dives deep into the graph, visiting nodes along a single path as far as possible before exploring alternative paths.
+
+DFS is particularly useful in scenarios that involve exploring all possible paths, detecting cycles, solving puzzles (like mazes), or searching graphs that are deep rather than wide.
+
+**Characteristics**:
+
+- DFS uses a **stack** (LIFO) data structure (either explicitly or through recursion).
+- It can be implemented recursively or iteratively.
+- DFS does not guarantee the shortest path, but it is useful for tasks that require visiting all nodes, such as topological sorting or finding connected components.
+- DFS is often used for problems like finding strongly connected components, solving maze problems, and more.
+
+---
+
+### DFS Algorithm
+
+1. **Initialization**:
+
+   - Start at the source node.
+   - Mark it as visited.
+2. **Explore**:
+
+   - Visit an unvisited neighbor and mark it as visited.
+   - Recursively visit all unvisited neighbors of the current node until no more neighbors can be visited.
+3. **Backtrack**:
+
+   - Once all neighbors of a node have been visited, backtrack to the previous node to explore other unvisited neighbors.
+4. **Repeat**:
+
+   - Continue until all nodes in the graph have been visited or the desired node is found.
+
+---
+
+### DFS Example in JavaScript (Recursive Approach)
+
+```javascript
+function dfs(graph, node, visited = new Set()) {
+  if (visited.has(node)) return;
+  
+  console.log(node);  // Process the current node
+  visited.add(node);  // Mark the node as visited
+
+  // Recursively visit all neighbors of the current node
+  for (let neighbor of graph[node]) {
+    if (!visited.has(neighbor)) {
+      dfs(graph, neighbor, visited);
+    }
+  }
+}
+
+// Example usage
+const graph = {
+  1: [2, 3],
+  2: [4, 5],
+  3: [6, 7],
+  4: [],
+  5: [],
+  6: [],
+  7: []
+};
+
+dfs(graph, 1);  // Output: 1 2 4 5 3 6 7 (Preorder traversal)
+```
+
+In this recursive implementation, DFS explores each node by diving deep into the graph before backtracking. Starting from node `1`, DFS explores its left-most branch completely before backtracking and exploring other branches.
+
+---
+
+### DFS Example in JavaScript (Iterative Approach)
+
+DFS can also be implemented iteratively using a **stack**. Here’s how you can implement it:
+
+```javascript
+function dfsIterative(graph, start) {
+  let stack = [start];  // Initialize stack with the start node
+  let visited = new Set();  // To keep track of visited nodes
+
+  while (stack.length > 0) {
+    let node = stack.pop();  // Pop the top node from the stack
+
+    if (!visited.has(node)) {
+      console.log(node);  // Process the current node
+      visited.add(node);  // Mark the node as visited
+
+      // Push all neighbors to the stack (in reverse order)
+      for (let neighbor of graph[node].reverse()) {
         if (!visited.has(neighbor)) {
           stack.push(neighbor);
         }
@@ -2372,378 +2302,1773 @@ function dfs(graph, start) {
   }
 }
 
-// Test
-dfs(graph, 'A'); // Output: A C F E B D
+// Example usage
+dfsIterative(graph, 1);  // Output: 1 3 7 6 2 5 4 (Order may vary based on stack handling)
 ```
 
-#### JavaScript Solution (Recursive):
+In the iterative approach, the stack replaces the recursive call stack, making it a good fit for situations where deep recursion might lead to stack overflow.
+
+---
+
+### DFS on Trees
+
+DFS is commonly used for traversing trees in different orders: **preorder**, **inorder**, and **postorder**.
+
+- **Preorder**: Visit root, then left subtree, then right subtree.
+- **Inorder**: Visit left subtree, then root, then right subtree.
+- **Postorder**: Visit left subtree, then right subtree, then root.
+
+Here’s a simple recursive DFS for binary tree traversal (preorder):
 
 ```javascript
-function dfsRecursive(graph, node, visited = new Set()) {
-  if (!visited.has(node)) {
-    visited.add(node);
-    console.log(node); // Process the node
+function dfsPreorder(root) {
+  if (!root) return;
+  
+  console.log(root.value);  // Process the current node
+  dfsPreorder(root.left);  // Visit the left subtree
+  dfsPreorder(root.right);  // Visit the right subtree
+}
 
-    // Visit each neighbor
-    for (const neighbor of graph[node]) {
-      dfsRecursive(graph, neighbor, visited);
-    }
+// Example binary tree node
+class TreeNode {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
   }
 }
 
-// Test
-dfsRecursive(graph, 'A'); // Output: A B D E F C
+// Create binary tree
+let root = new TreeNode(1);
+root.left = new TreeNode(2);
+root.right = new TreeNode(3);
+root.left.left = new TreeNode(4);
+root.left.right = new TreeNode(5);
+root.right.left = new TreeNode(6);
+root.right.right = new TreeNode(7);
+
+dfsPreorder(root);  // Output: 1 2 4 5 3 6 7
 ```
 
-**Time complexity**: O(V + E).
-**Space complexity**: O(V) for the visited set and stack (or recursion depth).
+This DFS example performs a **preorder traversal** of the binary tree, visiting the root node first, then the left subtree, followed by the right subtree.
 
 ---
 
-### Graph Algorithms Pattern Summary:
+### Applications of DFS
 
-- **Traversal**: BFS and DFS are fundamental methods for exploring graphs.
-- **Applications**: Useful for various problems like shortest paths, connected components, and network flow.
-- **Understanding Graphs**: Knowing how to represent graphs (adjacency list vs. adjacency matrix) is crucial for implementing graph algorithms effectively.
-
----
-
-### Key Problems to Practice:
-
-1. **Shortest Path**: Use Dijkstra’s algorithm to find the shortest path from a source to all other nodes in a weighted graph.
-2. **Connected Components**: Find all connected components in an undirected graph.
-3. **Topological Sorting**: Given a directed acyclic graph (DAG), find a linear ordering of its vertices.
-
-
-### 15. **Backtracking**
-
-**Concept**:
-Backtracking is a problem-solving technique that involves building up a solution incrementally and abandoning solutions (backtracking) as soon as it is determined that the current path cannot lead to a valid solution. It is often used for solving constraint satisfaction problems.
-
-**Why it’s useful**:
-
-- **Combinatorial Problems**: Efficiently finds solutions to problems involving combinations, permutations, or subsets.
-- **Optimization**: Allows for exploring all possible configurations and finding the optimal solution.
-
----
-
-### Example problem: **N-Queens Problem**
-
-*Problem*: Place N queens on an N×N chessboard such that no two queens threaten each other.
-
-#### Approach:
-
-1. Use a backtracking function to try placing queens row by row.
-2. For each row, try every column and check if placing a queen there is valid (i.e., no other queens in the same column or diagonals).
-3. If a valid position is found, move to the next row. If no valid positions are available, backtrack to the previous row and try the next column.
-
-#### JavaScript Solution:
+1. **Detecting Cycles**:
+   DFS is widely used to detect cycles in both directed and undirected graphs by keeping track of visited nodes and back edges.
+2. **Topological Sorting**:
+   DFS is used for **topological sorting** in Directed Acyclic Graphs (DAGs), where nodes are visited in postorder and added to a stack. This stack gives the topologically sorted order of nodes.
 
 ```javascript
-function solveNQueens(n) {
-  const results = [];
-  const board = Array(n).fill().map(() => Array(n).fill('.'));
+function topologicalSort(graph) {
+  let visited = new Set();
+  let stack = [];
 
-  const isValid = (row, col) => {
-    for (let i = 0; i < row; i++) {
-      if (board[i][col] === 'Q') return false; // Check column
-      if (col - (row - i) >= 0 && board[i][col - (row - i)] === 'Q') return false; // Check upper left diagonal
-      if (col + (row - i) < n && board[i][col + (row - i)] === 'Q') return false; // Check upper right diagonal
-    }
-    return true;
-  };
+  function dfs(node) {
+    visited.add(node);
 
-  const backtrack = (row) => {
-    if (row === n) {
-      results.push(board.map(r => r.join('')));
-      return;
-    }
-    for (let col = 0; col < n; col++) {
-      if (isValid(row, col)) {
-        board[row][col] = 'Q'; // Place queen
-        backtrack(row + 1); // Recur to place next queen
-        board[row][col] = '.'; // Remove queen (backtrack)
+    for (let neighbor of graph[node]) {
+      if (!visited.has(neighbor)) {
+        dfs(neighbor);
       }
     }
-  };
+    stack.push(node);  // Push node to stack after visiting all neighbors
+  }
 
-  backtrack(0);
-  return results;
+  for (let node in graph) {
+    if (!visited.has(node)) {
+      dfs(node);
+    }
+  }
+
+  return stack.reverse();  // Return stack in reverse for topological order
 }
 
-// Test
-console.log(solveNQueens(4)); // Output: All valid board configurations for 4 queens
+// Example graph
+const graphTopSort = {
+  5: [2, 0],
+  4: [0, 1],
+  3: [1],
+  2: [],
+  1: [],
+  0: []
+};
+
+console.log(topologicalSort(graphTopSort));  // Output: [ 3, 4, 5, 1, 2, 0 ]
 ```
 
-**Time complexity**: O(N!), as the algorithm generates all possible configurations.
-**Space complexity**: O(N) for the recursion stack and the board.
+3. **Solving Maze Problems**:
+   DFS is used to explore all paths in maze problems, especially for backtracking problems like generating and solving mazes.
+4. **Finding Connected Components**:
+   DFS is used to explore all nodes connected to a given node, making it useful for finding connected components in an undirected graph.
+5. **Pathfinding**:
+   DFS is used in problems where the goal is to find any path from one node to another (not necessarily the shortest).
+6. **Strongly Connected Components (SCCs)**:
+   DFS is employed in **Tarjan’s Algorithm** or **Kosaraju’s Algorithm** to find strongly connected components in directed graphs.
 
 ---
 
-### Example problem: **Permutations**
+### DFS in Grid-Based Problems
 
-*Problem*: Generate all possible permutations of a given array.
+DFS is useful for grid-based problems where you need to explore all possible directions from a starting point, especially in backtracking problems.
 
-#### Approach:
-
-1. Use a backtracking function that swaps elements to create new permutations.
-2. Keep track of which elements have been used in the current permutation.
-3. When the permutation is complete (i.e., its length equals the input array), add it to the result.
-
-#### JavaScript Solution:
+**Example: Solving a Maze Using DFS**
 
 ```javascript
-function permute(nums) {
-  const results = [];
+function dfsMaze(grid, x, y, visited) {
+  // Boundary and obstacle checks
+  if (x < 0 || y < 0 || x >= grid.length || y >= grid[0].length || grid[x][y] === 1 || visited.has(`${x},${y}`)) {
+    return false;
+  }
 
-  const backtrack = (path, used) => {
-    if (path.length === nums.length) {
-      results.push([...path]); // Add a complete permutation
-      return;
-    }
-    for (let i = 0; i < nums.length; i++) {
-      if (used[i]) continue; // Skip if already used
-      used[i] = true; // Mark as used
-      path.push(nums[i]); // Add to current permutation
-      backtrack(path, used); // Recur
-      path.pop(); // Backtrack
-      used[i] = false; // Unmark for next permutation
-    }
-  };
+  // Mark as visited
+  visited.add(`${x},${y}`);
 
-  backtrack([], Array(nums.length).fill(false));
-  return results;
+  // Check if we've reached the goal
+  if (grid[x][y] === 9) {
+    console.log('Found the goal!');
+    return true;
+  }
+
+  // Explore neighbors (up, down, left, right)
+  const directions = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+  for (let [dx, dy] of directions) {
+    if (dfsMaze(grid, x + dx, y + dy, visited)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
-// Test
-console.log(permute([1, 2, 3])); // Output: All permutations of [1, 2, 3]
+// Example grid (0 = open, 1 = obstacle, 9 = goal)
+const maze = [
+  [0, 1, 0, 0, 0],
+  [0, 1, 0, 1, 0],
+  [0, 0, 0, 1, 9],
+  [1, 1, 0, 1, 1],
+  [0, 0, 0, 0, 0]
+];
+
+let visited = new Set();
+console.log(dfsMaze(maze, 0, 0, visited));  // Output: "Found the goal!" true
 ```
 
-**Time complexity**: O(N!), as we generate all permutations.
-**Space complexity**: O(N) for the recursion stack and the path.
+In this example, DFS explores the maze from a starting point and searches for the goal (`9`). It explores all possible paths, backtracking whenever it hits a dead-end.
 
 ---
 
-### Backtracking Pattern Summary:
+### Time and Space Complexity of DFS
 
-- **Recursive Structure**: Backtracking problems often use recursion with a base case and recursive calls.
-- **State Management**: Keeping track of the current state (what has been used, current path) is essential.
-- **Pruning**: The ability to abandon invalid paths quickly is key to efficiency.
+- **Time Complexity**: `O(V + E)`, where `V` is the number of vertices and `E` is the number of edges. Each node and edge is explored once.
+- **Space Complexity
 
----
-
-### Key Problems to Practice:
-
-1. **Subset Generation**: Generate all subsets of a set.
-2. **Combination Sum**: Find all combinations of numbers that add up to a target value.
-3. **Sudoku Solver**: Solve a given Sudoku puzzle using backtracking.
+**: `O(V)`, where `V` is the number of vertices. The space complexity is determined by the recursion stack or the stack used for the iterative version.
 
 
-### 16. **Dynamic Programming (DP)**
+### 14. **Merge Intervals**
 
 **Concept**:
-Dynamic programming is an optimization technique used to solve complex problems by breaking them down into simpler subproblems and storing the results of these subproblems to avoid redundant computations. It is typically used for problems that exhibit overlapping subproblems and optimal substructure.
+The **Merge Intervals** problem involves merging overlapping intervals in a list of intervals. Each interval is represented as a pair of values: a start time and an end time. If two intervals overlap or touch each other, they should be merged into a single interval.
 
-**Why it’s useful**:
+For example, given intervals like `[1, 3]` and `[2, 6]`, the merged result would be `[1, 6]` because these intervals overlap.
 
-- **Efficiency**: Significantly reduces time complexity by avoiding repeated calculations.
-- **Comprehensive Solutions**: Capable of providing optimal solutions for problems with many constraints.
-
----
-
-### Example problem: **Fibonacci Sequence**
-
-*Problem*: Calculate the Nth Fibonacci number.
-
-#### DP Approach:
-
-1. Use an array to store previously computed Fibonacci numbers.
-2. Build up the solution iteratively.
-
-#### JavaScript Solution (Bottom-Up Approach):
-
-```javascript
-function fibonacci(n) {
-  if (n <= 1) return n;
-  const dp = Array(n + 1).fill(0);
-  dp[1] = 1;
-
-  for (let i = 2; i <= n; i++) {
-    dp[i] = dp[i - 1] + dp[i - 2]; // F(n) = F(n-1) + F(n-2)
-  }
-  return dp[n];
-}
-
-// Test
-console.log(fibonacci(10)); // Output: 55
-```
-
-**Time complexity**: O(N).
-**Space complexity**: O(N) for the DP array.
-
-#### JavaScript Solution (Top-Down Approach with Memoization):
-
-```javascript
-function fibonacciMemo(n, memo = {}) {
-  if (n in memo) return memo[n]; // Return cached result
-  if (n <= 1) return n;
-  memo[n] = fibonacciMemo(n - 1, memo) + fibonacciMemo(n - 2, memo);
-  return memo[n];
-}
-
-// Test
-console.log(fibonacciMemo(10)); // Output: 55
-```
-
-**Time complexity**: O(N) due to memoization.
-**Space complexity**: O(N) for the memo object.
+This problem is a common pattern in interval-related tasks, such as scheduling, calendar management, or range merging.
 
 ---
 
-### Example problem: **Coin Change Problem**
+### Steps to Solve the Merge Intervals Problem
 
-*Problem*: Given an array of coin denominations and a total amount, find the number of ways to make the amount using the coins.
+1. **Sort the Intervals**:
 
-#### DP Approach:
+   - Sort the intervals based on their start times. This makes it easier to detect overlaps between consecutive intervals.
+2. **Iterate and Merge**:
 
-1. Use a DP array where the index represents the amount, and the value at each index represents the number of ways to make that amount.
-2. Iterate through each coin and update the DP array for each possible amount.
+   - Initialize an empty result list to store merged intervals.
+   - Iterate through the list of intervals:
+     - If the current interval does not overlap with the previous one, add it to the result.
+     - If the current interval overlaps, merge it with the previous interval by updating the end time of the previous interval to the maximum end time between the two overlapping intervals.
+3. **Return the Result**:
 
-#### JavaScript Solution:
+   - After processing all intervals, the result list will contain only non-overlapping intervals.
+
+---
+
+### Example of Merge Intervals in JavaScript
+
+Here’s how you can implement the merge intervals algorithm in JavaScript:
 
 ```javascript
-function coinChange(coins, amount) {
-  const dp = Array(amount + 1).fill(0);
-  dp[0] = 1; // Base case: 1 way to make amount 0
+function mergeIntervals(intervals) {
+  if (intervals.length <= 1) return intervals; // No need to merge if 1 or 0 intervals
 
-  for (const coin of coins) {
-    for (let i = coin; i <= amount; i++) {
-      dp[i] += dp[i - coin]; // Update ways to make amount
+  // Step 1: Sort the intervals by their start time
+  intervals.sort((a, b) => a[0] - b[0]);
+
+  const merged = [];
+  let currentInterval = intervals[0]; // Initialize with the first interval
+
+  // Step 2: Iterate through the intervals
+  for (let i = 1; i < intervals.length; i++) {
+    let nextInterval = intervals[i];
+
+    // Check if the intervals overlap
+    if (currentInterval[1] >= nextInterval[0]) {
+      // Merge the intervals by updating the end of the current interval
+      currentInterval[1] = Math.max(currentInterval[1], nextInterval[1]);
+    } else {
+      // No overlap, push the current interval and move to the next one
+      merged.push(currentInterval);
+      currentInterval = nextInterval;
     }
   }
-  return dp[amount];
+
+  // Step 3: Push the last interval
+  merged.push(currentInterval);
+
+  return merged;
 }
 
-// Test
-console.log(coinChange([1, 2, 5], 5)); // Output: 4 (ways to make amount 5)
+// Example usage
+const intervals = [[1, 3], [2, 6], [8, 10], [15, 18]];
+console.log(mergeIntervals(intervals));  // Output: [[1, 6], [8, 10], [15, 18]]
 ```
 
-**Time complexity**: O(N * M), where N is the amount and M is the number of coins.
-**Space complexity**: O(N) for the DP array.
+In this example, the intervals are first sorted based on their start time. The algorithm then goes through the sorted intervals and merges overlapping ones. The final output only contains non-overlapping merged intervals.
 
 ---
 
-### Dynamic Programming Pattern Summary:
+### Example Walkthrough
 
-- **Overlapping Subproblems**: Problems that can be divided into smaller, repeating subproblems.
-- **Optimal Substructure**: The optimal solution of a problem can be constructed from optimal solutions of its subproblems.
-- **Storage**: Store the results of subproblems in a table or array to avoid redundant calculations.
+Consider the following list of intervals:
+
+```
+Intervals: [[1, 3], [2, 6], [8, 10], [15, 18]]
+```
+
+1. **Sort the intervals by their start times**:
+
+   ```
+   [[1, 3], [2, 6], [8, 10], [15, 18]]
+   ```
+2. **Start merging**:
+
+   - Compare `[1, 3]` with `[2, 6]`: These intervals overlap, so we merge them into `[1, 6]`.
+   - Compare `[1, 6]` with `[8, 10]`: No overlap, so we keep `[8, 10]`.
+   - Compare `[8, 10]` with `[15, 18]`: No overlap, so we keep `[15, 18]`.
+3. **Final Merged Intervals**:
+
+   ```
+   [[1, 6], [8, 10], [15, 18]]
+   ```
 
 ---
 
-### Key Problems to Practice:
+### Edge Cases to Consider
 
-1. **Longest Common Subsequence (LCS)**: Find the longest subsequence present in both sequences.
-2. **Knapsack Problem**: Given weights and values of items, determine the maximum value that can fit in a knapsack of a given capacity.
-3. **Edit Distance**: Find the minimum number of operations required to convert one string into another.
+1. **Single Interval**:
+
+   - If the input only contains one interval, it should be returned as is.
+
+   ```javascript
+   mergeIntervals([[5, 10]]);  // Output: [[5, 10]]
+   ```
+2. **Non-overlapping Intervals**:
+
+   - If none of the intervals overlap, the output should be the same as the input.
+
+   ```javascript
+   mergeIntervals([[1, 2], [3, 4], [5, 6]]);  // Output: [[1, 2], [3, 4], [5, 6]]
+   ```
+3. **Fully Overlapping Intervals**:
+
+   - If all intervals overlap, the result should be a single merged interval.
+
+   ```javascript
+   mergeIntervals([[1, 4], [2, 3], [3, 5]]);  // Output: [[1, 5]]
+   ```
+4. **Touching Intervals**:
+
+   - If intervals touch but do not overlap (i.e., the end of one interval is equal to the start of the next), they should still be merged.
+
+   ```javascript
+   mergeIntervals([[1, 2], [2, 3]]);  // Output: [[1, 3]]
+   ```
+
+---
+
+### Time and Space Complexity
+
+- **Time Complexity**: `O(n log n)` because sorting the intervals takes `O(n log n)`, and merging them takes `O(n)`. So, the overall time complexity is dominated by the sorting step.
+- **Space Complexity**: `O(n)` because we are storing the merged intervals in a new list.
+
+---
+
+### Applications of Merge Intervals
+
+1. **Scheduling Problems**:
+
+   - Merging intervals can be applied to solve scheduling conflicts or determining free time slots in calendars.
+2. **Range Merging**:
+
+   - In scenarios involving ranges (like merging ranges of IP addresses, log file entries, or stock prices), merge intervals can be used.
+3. **Data Compression**:
+
+   - In certain data compression algorithms, merging overlapping ranges of data segments can help reduce redundancy and save space.
+4. **Meeting Room Scheduling**:
+
+   - Given the start and end times of meetings, we can use the merge intervals pattern to find the minimum number of rooms required to schedule all meetings.
+
+---
+
+### Variations of Merge Intervals
+
+1. **Insert Interval**:
+   Given a new interval, insert it into an existing set of intervals and merge if necessary. This is a variation where you have to figure out the right place to insert the new interval and then merge it with the surrounding intervals.
+
+   ```javascript
+   function insertInterval(intervals, newInterval) {
+     intervals.push(newInterval);
+     return mergeIntervals(intervals);
+   }
+
+   console.log(insertInterval([[1, 3], [6, 9]], [2, 5]));
+   // Output: [[1, 5], [6, 9]]
+   ```
+2. **Erase Overlaps**:
+   Find the minimum number of intervals that need to be removed to make the rest of the intervals non-overlapping. This is a different problem but follows the same principles of merging intervals, except instead of merging, you figure out which intervals to remove.
+
+---
+
+### Summary
+
+The **Merge Intervals** problem is a classic example of interval manipulation and is commonly asked in coding interviews. The main idea is to sort the intervals and then iterate through them, merging overlapping ones. This pattern is not only useful in algorithms but also in real-world scenarios like scheduling, time management, and range-based tasks.
 
 
-### 17. **Greedy Algorithms**
+### 15. **Topological Sort**
 
 **Concept**:
-Greedy algorithms build up a solution piece by piece, always choosing the next piece that offers the most immediate benefit (or local optimum). They do not consider the larger problem, aiming for a quick and easy solution. Greedy algorithms work well for problems where local optimization leads to global optimization.
+Topological Sort is an algorithm used to order the vertices of a **Directed Acyclic Graph (DAG)** in a linear sequence such that for every directed edge `u -> v`, vertex `u` comes before vertex `v` in the ordering. This kind of sorting is useful when you have dependencies between tasks and you want to find an order in which to complete them.
 
-**Why it’s useful**:
+**Applications**:
 
-- **Efficiency**: Greedy algorithms often have lower time complexity and can provide quick solutions.
-- **Simplicity**: They are generally easier to implement and understand than dynamic programming solutions.
+- Task scheduling (e.g., course prerequisite management)
+- Dependency resolution (e.g., in build systems like `make`, package managers)
+- Resolving compilation order in programming languages
 
 ---
 
-### Example problem: **Activity Selection Problem**
+### Pre-Requisites:
 
-*Problem*: Given a set of activities with start and finish times, select the maximum number of activities that don't overlap.
+1. **Directed Acyclic Graph (DAG)**: Topological Sort only works on graphs that are directed and acyclic. If the graph has cycles, topological sorting is not possible because there's no valid linear order for the vertices.
+2. **In-Degree**: In a directed graph, the in-degree of a vertex is the number of incoming edges to that vertex.
 
-#### Greedy Approach:
+---
 
-1. Sort the activities by their finish time.
-2. Select the first activity, then select the next activity that starts after the last selected activity finishes.
+### Steps to Solve Topological Sort
 
-#### JavaScript Solution:
+There are two primary ways to implement Topological Sort:
+
+1. **Kahn’s Algorithm (BFS Approach)**
+2. **DFS (Depth-First Search) Approach**
+
+---
+
+### 1. **Kahn’s Algorithm (BFS Approach)**
+
+Kahn's Algorithm uses **Breadth-First Search (BFS)** and is based on calculating the **in-degree** of vertices (i.e., the number of incoming edges to each vertex).
+
+#### Steps:
+
+1. **Calculate the In-Degree**:
+
+   - For every vertex in the graph, calculate how many incoming edges it has (its in-degree).
+2. **Initialize a Queue**:
+
+   - Add all vertices with an in-degree of 0 (i.e., those with no dependencies) to a queue.
+3. **Process the Queue**:
+
+   - While the queue is not empty:
+     - Remove a vertex from the queue and add it to the result list.
+     - For each adjacent vertex of the removed vertex, reduce its in-degree by 1.
+     - If any adjacent vertex now has an in-degree of 0, add it to the queue.
+4. **Check for Cycles**:
+
+   - If at the end of the process, all vertices are sorted and there are no remaining vertices with non-zero in-degrees, the graph is a valid DAG, and the topological order is valid. If there are remaining vertices, it means the graph contains a cycle.
+
+---
+
+#### Example of Kahn's Algorithm in JavaScript
 
 ```javascript
-function activitySelection(activities) {
-  // Sort activities based on finish times
-  activities.sort((a, b) => a[1] - b[1]);
+function topologicalSort(vertices, edges) {
+  const inDegree = Array(vertices).fill(0);  // Track in-degrees
+  const adjList = Array(vertices).fill(0).map(() => []);  // Adjacency list
 
-  const selectedActivities = [];
-  let lastFinishTime = -1;
+  // Step 1: Build the graph
+  for (let [u, v] of edges) {
+    adjList[u].push(v);
+    inDegree[v]++;
+  }
 
-  for (const activity of activities) {
-    if (activity[0] >= lastFinishTime) { // If the start time is greater than or equal to last finish time
-      selectedActivities.push(activity); // Select this activity
-      lastFinishTime = activity[1]; // Update last finish time
+  // Step 2: Collect all nodes with 0 in-degree
+  const queue = [];
+  for (let i = 0; i < vertices; i++) {
+    if (inDegree[i] === 0) queue.push(i);
+  }
+
+  const sortedOrder = [];
+
+  // Step 3: Process each node in the queue
+  while (queue.length > 0) {
+    const vertex = queue.shift();
+    sortedOrder.push(vertex);
+
+    // Decrease the in-degree of each adjacent node
+    for (let neighbor of adjList[vertex]) {
+      inDegree[neighbor]--;
+      if (inDegree[neighbor] === 0) queue.push(neighbor);
     }
   }
-  
-  return selectedActivities;
+
+  // Step 4: If sortedOrder doesn't contain all vertices, there's a cycle
+  if (sortedOrder.length !== vertices) {
+    throw new Error("Graph contains a cycle, topological sort not possible");
+  }
+
+  return sortedOrder;
 }
 
-// Test
-const activities = [[0, 6], [1, 4], [3, 5], [5, 7], [5, 9], [8, 9]];
-console.log(activitySelection(activities)); // Output: [[1, 4], [5, 7], [8, 9]]
+// Example usage
+const vertices = 6;
+const edges = [
+  [5, 2], [5, 0],
+  [4, 0], [4, 1],
+  [2, 3], [3, 1]
+];
+
+console.log(topologicalSort(vertices, edges));  // Output: [5, 4, 2, 3, 1, 0]
 ```
 
-**Time complexity**: O(N log N), due to sorting.
-**Space complexity**: O(N), for the selected activities array.
+### Explanation:
+
+1. Vertices with no dependencies (in-degree 0) are processed first.
+2. The vertices are removed from the queue one by one, and their dependencies (adjacent vertices) are updated by reducing their in-degree.
+3. Once a vertex’s in-degree becomes 0, it is added to the queue.
+4. The result contains the topological order.
+
+### Time Complexity:
+
+- **O(V + E)**: Where `V` is the number of vertices and `E` is the number of edges. This is because we process each vertex once and traverse each edge once.
+
+### Space Complexity:
+
+- **O(V + E)**: The space used for the adjacency list and the in-degree array.
 
 ---
 
-### Example problem: **Coin Change Problem (Minimum Coins)**
+### 2. **DFS (Depth-First Search) Approach**
 
-*Problem*: Given a set of coin denominations and an amount, find the minimum number of coins required to make that amount.
+The DFS approach leverages recursion to visit each vertex and its adjacent vertices. The vertices are added to the result in post-order (after all their neighbors have been visited), ensuring that dependencies are resolved before the vertex itself is added.
 
-#### Greedy Approach:
+#### Steps:
 
-1. Sort the coins in descending order.
-2. Start with the largest coin and use as many of those coins as possible before moving to the next largest coin.
+1. **Mark each vertex as unvisited**.
+2. **Run DFS** on each unvisited vertex:
+   - Recursively visit all of the current vertex’s neighbors.
+   - After all neighbors are visited, add the current vertex to the result.
+3. **Reverse the result** list to get the correct topological order (because vertices are added in reverse post-order).
 
-#### JavaScript Solution:
+---
+
+#### Example of DFS Approach in JavaScript
 
 ```javascript
-function minCoins(coins, amount) {
-  coins.sort((a, b) => b - a); // Sort coins in descending order
-  let count = 0;
+function topologicalSortDFS(vertices, edges) {
+  const adjList = Array(vertices).fill(0).map(() => []);
+  const visited = Array(vertices).fill(false);
+  const result = [];
 
-  for (const coin of coins) {
-    while (amount >= coin) {
-      amount -= coin; // Use this coin
-      count++; // Increment count
+  // Step 1: Build the graph
+  for (let [u, v] of edges) {
+    adjList[u].push(v);
+  }
+
+  // Step 2: Define DFS function
+  function dfs(vertex) {
+    visited[vertex] = true;
+
+    // Visit all neighbors
+    for (let neighbor of adjList[vertex]) {
+      if (!visited[neighbor]) {
+        dfs(neighbor);
+      }
+    }
+
+    // Add vertex to the result in post-order
+    result.push(vertex);
+  }
+
+  // Step 3: Apply DFS to each vertex
+  for (let i = 0; i < vertices; i++) {
+    if (!visited[i]) {
+      dfs(i);
     }
   }
-  
-  return amount === 0 ? count : -1; // Return -1 if amount cannot be formed
+
+  // Step 4: Reverse the result to get topological order
+  return result.reverse();
 }
 
-// Test
-console.log(minCoins([1, 2, 5], 11)); // Output: 3 (5 + 5 + 1)
+// Example usage
+const vertices = 6;
+const edges = [
+  [5, 2], [5, 0],
+  [4, 0], [4, 1],
+  [2, 3], [3, 1]
+];
+
+console.log(topologicalSortDFS(vertices, edges));  // Output: [5, 4, 2, 3, 1, 0]
 ```
 
-**Time complexity**: O(N log N) for sorting, O(N) for the greedy selection.
-**Space complexity**: O(1) if we don’t consider the input array.
+### Explanation:
+
+1. Each vertex is visited once using DFS.
+2. After visiting all neighbors of a vertex, it is added to the result list.
+3. The list is reversed at the end to reflect the correct topological order.
+
+### Time Complexity:
+
+- **O(V + E)**: As we visit each vertex and each edge once.
+
+### Space Complexity:
+
+- **O(V + E)**: For the adjacency list, visited array, and the recursion stack.
 
 ---
 
-### Greedy Algorithm Pattern Summary:
+### Cycle Detection in Topological Sort
 
-- **Local Optimum**: Always choose the best option available at the moment without looking ahead.
-- **Optimal Substructure**: The optimal solution can be constructed from optimal solutions of its subproblems, but unlike dynamic programming, greedy algorithms don’t guarantee an optimal solution for all problems.
-- **Simple Implementation**: Generally easier to implement and requires less memory than dynamic programming solutions.
+If a cycle exists in the graph, a valid topological ordering cannot exist. In Kahn’s algorithm, a cycle is detected if the number of vertices in the result is less than the total number of vertices (i.e., not all vertices are processed). In the DFS approach, cycles can be detected if a vertex is revisited during DFS (back edges).
 
 ---
 
-### Key Problems to Practice:
+### Applications of Topological Sort
 
-1. **Huffman Coding**: Construct an optimal prefix code based on frequencies of characters.
-2. **Minimum Spanning Tree (MST)**: Find the minimum weight spanning tree of a graph using Prim’s or Kruskal’s algorithm.
-3. **Dijkstra’s Algorithm**: Find the shortest path from a source vertex to all other vertices in a graph.
+1. **Course Scheduling**:
+
+   - University courses often have prerequisites, and the order in which courses should be taken can be determined using topological sorting.
+2. **Dependency Management**:
+
+   - In build systems like `make`, tasks have dependencies, and topological sort ensures that tasks are executed in the correct order.
+3. **Package Managers**:
+
+   - Package managers use topological sorting to ensure that dependent packages are installed in the correct order.
+4. **Job Scheduling**:
+
+   - In job scheduling problems, jobs may have dependencies on each other, and topological sort helps determine a valid execution order.
+
+---
+
+### Summary
+
+**Topological Sort** is a crucial algorithm in tasks that involve dependencies. It ensures that tasks or processes are completed in the right order. You should be familiar with both Kahn’s algorithm (BFS approach) and the DFS approach, as both are commonly used in different scenarios. This is a fundamental graph algorithm used in many practical applications, including task scheduling, build systems, and dependency resolution.
+
+
+### 16. **Fast and Slow Pointers (Tortoise and Hare)**
+
+**Concept**:
+The Fast and Slow Pointers technique is used to solve problems related to linked lists and arrays. It involves using two pointers that move at different speeds (one moving faster than the other) to identify certain properties or behaviors in the data structure. This technique is particularly useful for detecting cycles, finding the middle of a linked list, and solving other similar problems.
+
+---
+
+### Applications:
+
+1. **Cycle Detection in Linked Lists**: Determine if a linked list contains a cycle.
+2. **Finding the Start of a Cycle**: Identify the node where a cycle begins in a linked list.
+3. **Finding the Middle of a Linked List**: Determine the middle node in a singly linked list.
+4. **Palindrome Linked List**: Check if a linked list is a palindrome.
+
+---
+
+### General Steps:
+
+1. **Initialize Two Pointers**:
+
+   - One pointer (`slow`) moves one step at a time.
+   - The other pointer (`fast`) moves two steps at a time.
+2. **Traverse the Structure**:
+
+   - Move both pointers through the linked list or array.
+   - Check the conditions that define the problem (e.g., cycle detection or finding the middle).
+3. **Analyze Pointer Positions**:
+
+   - Depending on where the pointers meet or how far they travel, you can conclude the solution to the problem.
+
+---
+
+### 1. **Cycle Detection in Linked Lists**
+
+#### Steps:
+
+1. Initialize two pointers: `slow` and `fast`, both pointing to the head of the linked list.
+2. Move `slow` by one step and `fast` by two steps in each iteration.
+3. If there is a cycle, `slow` and `fast` will eventually meet inside the cycle. If `fast` reaches the end of the list (null), then the list does not contain a cycle.
+
+---
+
+#### Example in JavaScript
+
+```javascript
+class ListNode {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+function hasCycle(head) {
+  if (!head) return false; // If the list is empty
+
+  let slow = head;
+  let fast = head;
+
+  while (fast && fast.next) {
+    slow = slow.next;            // Move slow pointer by 1
+    fast = fast.next.next;      // Move fast pointer by 2
+
+    if (slow === fast) {
+      return true; // Cycle detected
+    }
+  }
+
+  return false; // No cycle
+}
+
+// Example Usage
+const head = new ListNode(1);
+head.next = new ListNode(2);
+head.next.next = new ListNode(3);
+head.next.next.next = head; // Creates a cycle
+
+console.log(hasCycle(head)); // Output: true
+```
+
+### Explanation:
+
+- The `slow` pointer moves one step, while the `fast` pointer moves two steps.
+- If a cycle exists, they will eventually meet. If the `fast` pointer reaches `null`, it means there is no cycle.
+
+---
+
+### 2. **Finding the Start of a Cycle**
+
+If you want to determine where the cycle begins after detecting that a cycle exists, you can use the following steps:
+
+#### Steps:
+
+1. After detecting a cycle, keep one pointer at the meeting point and move the other pointer to the head of the list.
+2. Move both pointers one step at a time.
+3. The point where they meet will be the starting node of the cycle.
+
+---
+
+#### Example in JavaScript
+
+```javascript
+function detectCycle(head) {
+  if (!head) return null;
+
+  let slow = head;
+  let fast = head;
+
+  // Step 1: Detect cycle
+  while (fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+
+    if (slow === fast) {
+      // Step 2: Find the entry point of the cycle
+      let entry = head;
+      while (entry !== slow) {
+        entry = entry.next;
+        slow = slow.next;
+      }
+      return entry; // Cycle start node
+    }
+  }
+
+  return null; // No cycle
+}
+
+// Example Usage
+const head = new ListNode(1);
+const node2 = new ListNode(2);
+const node3 = new ListNode(3);
+head.next = node2;
+node2.next = node3;
+node3.next = node2; // Creates a cycle
+
+console.log(detectCycle(head)); // Output: ListNode { value: 2, next: ListNode { ... } }
+```
+
+### Explanation:
+
+- After detecting a cycle, the entry point is found by moving one pointer to the head and the other to the meeting point, progressing them both one step at a time until they meet.
+
+---
+
+### 3. **Finding the Middle of a Linked List**
+
+#### Steps:
+
+1. Initialize two pointers, `slow` and `fast`, at the head.
+2. Move `slow` by one step and `fast` by two steps until `fast` reaches the end.
+3. When `fast` reaches the end, `slow` will be at the middle of the linked list.
+
+---
+
+#### Example in JavaScript
+
+```javascript
+function findMiddle(head) {
+  if (!head) return null;
+
+  let slow = head;
+  let fast = head;
+
+  while (fast && fast.next) {
+    slow = slow.next; // Move slow pointer by 1
+    fast = fast.next.next; // Move fast pointer by 2
+  }
+
+  return slow; // Middle node
+}
+
+// Example Usage
+const head = new ListNode(1);
+head.next = new ListNode(2);
+head.next.next = new ListNode(3);
+head.next.next.next = new ListNode(4);
+head.next.next.next.next = new ListNode(5);
+
+console.log(findMiddle(head)); // Output: ListNode { value: 3, next: ListNode { ... } }
+```
+
+### Explanation:
+
+- The `slow` pointer will point to the middle node when `fast` reaches the end of the list.
+
+---
+
+### 4. **Palindrome Linked List**
+
+To determine if a linked list is a palindrome, you can use the Fast and Slow Pointers technique to find the middle and then compare the first half with the reversed second half.
+
+#### Steps:
+
+1. Use the fast and slow pointers to find the middle of the list.
+2. Reverse the second half of the list.
+3. Compare the first half and the reversed second half.
+
+---
+
+#### Example in JavaScript
+
+```javascript
+function isPalindrome(head) {
+  if (!head || !head.next) return true;
+
+  let slow = head;
+  let fast = head;
+
+  // Step 1: Find the middle
+  while (fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  // Step 2: Reverse the second half
+  let prev = null;
+  while (slow) {
+    const nextTemp = slow.next;
+    slow.next = prev;
+    prev = slow;
+    slow = nextTemp;
+  }
+
+  // Step 3: Compare the two halves
+  let left = head;
+  let right = prev; // Start of the reversed half
+
+  while (right) {
+    if (left.value !== right.value) {
+      return false; // Not a palindrome
+    }
+    left = left.next;
+    right = right.next;
+  }
+
+  return true; // Is a palindrome
+}
+
+// Example Usage
+const head = new ListNode(1);
+head.next = new ListNode(2);
+head.next.next = new ListNode(2);
+head.next.next.next = new ListNode(1);
+
+console.log(isPalindrome(head)); // Output: true
+```
+
+### Explanation:
+
+- The linked list is divided into two halves. The second half is reversed and then compared with the first half to check for palindromic properties.
+
+---
+
+### Time Complexity
+
+- **O(n)**: Where `n` is the number of nodes in the linked list. Each node is processed a constant number of times.
+
+### Space Complexity
+
+- **O(1)**: No additional space is used apart from a few pointers.
+
+---
+
+### Summary
+
+The **Fast and Slow Pointers** technique is a powerful pattern for solving problems related to linked lists and arrays. It efficiently detects cycles, finds middle nodes, and checks for palindromes using minimal space and linear time. This technique is fundamental in algorithm design and is widely applicable in various data structure problems.
+
+
+### 17. **Union-Find (Disjoint Set)**
+
+**Concept**:
+The Union-Find data structure, also known as Disjoint Set Union (DSU), is a powerful tool for solving problems that involve grouping elements into disjoint sets and efficiently performing union and find operations. It is particularly useful in scenarios involving connectivity, such as network connectivity, Kruskal's algorithm for finding the Minimum Spanning Tree, and solving problems related to connected components in graphs.
+
+---
+
+### Key Operations:
+
+1. **Find**: Determine which set a particular element belongs to. This operation can be optimized using **path compression**.
+2. **Union**: Merge two sets into a single set. This operation can be optimized using **union by rank** or **union by size**.
+
+---
+
+### Data Structure:
+
+A typical implementation of Union-Find maintains two main arrays:
+
+- **parent**: An array where `parent[i]` points to the parent of element `i`. If `parent[i]` is `i`, then `i` is the root of the set.
+- **rank (or size)**: An array used to keep track of the rank or size of the sets for efficient union operations.
+
+### Basic Steps:
+
+1. **Initialization**:
+
+   - Each element is its own parent (i.e., each element is a separate set).
+   - The rank (or size) of each set is initialized to 1.
+2. **Find Operation**:
+
+   - If an element is not its own parent, recursively find its parent and update the parent to the root (path compression).
+   - Return the root of the set containing the element.
+3. **Union Operation**:
+
+   - Find the roots of the sets containing the two elements.
+   - If they are in different sets, merge them. Attach the smaller tree under the larger tree to keep the tree shallow (using union by rank/size).
+
+---
+
+### Applications:
+
+1. **Cycle Detection in Graphs**: Check if adding an edge creates a cycle.
+2. **Kruskal's Algorithm**: Find the Minimum Spanning Tree in a weighted graph.
+3. **Connected Components**: Identify connected components in undirected graphs.
+4. **Dynamic Connectivity**: Maintain and query the connectivity of nodes as edges are added or removed.
+
+---
+
+### Implementation in JavaScript
+
+```javascript
+class UnionFind {
+  constructor(size) {
+    this.parent = new Array(size);
+    this.rank = new Array(size).fill(1);
+    // Initialize each element to be its own parent
+    for (let i = 0; i < size; i++) {
+      this.parent[i] = i;
+    }
+  }
+
+  // Find with path compression
+  find(x) {
+    if (this.parent[x] !== x) {
+      this.parent[x] = this.find(this.parent[x]); // Path compression
+    }
+    return this.parent[x];
+  }
+
+  // Union by rank
+  union(x, y) {
+    const rootX = this.find(x);
+    const rootY = this.find(y);
+
+    if (rootX !== rootY) {
+      // Union by rank
+      if (this.rank[rootX] > this.rank[rootY]) {
+        this.parent[rootY] = rootX;
+      } else if (this.rank[rootX] < this.rank[rootY]) {
+        this.parent[rootX] = rootY;
+      } else {
+        this.parent[rootY] = rootX;
+        this.rank[rootX]++;
+      }
+    }
+  }
+
+  // Check if two elements are in the same set
+  connected(x, y) {
+    return this.find(x) === this.find(y);
+  }
+}
+
+// Example Usage
+const uf = new UnionFind(10);
+uf.union(1, 2);
+uf.union(2, 3);
+console.log(uf.connected(1, 3)); // Output: true
+console.log(uf.connected(1, 4)); // Output: false
+uf.union(3, 4);
+console.log(uf.connected(1, 4)); // Output: true
+```
+
+### Explanation:
+
+- **Initialization**: The constructor initializes the `parent` array so that each element is its own parent, and the `rank` array to keep track of the tree heights.
+- **Find**: The `find` method includes path compression, flattening the structure of the tree whenever `find` is called, which optimizes future queries.
+- **Union**: The `union` method merges two sets based on their rank, ensuring that the smaller tree is always attached under the larger tree, keeping the overall tree shallow.
+- **Connected**: The `connected` method checks if two elements are in the same set by comparing their roots.
+
+---
+
+### Time Complexity:
+
+- **Find**: \(O(\alpha(n))\) where \(\alpha\) is the inverse Ackermann function, which grows very slowly.
+- **Union**: \(O(\alpha(n))\)
+
+### Space Complexity:
+
+- **O(n)** for the parent and rank arrays.
+
+---
+
+### Summary
+
+The **Union-Find** (Disjoint Set Union) data structure is a versatile and efficient way to manage and query connected components. It is widely used in various algorithms and applications, particularly in graph theory and network connectivity problems. By utilizing path compression and union by rank, it maintains optimal performance for large datasets.
+
+
+### 18. **Matrix Traversal**
+
+**Concept**:
+Matrix traversal refers to the process of visiting all the elements in a matrix (2D array) systematically. This is a fundamental operation in many algorithms, particularly in graph theory, dynamic programming, and searching/sorting problems.
+
+---
+
+### Common Traversal Patterns:
+
+1. **Row-wise Traversal**: Visiting elements in each row from left to right.
+2. **Column-wise Traversal**: Visiting elements in each column from top to bottom.
+3. **Spiral Order Traversal**: Visiting the matrix in a spiral pattern, starting from the outer layer and moving inward.
+4. **Diagonal Traversal**: Visiting elements along diagonals, starting from the top-left corner.
+
+---
+
+### Traversal Techniques
+
+#### 1. Row-wise Traversal
+
+In row-wise traversal, you iterate through each row and each column sequentially.
+
+**Example**:
+
+```javascript
+function rowWiseTraversal(matrix) {
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      console.log(matrix[i][j]);
+    }
+  }
+}
+
+// Example usage
+const matrix1 = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+];
+
+rowWiseTraversal(matrix1); // Output: 1 2 3 4 5 6 7 8 9
+```
+
+#### 2. Column-wise Traversal
+
+In column-wise traversal, you iterate through each column before moving to the next row.
+
+**Example**:
+
+```javascript
+function columnWiseTraversal(matrix) {
+  for (let j = 0; j < matrix[0].length; j++) {
+    for (let i = 0; i < matrix.length; i++) {
+      console.log(matrix[i][j]);
+    }
+  }
+}
+
+// Example usage
+const matrix2 = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+];
+
+columnWiseTraversal(matrix2); // Output: 1 4 7 2 5 8 3 6 9
+```
+
+#### 3. Spiral Order Traversal
+
+Spiral order traversal involves visiting elements in a clockwise spiral pattern.
+
+**Example**:
+
+```javascript
+function spiralOrder(matrix) {
+  if (matrix.length === 0) return [];
+  const result = [];
+  let top = 0, bottom = matrix.length - 1;
+  let left = 0, right = matrix[0].length - 1;
+
+  while (top <= bottom && left <= right) {
+    // Traverse from left to right
+    for (let i = left; i <= right; i++) {
+      result.push(matrix[top][i]);
+    }
+    top++;
+
+    // Traverse from top to bottom
+    for (let i = top; i <= bottom; i++) {
+      result.push(matrix[i][right]);
+    }
+    right--;
+
+    if (top <= bottom) {
+      // Traverse from right to left
+      for (let i = right; i >= left; i--) {
+        result.push(matrix[bottom][i]);
+      }
+      bottom--;
+    }
+
+    if (left <= right) {
+      // Traverse from bottom to top
+      for (let i = bottom; i >= top; i--) {
+        result.push(matrix[i][left]);
+      }
+      left++;
+    }
+  }
+  return result;
+}
+
+// Example usage
+const matrix3 = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+];
+
+console.log(spiralOrder(matrix3)); // Output: [1, 2, 3, 6, 9, 8, 7, 4, 5]
+```
+
+#### 4. Diagonal Traversal
+
+Diagonal traversal can be performed by traversing the diagonals starting from the top-left corner to the bottom-right corner.
+
+**Example**:
+
+```javascript
+function diagonalTraversal(matrix) {
+  if (matrix.length === 0) return [];
+  const result = [];
+  const rows = matrix.length;
+  const cols = matrix[0].length;
+
+  for (let d = 0; d < rows + cols - 1; d++) {
+    let row = d < cols ? 0 : d - cols + 1;
+    let col = d < cols ? d : cols - 1;
+
+    while (row < rows && col >= 0) {
+      result.push(matrix[row][col]);
+      row++;
+      col--;
+    }
+  }
+  return result;
+}
+
+// Example usage
+const matrix4 = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+];
+
+console.log(diagonalTraversal(matrix4)); // Output: [1, 2, 4, 7, 5, 3, 6, 8, 9]
+```
+
+---
+
+### Time Complexity:
+
+- **Row-wise/Column-wise Traversal**: \(O(m \times n)\), where \(m\) is the number of rows and \(n\) is the number of columns.
+- **Spiral Order Traversal**: \(O(m \times n)\) since each element is processed once.
+- **Diagonal Traversal**: \(O(m \times n)\) as each element is visited.
+
+### Space Complexity:
+
+- **Row-wise/Column-wise Traversal**: \(O(1)\) (not counting the output).
+- **Spiral Order Traversal**: \(O(m \times n)\) for the output.
+- **Diagonal Traversal**: \(O(m \times n)\) for the output.
+
+---
+
+### Applications:
+
+- Image processing (e.g., convolution operations).
+- Matrix-related algorithms, such as searching and sorting.
+- Solving puzzles or games that involve grid-based traversal.
+
+---
+
+### Summary
+
+Matrix traversal is an essential skill in data structures and algorithms, providing a foundation for more complex algorithms. Understanding various traversal techniques, such as row-wise, column-wise, spiral, and diagonal traversal, allows for efficient data manipulation and problem-solving across a wide range of applications.
+
+
+### 19. **Prefix Sum**
+
+**Concept**:
+The prefix sum technique is a powerful method used to efficiently calculate the sum of a subarray or sub-range in an array. By preprocessing the array into a prefix sum array, we can answer multiple range sum queries in constant time \(O(1)\) after an initial \(O(n)\) preprocessing step.
+
+---
+
+### Definition:
+
+Given an array \(arr\) of length \(n\), the prefix sum array \(prefix\) is defined as:
+\[
+prefix[i] = arr[0] + arr[1] + ... + arr[i-1]
+\]
+This means that the \(i\)-th element of the prefix sum array contains the sum of all elements from the start of the original array up to index \(i-1\).
+
+### Formula for Range Sum:
+
+To calculate the sum of elements between indices \(L\) and \(R\) in the original array, we can use:
+\[
+\text{sum}(L, R) = prefix[R + 1] - prefix[L]
+\]
+
+---
+
+### Example:
+
+Let's consider an example to illustrate the prefix sum technique.
+
+**Original Array**:
+
+```javascript
+const arr = [1, 2, 3, 4, 5];
+```
+
+**Prefix Sum Array**:
+
+```javascript
+const prefix = [0, 1, 3, 6, 10, 15];
+// prefix[0] = 0 (no elements summed)
+// prefix[1] = 1 (arr[0])
+// prefix[2] = 1 + 2 = 3
+// prefix[3] = 1 + 2 + 3 = 6
+// prefix[4] = 1 + 2 + 3 + 4 = 10
+// prefix[5] = 1 + 2 + 3 + 4 + 5 = 15
+```
+
+### Implementation:
+
+#### 1. Build Prefix Sum Array
+
+```javascript
+function buildPrefixSum(arr) {
+  const prefix = new Array(arr.length + 1).fill(0);
+  for (let i = 0; i < arr.length; i++) {
+    prefix[i + 1] = prefix[i] + arr[i];
+  }
+  return prefix;
+}
+
+// Example usage
+const arr = [1, 2, 3, 4, 5];
+const prefixSum = buildPrefixSum(arr);
+console.log(prefixSum); // Output: [0, 1, 3, 6, 10, 15]
+```
+
+#### 2. Calculate Range Sum
+
+```javascript
+function rangeSum(prefix, L, R) {
+  return prefix[R + 1] - prefix[L];
+}
+
+// Example usage
+const L = 1; // Starting index
+const R = 3; // Ending index
+console.log(rangeSum(prefixSum, L, R)); // Output: 9 (2 + 3 + 4)
+```
+
+### Time Complexity:
+
+- **Building the Prefix Sum Array**: \(O(n)\), where \(n\) is the number of elements in the original array.
+- **Range Sum Query**: \(O(1)\).
+
+### Space Complexity:
+
+- **Prefix Sum Array**: \(O(n)\) for storing the prefix sums.
+
+---
+
+### Applications:
+
+- **Range Queries**: Quickly calculating the sum of elements over multiple queries.
+- **Dynamic Programming**: Helpful in problems involving subarrays or continuous segments.
+- **Frequency Arrays**: Calculating cumulative frequencies in statistics.
+
+---
+
+### Summary
+
+The prefix sum technique allows for efficient computation of range sums in an array by preprocessing the data into a prefix sum array. This method significantly reduces the time complexity of range queries from \(O(n)\) to \(O(1)\), making it invaluable for numerous applications in data analysis, dynamic programming, and algorithm optimization.
+
+
+### 20. **Heap Pattern**
+
+**Concept**:
+Heaps are a special type of binary tree that satisfy the heap property, where each parent node is either greater than (max-heap) or less than (min-heap) its children. This structure allows heaps to efficiently support priority queues and various algorithms, such as heapsort. The heap pattern primarily focuses on solving problems related to priority queues, selecting the largest or smallest elements, and merging sorted data.
+
+---
+
+### Characteristics of Heaps:
+
+1. **Complete Binary Tree**: Heaps are complete binary trees, meaning all levels are fully filled except possibly for the last level, which is filled from left to right.
+2. **Heap Property**:
+   - In a **max-heap**, the value of each node is greater than or equal to the values of its children.
+   - In a **min-heap**, the value of each node is less than or equal to the values of its children.
+
+### Common Operations:
+
+1. **Insert**: Adding a new element while maintaining the heap property.
+2. **Delete**: Removing the root element (maximum or minimum) and restoring the heap.
+3. **Peek**: Retrieving the root element without removing it.
+4. **Heapify**: Transforming an arbitrary array into a valid heap.
+
+### Applications:
+
+- **Priority Queues**: Managing a collection of elements with varying priorities.
+- **Heap Sort**: An efficient sorting algorithm based on the heap data structure.
+- **Finding Kth Largest/Smallest Element**: Efficiently finding the k-th largest or smallest element in an array.
+- **Merging K Sorted Lists**: Combining multiple sorted lists into one sorted list efficiently.
+
+---
+
+### Implementation of Heap Operations
+
+#### 1. Building a Max-Heap
+
+Here's a simple implementation of a max-heap in JavaScript:
+
+```javascript
+class MaxHeap {
+  constructor() {
+    this.heap = [];
+  }
+
+  // Insert an element into the heap
+  insert(value) {
+    this.heap.push(value);
+    this.bubbleUp();
+  }
+
+  // Bubble up to maintain the max-heap property
+  bubbleUp() {
+    let index = this.heap.length - 1;
+    while (index > 0) {
+      const parentIndex = Math.floor((index - 1) / 2);
+      if (this.heap[index] <= this.heap[parentIndex]) break;
+      // Swap
+      [this.heap[index], this.heap[parentIndex]] = [this.heap[parentIndex], this.heap[index]];
+      index = parentIndex;
+    }
+  }
+
+  // Remove and return the maximum element
+  extractMax() {
+    if (this.heap.length === 0) return null;
+    const max = this.heap[0];
+    const end = this.heap.pop();
+    if (this.heap.length > 0) {
+      this.heap[0] = end;
+      this.bubbleDown();
+    }
+    return max;
+  }
+
+  // Bubble down to maintain the max-heap property
+  bubbleDown() {
+    let index = 0;
+    const length = this.heap.length;
+    const element = this.heap[0];
+
+    while (true) {
+      let leftChildIndex = 2 * index + 1;
+      let rightChildIndex = 2 * index + 2;
+      let leftChild, rightChild;
+      let swap = null;
+
+      if (leftChildIndex < length) {
+        leftChild = this.heap[leftChildIndex];
+        if (leftChild > element) swap = leftChildIndex;
+      }
+      if (rightChildIndex < length) {
+        rightChild = this.heap[rightChildIndex];
+        if (
+          (swap === null && rightChild > element) || 
+          (swap !== null && rightChild > leftChild)
+        ) {
+          swap = rightChildIndex;
+        }
+      }
+      if (swap === null) break;
+      // Swap
+      [this.heap[index], this.heap[swap]] = [this.heap[swap], this.heap[index]];
+      index = swap;
+    }
+  }
+
+  // Peek at the maximum element
+  peek() {
+    return this.heap[0] || null;
+  }
+}
+
+// Example usage
+const maxHeap = new MaxHeap();
+maxHeap.insert(10);
+maxHeap.insert(20);
+maxHeap.insert(5);
+console.log(maxHeap.peek()); // Output: 20
+console.log(maxHeap.extractMax()); // Output: 20
+console.log(maxHeap.peek()); // Output: 10
+```
+
+#### 2. Finding the Kth Largest Element
+
+You can use a min-heap to efficiently find the k-th largest element in an array.
+
+```javascript
+function findKthLargest(nums, k) {
+  const minHeap = new MinHeap();
+  for (const num of nums) {
+    minHeap.insert(num);
+    if (minHeap.size() > k) {
+      minHeap.extractMin(); // Maintain only k largest elements
+    }
+  }
+  return minHeap.peek();
+}
+
+class MinHeap {
+  constructor() {
+    this.heap = [];
+  }
+
+  insert(value) {
+    this.heap.push(value);
+    this.bubbleUp();
+  }
+
+  bubbleUp() {
+    let index = this.heap.length - 1;
+    while (index > 0) {
+      const parentIndex = Math.floor((index - 1) / 2);
+      if (this.heap[index] >= this.heap[parentIndex]) break;
+      [this.heap[index], this.heap[parentIndex]] = [this.heap[parentIndex], this.heap[index]];
+      index = parentIndex;
+    }
+  }
+
+  extractMin() {
+    if (this.heap.length === 0) return null;
+    const min = this.heap[0];
+    const end = this.heap.pop();
+    if (this.heap.length > 0) {
+      this.heap[0] = end;
+      this.bubbleDown();
+    }
+    return min;
+  }
+
+  bubbleDown() {
+    let index = 0;
+    const length = this.heap.length;
+    const element = this.heap[0];
+
+    while (true) {
+      let leftChildIndex = 2 * index + 1;
+      let rightChildIndex = 2 * index + 2;
+      let leftChild, rightChild;
+      let swap = null;
+
+      if (leftChildIndex < length) {
+        leftChild = this.heap[leftChildIndex];
+        if (leftChild < element) swap = leftChildIndex;
+      }
+      if (rightChildIndex < length) {
+        rightChild = this.heap[rightChildIndex];
+        if (
+          (swap === null && rightChild < element) || 
+          (swap !== null && rightChild < leftChild)
+        ) {
+          swap = rightChildIndex;
+        }
+      }
+      if (swap === null) break;
+      [this.heap[index], this.heap[swap]] = [this.heap[swap], this.heap[index]];
+      index = swap;
+    }
+  }
+
+  peek() {
+    return this.heap[0] || null;
+  }
+
+  size() {
+    return this.heap.length;
+  }
+}
+
+// Example usage
+const nums = [3, 2, 1, 5, 6, 4];
+const k = 2;
+console.log(findKthLargest(nums, k)); // Output: 5
+```
+
+### Time Complexity:
+
+- **Insert**: \(O(\log n)\) for both min-heap and max-heap.
+- **Extract**: \(O(\log n)\) for both min-heap and max-heap.
+- **Building a Heap**: \(O(n)\) for creating a heap from an array.
+- **Finding Kth Largest Element**: \(O(n \log k)\) if using a min-heap.
+
+### Space Complexity:
+
+- **Heap Storage**: \(O(n)\) for storing the elements in the heap.
+
+---
+
+### Summary
+
+The heap pattern is essential for efficiently managing data with varying priorities, enabling fast access to the maximum or minimum elements. Its applications in priority queues, sorting algorithms, and finding k-th largest/smallest elements make it a crucial topic in data structures and algorithms. Understanding how to implement and manipulate heaps can significantly enhance problem-solving skills in algorithmic challenges.
+
+
+### 21. **Monotonic Stack**
+
+**Concept**:
+A monotonic stack is a data structure that maintains its elements in a specific order, either monotonically increasing or monotonically decreasing. This means that as you traverse the stack, the values either never decrease (increasing) or never increase (decreasing). Monotonic stacks are particularly useful for solving problems involving "next greater" or "next smaller" elements, and for problems that involve intervals or ranges.
+
+---
+
+### Characteristics of Monotonic Stacks:
+
+1. **Monotonic Behavior**: The elements in the stack are maintained in a sorted order based on the specified monotonic condition (increasing or decreasing).
+2. **Dynamic Updates**: As new elements are processed, the stack can be adjusted to maintain the monotonic property.
+3. **Efficient Lookups**: Monotonic stacks allow for efficient retrieval of the nearest larger or smaller element.
+
+### Applications:
+
+- **Next Greater Element**: Finding the next greater element for each element in an array.
+- **Next Smaller Element**: Finding the next smaller element for each element in an array.
+- **Trapping Rain Water**: Calculating how much rainwater can be trapped after it rains.
+- **Histogram Area**: Finding the largest rectangle that can fit under a histogram.
+
+---
+
+### Common Operations:
+
+1. **Push**: Add an element to the stack while maintaining the monotonic property.
+2. **Pop**: Remove the top element from the stack.
+3. **Top**: Retrieve the top element of the stack.
+
+### Example Problem: Next Greater Element
+
+Let's implement a solution for the **Next Greater Element** problem, where for each element in an array, we need to find the next greater element on its right.
+
+#### Problem Statement:
+
+Given an array of integers, return an array of the same size where each element is replaced by the next greater element to its right. If no such element exists, replace it with -1.
+
+#### Example:
+
+```plaintext
+Input: [4, 5, 2, 10]
+Output: [5, 10, 10, -1]
+```
+
+#### Implementation:
+
+Here's how you can implement this using a monotonic stack in JavaScript:
+
+```javascript
+function nextGreaterElement(nums) {
+  const result = new Array(nums.length).fill(-1); // Initialize result array with -1
+  const stack = []; // Monotonic stack
+
+  for (let i = 0; i < nums.length; i++) {
+    // While the stack is not empty and the current number is greater than the number at the index stored at the top of the stack
+    while (stack.length > 0 && nums[i] > nums[stack[stack.length - 1]]) {
+      const index = stack.pop(); // Pop the index
+      result[index] = nums[i]; // Set the next greater element
+    }
+    stack.push(i); // Push the current index onto the stack
+  }
+  
+  return result;
+}
+
+// Example usage
+const nums = [4, 5, 2, 10];
+console.log(nextGreaterElement(nums)); // Output: [5, 10, 10, -1]
+```
+
+### Explanation of the Code:
+
+1. **Initialization**: We create a result array initialized with -1 (the default value for cases where no greater element exists) and an empty stack.
+2. **Traversal**: We iterate through the input array. For each element:
+   - We check if the current element is greater than the element at the index stored at the top of the stack.
+   - If it is, we pop the index from the stack and set the corresponding position in the result array to the current element (the next greater element).
+3. **Push**: We then push the current index onto the stack for future comparisons.
+4. **Return**: Finally, we return the result array containing the next greater elements.
+
+### Time Complexity:
+
+- **Overall**: \(O(n)\), since each element is pushed and popped from the stack at most once.
+
+### Space Complexity:
+
+- **Stack**: \(O(n)\) in the worst case, where all elements are pushed onto the stack.
+
+---
+
+### Example Problem: Trapping Rain Water
+
+Now, let’s consider another problem where we can utilize a monotonic stack to calculate how much water can be trapped between the heights of bars represented in an array.
+
+#### Problem Statement:
+
+Given an array of non-negative integers representing the heights of bars, compute how much water can be trapped after raining.
+
+#### Example:
+
+```plaintext
+Input: [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
+Output: 6
+```
+
+#### Implementation:
+
+Here's the implementation using a monotonic stack:
+
+```javascript
+function trap(height) {
+  const stack = [];
+  let waterTrapped = 0;
+
+  for (let i = 0; i < height.length; i++) {
+    while (stack.length > 0 && height[i] > height[stack[stack.length - 1]]) {
+      const top = stack.pop();
+      if (stack.length === 0) break; // No left boundary
+
+      const distance = i - stack[stack.length - 1] - 1; // Distance to the left boundary
+      const boundedHeight = Math.min(height[i], height[stack[stack.length - 1]]) - height[top];
+      waterTrapped += distance * boundedHeight; // Calculate trapped water
+    }
+    stack.push(i); // Push current index onto the stack
+  }
+  
+  return waterTrapped;
+}
+
+// Example usage
+const heights = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1];
+console.log(trap(heights)); // Output: 6
+```
+
+### Explanation of the Code:
+
+1. **Initialization**: We create an empty stack and a variable to keep track of the total water trapped.
+2. **Traversal**: We iterate through the array:
+   - If the current height is greater than the height of the bar at the index stored at the top of the stack, it indicates that water can be trapped.
+   - We pop the top index and check if the stack is not empty (to ensure we have a left boundary).
+   - Calculate the distance to the left boundary and the bounded height.
+   - Multiply these values to find the trapped water and add it to the total.
+3. **Push**: We push the current index onto the stack.
+4. **Return**: Finally, we return the total water trapped.
+
+### Time Complexity:
+
+- **Overall**: \(O(n)\), since each element is pushed and popped from the stack at most once.
+
+### Space Complexity:
+
+- **Stack**: \(O(n)\) in the worst case, where all elements are pushed onto the stack.
+
+---
+
+### Summary
+
+Monotonic stacks provide an efficient way to handle problems involving the next greater or smaller elements and related interval problems. By maintaining a specific order of elements, monotonic stacks allow for quick lookups and efficient processing, making them a powerful tool in algorithm design. Understanding how to implement and utilize monotonic stacks can significantly improve your ability to tackle a variety of algorithmic challenges.
+
+
+### 22. **Flood Fill Algorithm**
+
+**Concept**:
+The Flood Fill algorithm is a method used to determine the area connected to a given node in a multi-dimensional array (like a grid or an image) and fill it with a specific color or value. It is commonly used in graphics applications (like paint bucket tools in image editing software) and for solving problems involving connected components in grids.
+
+The algorithm can be implemented using either a depth-first search (DFS) or breadth-first search (BFS) approach, making it flexible for different scenarios.
+
+---
+
+### Characteristics:
+
+1. **Recursive or Iterative**: Flood Fill can be implemented recursively or iteratively using a queue or stack.
+2. **Color Replacement**: It changes the color (or value) of connected pixels/nodes starting from a given point.
+3. **4-directional or 8-directional**: The algorithm can be adapted to consider 4-directional (up, down, left, right) or 8-directional (including diagonals) movement.
+
+---
+
+### Applications:
+
+- **Graphics Editing**: Used in tools to fill areas with color.
+- **Game Development**: To find connected regions or determine the area a player can reach.
+- **Image Processing**: For segmenting images and region filling.
+- **Maze Solving**: To mark paths or visited areas in a maze.
+
+---
+
+### Example Problem: Flood Fill
+
+#### Problem Statement:
+
+You are given a 2D grid representing an image, where each pixel in the image is represented by an integer. Given a starting pixel (x, y) and a new color, the task is to replace the color of the starting pixel and all adjacent pixels with the new color.
+
+#### Example:
+
+```plaintext
+Input: 
+image = [
+  [1, 1, 1],
+  [1, 1, 0],
+  [1, 0, 1]
+]
+sr = 1, sc = 1, newColor = 2
+
+Output: 
+[
+  [2, 2, 2],
+  [2, 2, 0],
+  [1, 0, 1]
+]
+```
+
+#### Implementation:
+
+Here's how to implement the Flood Fill algorithm using a recursive approach in JavaScript:
+
+```javascript
+function floodFill(image, sr, sc, newColor) {
+    const oldColor = image[sr][sc];
+    if (oldColor === newColor) return image; // No need to change color
+
+    function fill(x, y) {
+        // Check if the current position is out of bounds
+        if (x < 0 || x >= image.length || y < 0 || y >= image[0].length) {
+            return;
+        }
+        // Check if the current pixel is not the old color
+        if (image[x][y] !== oldColor) {
+            return;
+        }
+      
+        // Change the color
+        image[x][y] = newColor;
+
+        // Recursively fill adjacent pixels
+        fill(x + 1, y); // Down
+        fill(x - 1, y); // Up
+        fill(x, y + 1); // Right
+        fill(x, y - 1); // Left
+    }
+
+    fill(sr, sc); // Start filling from the initial pixel
+    return image;
+}
+
+// Example usage
+const image = [
+  [1, 1, 1],
+  [1, 1, 0],
+  [1, 0, 1]
+];
+const sr = 1, sc = 1, newColor = 2;
+
+console.log(floodFill(image, sr, sc, newColor));
+// Output: [
+//   [2, 2, 2],
+//   [2, 2, 0],
+//   [1, 0, 1]
+// ]
+```
+
+### Explanation of the Code:
+
+1. **Initial Check**: We check if the old color is the same as the new color. If so, we return the original image, as there's nothing to change.
+2. **Recursive Function**: The `fill` function performs the filling operation:
+   - It checks if the current pixel position is out of bounds.
+   - It verifies if the current pixel's color matches the old color that needs to be replaced.
+   - If both checks pass, it changes the color of the pixel and recursively calls itself for the four adjacent pixels (up, down, left, right).
+3. **Starting Point**: We call the `fill` function starting from the specified pixel (sr, sc).
+4. **Return Result**: Finally, we return the modified image.
+
+### Time Complexity:
+
+- **Overall**: \(O(N)\), where \(N\) is the number of pixels in the image. In the worst case, all pixels may need to be processed.
+
+### Space Complexity:
+
+- **Recursion Stack**: \(O(N)\) in the worst case for the recursion stack if all pixels are filled. For iterative BFS, it would also be \(O(N)\) due to the queue.
+
+---
+
+### Summary
+
+The Flood Fill algorithm is a versatile technique for working with connected components in grids. It can be easily adapted for various applications and can be implemented using both DFS and BFS approaches. Understanding how to apply and optimize this algorithm can significantly enhance your problem-solving skills in computer graphics and related areas.
