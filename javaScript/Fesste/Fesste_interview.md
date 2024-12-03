@@ -2051,3 +2051,168 @@ selector::pseudo-element {
 * Applications with a clear separation of UI and business logic.
 * Projects that require scalability and maintainability.
 * Collaborative environments where multiple developers work on separate layers.
+
+
+
+# 16. System Design
+
+**=>** **System Design**
+
+System Design involves defining the architecture and components of a software system to meet specified requirements. It focuses on  **scalability** ,  **reliability** ,  **performance** , and  **maintainability** , and is a crucial skill for designing robust, large-scale systems.
+
+---
+
+### **Key Components of System Design**
+
+1. **Architectural Patterns** :
+
+* **Monolithic** : Single application containing all components.
+* **Microservices** : Decoupled, independently deployable services.
+* **Serverless** : Functions executed in response to events, managed by a cloud provider.
+
+1. **Core Considerations** :
+
+* **Scalability** : How the system handles increased load.
+  *  **Horizontal Scaling** : Adding more servers.
+  *  **Vertical Scaling** : Adding more resources (CPU, RAM) to a single server.
+* **Reliability** : Ensuring uptime and fault tolerance.
+* **Availability** : Ensuring the system is accessible.
+* **Performance** : Low latency and high throughput.
+* **Maintainability** : Ease of debugging, updating, and extending the system.
+
+1. **Building Blocks** :
+
+* **Databases** :
+  *  **Relational (SQL)** : Structured, schema-based (e.g., MySQL, PostgreSQL).
+  *  **NoSQL** : Flexible, unstructured (e.g., MongoDB, Cassandra).
+* **Caching** : Reduce latency using tools like Redis or Memcached.
+* **Message Queues** : For asynchronous processing (e.g., Kafka, RabbitMQ).
+* **Load Balancer** : Distributes requests across servers.
+* **CDNs (Content Delivery Networks)** : Serve static assets efficiently.
+* **APIs** : Facilitate communication between services.
+
+1. **Security Considerations** :
+
+* Data encryption (in transit and at rest).
+* Authentication (e.g., OAuth, JWT).
+* Authorization (role-based access control).
+* Rate limiting and throttling.
+
+---
+
+### **System Design Process**
+
+1. **Requirements Gathering** :
+
+* Clarify **functional requirements** (features).
+* Identify **non-functional requirements** (e.g., scalability, latency).
+
+1. **High-Level Design** :
+
+* Define the system's major components and interactions.
+* Use diagrams like:
+  * **Architecture Diagram** : Shows components and their relationships.
+  * **Sequence Diagram** : Explains interactions over time.
+
+1. **Detailed Design** :
+
+* Choose database type (SQL vs NoSQL).
+* Define API endpoints.
+* Plan caching, indexing, and partitioning.
+
+1. **Trade-offs and Constraints** :
+
+* Balance between consistency, availability, and partition tolerance (CAP theorem).
+* Optimize for read-heavy or write-heavy operations.
+
+1. **Scaling Plan** :
+
+* Implement caching, database sharding, or load balancing.
+
+---
+
+### **Example: Designing a URL Shortener**
+
+#### 1. **Requirements**
+
+* **Functional** :
+* Shorten a long URL.
+* Redirect to the original URL when the short URL is accessed.
+* **Non-functional** :
+* High availability and low latency.
+* Handle millions of requests per day.
+
+#### 2. **High-Level Design**
+
+* Components:
+  * **API Gateway** : Accepts and processes requests.
+  * **Database** : Stores the mapping of short and long URLs.
+  * **Cache** : Speeds up frequent lookups.
+  * **Load Balancer** : Distributes incoming traffic.
+
+#### 3. **Detailed Design**
+
+* **Database** :
+* Use a NoSQL database like DynamoDB or Redis.
+* Store data as key-value pairs (`shortURL -> longURL`).
+* **Short URL Generation** :
+* Use a hash function (e.g., Base62 encoding).
+* Ensure uniqueness by adding collision detection or using a sequence generator.
+* **Caching** :
+* Cache popular short URL mappings in Redis.
+
+#### 4. **Handling Scale**
+
+* Horizontal scaling for stateless servers.
+* Database partitioning to handle large datasets.
+
+#### 5. **System Diagram**
+
+```plaintext
+Client --> API Gateway --> Load Balancer --> App Server
+                                         ↘︎ Cache
+                                         ↘︎ Database
+```
+
+---
+
+### **Common Topics in System Design**
+
+1. **Database Sharding** : Split data across multiple servers.
+2. **Caching** : Use tools like Redis to reduce database calls.
+3. **Rate Limiting** : Prevent abuse by capping API calls.
+4. **Replication** : Duplicate data across servers for redundancy.
+5. **Consistent Hashing** : Distribute data efficiently in distributed systems.
+6. **Event-Driven Architecture** : Decouple services using events and message queues.
+7. **Distributed Systems** : Ensure consistency and fault tolerance in distributed setups.
+
+---
+
+### **Tips for a System Design Interview**
+
+1. **Understand the Problem** :
+
+* Ask clarifying questions.
+* Identify functional and non-functional requirements.
+
+1. **Focus on High-Level Design** :
+
+* Start with the overall architecture.
+* Highlight key components and their roles.
+
+1. **Dive into Specifics** :
+
+* Justify database choice (SQL vs NoSQL).
+* Discuss caching, indexing, and partitioning.
+
+1. **Explain Trade-offs** :
+
+* Balance consistency, availability, and scalability.
+
+1. **Communicate Clearly** :
+
+* Use diagrams and explain your thought process.
+
+---
+
+System Design is not just about knowing tools but understanding how to combine them effectively to solve real-world problems!
