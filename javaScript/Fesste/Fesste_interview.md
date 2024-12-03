@@ -2216,3 +2216,362 @@ Client --> API Gateway --> Load Balancer --> App Server
 ---
 
 System Design is not just about knowing tools but understanding how to combine them effectively to solve real-world problems!
+
+# 17. Software Design Patterns
+
+**=>** **Software Design Patterns**
+
+**Software Design Patterns** are reusable solutions to common problems encountered in software design. These patterns provide a standard approach to solving specific types of challenges, improving code structure, readability, and maintainability.
+
+---
+
+### **Categories of Design Patterns**
+
+1. **Creational Patterns**
+
+   Deal with object creation mechanisms, trying to create objects in a manner suitable for the situation.
+
+   * **Singleton** : Ensures a class has only one instance and provides a global access point to it.
+   * **Factory Method** : Creates objects without specifying the exact class of the object being created.
+   * **Abstract Factory** : Provides an interface for creating families of related or dependent objects without specifying their concrete classes.
+   * **Builder** : Constructs a complex object step by step.
+   * **Prototype** : Creates new objects by copying existing objects.
+2. **Structural Patterns**
+
+   Deal with object composition to form larger structures while keeping them flexible and efficient.
+
+   * **Adapter** : Allows incompatible interfaces to work together.
+   * **Bridge** : Separates abstraction from its implementation.
+   * **Composite** : Composes objects into tree structures to represent part-whole hierarchies.
+   * **Decorator** : Dynamically adds behavior to an object without altering its structure.
+   * **Facade** : Provides a simplified interface to a larger body of code.
+   * **Flyweight** : Reduces the cost of creating and managing a large number of similar objects.
+   * **Proxy** : Provides a surrogate or placeholder for another object to control access to it.
+3. **Behavioral Patterns**
+
+   Focus on communication and the assignment of responsibilities between objects.
+
+   * **Observer** : Establishes a dependency between objects so that one object changes, all its dependents are notified.
+   * **Strategy** : Encapsulates algorithms within a class and allows them to be swapped interchangeably.
+   * **Command** : Encapsulates a request as an object, allowing you to parameterize objects with different requests.
+   * **State** : Allows an object to change its behavior when its internal state changes.
+   * **Visitor** : Allows adding new behaviors to a class hierarchy without modifying the existing classes.
+   * **Iterator** : Provides a way to access the elements of an aggregate object sequentially without exposing its underlying structure.
+   * **Mediator** : Reduces direct communications between objects by introducing a mediator object.
+   * **Template Method** : Defines the skeleton of an algorithm in a method, deferring some steps to subclasses.
+
+---
+
+### **Common Design Patterns**
+
+#### 1. **Singleton Pattern**
+
+* **Purpose** : Ensure a class has only one instance and provide a global point of access to it.
+* **Example** :
+
+```javascript
+  class Singleton {
+    constructor() {
+      if (Singleton.instance) {
+        return Singleton.instance;
+      }
+      Singleton.instance = this;
+    }
+  }
+
+  const instance1 = new Singleton();
+  const instance2 = new Singleton();
+  console.log(instance1 === instance2); // true
+```
+
+#### 2. **Factory Method Pattern**
+
+* **Purpose** : Create objects without specifying their exact class.
+* **Example** :
+
+```javascript
+  class AnimalFactory {
+    static createAnimal(type) {
+      if (type === "dog") {
+        return new Dog();
+      } else if (type === "cat") {
+        return new Cat();
+      }
+      throw new Error("Invalid type");
+    }
+  }
+
+  const dog = AnimalFactory.createAnimal("dog");
+  const cat = AnimalFactory.createAnimal("cat");
+```
+
+#### 3. **Observer Pattern**
+
+* **Purpose** : Establishes a one-to-many dependency between objects.
+* **Example** :
+
+```javascript
+  class Subject {
+    constructor() {
+      this.observers = [];
+    }
+
+    addObserver(observer) {
+      this.observers.push(observer);
+    }
+
+    notifyObservers(message) {
+      this.observers.forEach((observer) => observer.update(message));
+    }
+  }
+
+  class Observer {
+    update(message) {
+      console.log("Observer received:", message);
+    }
+  }
+
+  const subject = new Subject();
+  const observer1 = new Observer();
+  const observer2 = new Observer();
+
+  subject.addObserver(observer1);
+  subject.addObserver(observer2);
+
+  subject.notifyObservers("Hello, observers!");
+```
+
+#### 4. **Decorator Pattern**
+
+* **Purpose** : Dynamically add new behaviors to objects.
+* **Example** :
+
+```javascript
+  class Coffee {
+    cost() {
+      return 5;
+    }
+  }
+
+  class MilkDecorator {
+    constructor(coffee) {
+      this.coffee = coffee;
+    }
+
+    cost() {
+      return this.coffee.cost() + 2;
+    }
+  }
+
+  const coffee = new Coffee();
+  const coffeeWithMilk = new MilkDecorator(coffee);
+
+  console.log(coffee.cost()); // 5
+  console.log(coffeeWithMilk.cost()); // 7
+```
+
+#### 5. **Strategy Pattern**
+
+* **Purpose** : Encapsulates different algorithms and makes them interchangeable.
+* **Example** :
+
+```javascript
+  class PaymentStrategy {
+    pay(amount) {
+      throw new Error("This method should be overridden");
+    }
+  }
+
+  class CreditCardStrategy extends PaymentStrategy {
+    pay(amount) {
+      console.log(`Paid ${amount} using credit card`);
+    }
+  }
+
+  class PayPalStrategy extends PaymentStrategy {
+    pay(amount) {
+      console.log(`Paid ${amount} using PayPal`);
+    }
+  }
+
+  class PaymentProcessor {
+    constructor(strategy) {
+      this.strategy = strategy;
+    }
+
+    executePayment(amount) {
+      this.strategy.pay(amount);
+    }
+  }
+
+  const creditCardPayment = new PaymentProcessor(new CreditCardStrategy());
+  creditCardPayment.executePayment(100);
+
+  const payPalPayment = new PaymentProcessor(new PayPalStrategy());
+  payPalPayment.executePayment(200);
+```
+
+---
+
+### **Benefits of Design Patterns**
+
+1. **Reusability** : Solutions can be applied across multiple projects.
+2. **Readability** : Makes code easier to understand for developers familiar with the pattern.
+3. **Scalability** : Encourages modular and extendable code.
+4. **Maintainability** : Helps reduce coupling and increase cohesion in the codebase.
+
+---
+
+### **When to Use Design Patterns**
+
+* When solving a recurring problem in the software.
+* To improve code readability and collaboration.
+* When scaling a project or designing complex systems.
+
+
+# 18. Software Development Lifecycle (SDLC)
+
+**=>** **Software Development Lifecycle (SDLC)**
+
+The **Software Development Lifecycle (SDLC)** is a structured process followed to design, develop, test, deploy, and maintain high-quality software. It provides a systematic approach, ensuring that software meets customer requirements while minimizing risks and inefficiencies.
+
+---
+
+### **Phases of SDLC**
+
+1. **Requirement Analysis**
+   * **Objective** : Understand what the customer or end-user needs.
+   * **Activities** :
+   * Gather functional and non-functional requirements.
+   * Identify system constraints.
+   * Document requirements in formats like BRD (Business Requirement Document) or SRS (Software Requirements Specification).
+   * **Output** : Requirement specifications document.
+2. **Planning**
+   * **Objective** : Define the project scope, timelines, and resources.
+   * **Activities** :
+   * Create a project plan.
+   * Estimate cost and effort.
+   * Perform risk assessment and mitigation strategies.
+   * **Output** : Project plan, feasibility study report.
+3. **Design**
+   * **Objective** : Architect the system to meet the requirements.
+   * **Activities** :
+   * High-level design (HLD): System architecture, modules, and data flow.
+   * Low-level design (LLD): Detailed component designs, algorithms, and database schema.
+   * **Output** : Design documents, prototypes.
+4. **Implementation (Development)**
+   * **Objective** : Translate design into working code.
+   * **Activities** :
+   * Write, review, and test code for individual modules.
+   * Follow coding standards and best practices.
+   * Use version control systems (e.g., Git).
+   * **Output** : Source code.
+5. **Testing**
+   * **Objective** : Ensure the software is bug-free and meets requirements.
+   * **Activities** :
+   * Unit testing, integration testing, system testing, and acceptance testing.
+   * Performance and security testing.
+   * Log and resolve defects.
+   * **Output** : Test cases, test reports, bug fixes.
+6. **Deployment**
+   * **Objective** : Make the software available for use.
+   * **Activities** :
+   * Deploy software to the production environment.
+   * Perform deployment testing (e.g., smoke testing).
+   * Monitor for immediate issues post-deployment.
+   * **Output** : Running software in the production environment.
+7. **Maintenance**
+   * **Objective** : Ensure the software continues to function correctly and adapt to changes.
+   * **Activities** :
+   * Fix bugs reported by users.
+   * Update software to handle new requirements or technologies.
+   * Optimize performance and scalability.
+   * **Output** : Updates, patches, and new versions.
+
+---
+
+### **Models of SDLC**
+
+1. **Waterfall Model**
+   * Linear and sequential approach.
+   * **Best for** : Small projects with clear requirements.
+   * **Drawback** : Inflexible to changes in requirements.
+2. **Agile Model**
+   * Iterative and incremental approach.
+   * **Best for** : Projects with changing requirements.
+   * **Example** : Scrum, Kanban.
+3. **Iterative Model**
+   * Develop software in small iterations.
+   * **Best for** : Projects where requirements evolve over time.
+4. **Spiral Model**
+   * Combines iterative development with risk management.
+   * **Best for** : Large, complex projects with high risks.
+5. **V-Model (Validation and Verification)**
+   * Emphasizes testing at every stage of development.
+   * **Best for** : Projects where quality is critical.
+6. **DevOps**
+   * Combines development and operations for continuous delivery.
+   * **Best for** : Rapid deployments and frequent updates.
+
+---
+
+### **Key Practices in SDLC**
+
+1. **Version Control** : Use tools like Git to manage code versions.
+2. **Automated Testing** : Ensure faster and more reliable testing.
+3. **Code Reviews** : Maintain code quality through peer reviews.
+4. **Continuous Integration/Continuous Deployment (CI/CD)** : Automate the build, test, and deployment process.
+5. **Documentation** : Ensure all phases are well-documented for maintainability.
+
+---
+
+### **SDLC in Action: Example**
+
+ **Scenario** : Building an e-commerce website.
+
+1. **Requirement Analysis** :
+
+* Gather requirements for user registration, product listing, and payment gateways.
+
+1. **Planning** :
+
+* Timeline: 6 months.
+* Tools: React.js, Node.js, MongoDB.
+* Budget and resource allocation.
+
+1. **Design** :
+
+* HLD: Define a 3-tier architecture (Frontend, Backend, Database).
+* LLD: Create UI wireframes, REST API endpoints, database schema.
+
+1. **Development** :
+
+* Build the frontend using React.js.
+* Implement backend logic using Node.js and Express.
+* Integrate MongoDB for data storage.
+
+1. **Testing** :
+
+* Functional testing for user authentication and product checkout.
+* Performance testing for handling 10,000 concurrent users.
+
+1. **Deployment** :
+
+* Deploy to AWS using Docker and Kubernetes.
+* Monitor using tools like New Relic.
+
+1. **Maintenance** :
+
+* Fix user-reported issues.
+* Add new features like discount codes or loyalty points.
+
+---
+
+### **Benefits of SDLC**
+
+* **Clarity** : Clearly defines steps and deliverables.
+* **Quality Assurance** : Systematic testing ensures high-quality software.
+* **Risk Mitigation** : Planning and design reduce risks.
+* **Customer Satisfaction** : Meets user requirements effectively.
+
+By following SDLC, teams can deliver reliable, scalable, and maintainable software solutions.
