@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  body.light {
+    background-color: #f0f0f0;
+    color: #000;
+  }
+  
+  body.dark {
+    background-color: #121212;
+    color: #fff;
+  }
+  
