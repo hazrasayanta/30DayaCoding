@@ -117,7 +117,9 @@ The **DOM acts as a bridge** between JavaScript and the webpage, enabling dynami
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-### 2. What are different ways to select elements in the DOM?* `getElementById`
+### 2. What are different ways to select elements in the DOM?
+
+### `getElementById`
 
 * `getElementsByClassName`
 * `getElementsByTagName`
