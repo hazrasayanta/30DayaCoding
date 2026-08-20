@@ -16,111 +16,126 @@ PART 1 — Python Core
 11. Dictionaries
 12. Slicing
 13. Operators
+
+
 PART 2 — Control Flow
-14. if / elif / else
-15. for loops
-16. while loops
-17. break / continue / pass
-18. range()
-19. enumerate()
-20. zip()
-21. match / case
+1.  if / elif / else
+2.  for loops
+3.  while loops
+4.  break / continue / pass
+5.  range()
+6.  enumerate()
+7.  zip()
+8.  match / case
+9.  
+
+
 PART 3 — Functions
-22. Functions
-23. Parameters vs Arguments
-24. *args
-25. **kwargs
-26. Default Arguments
-27. Keyword Arguments
-28. Scope
-29. LEGB
-30. Global / Nonlocal
-31. Lambda
-32. First-Class Functions
-33. Higher-Order Functions
+1.  Functions
+2.  Parameters vs Arguments
+3.  *args
+4.  **kwargs
+5.  Default Arguments
+6.  Keyword Arguments
+7.  Scope
+8.  LEGB
+9.  Global / Nonlocal
+10. Lambda
+11. First-Class Functions
+12. Higher-Order Functions
+
+
 PART 4 — Python Deep Concepts
 
 This is where the Namaste JavaScript feeling really starts:
 
-34. Iterable
-35. Iterator
-36. Generator
-37. yield
-38. Generator Expression
-39. Decorators
-40. Closures
-41. Context Managers
-42. with statement
-43. __enter__
-44. __exit__
-45. Comprehensions
-46. Shallow Copy
-47. Deep Copy
+1.  Iterable
+2.  Iterator
+3.  Generator
+4.  yield
+5.  Generator Expression
+6.  Decorators
+7.  Closures
+8.  Context Managers
+9.  with statement
+10. __enter__
+11. __exit__
+12. Comprehensions
+13. Shallow Copy
+14. Deep Copy
+
+
 PART 5 — OOP
-48. Class & Object
-49. __init__
-50. self
-51. Instance Variables
-52. Class Variables
-53. Instance Methods
-54. @classmethod
-55. @staticmethod
-56. @property
-57. Inheritance
-58. Method Overriding
-59. Multiple Inheritance
-60. MRO
-61. super()
-62. Abstract Classes
-63. Protocols
-64. Magic / Dunder Methods
+1.  Class & Object
+2.  __init__
+3.  self
+4.  Instance Variables
+5.  Class Variables
+6.  Instance Methods
+7.  @classmethod
+8.  @staticmethod
+9.  @property
+10. Inheritance
+11. Method Overriding
+12. Multiple Inheritance
+13. MRO
+14. super()
+15. Abstract Classes
+16. Protocols
+17. Magic / Dunder Methods
+
+
 PART 6 — Python Internals
 
 This is very important for senior interviews:
 
-65. Python Memory Management
-66. Reference Counting
-67. Garbage Collection
-68. GIL
-69. Stack vs Heap
-70. Object Interning
-71. Python Bytecode
-72. CPython
-73. __name__ == "__main__"
+1.  Python Memory Management
+2.  Reference Counting
+3.  Garbage Collection
+4.  GIL
+5.  Stack vs Heap
+6.  Object Interning
+7.  Python Bytecode
+8.  CPython
+9.  __name__ == "__main__"
+
+
 PART 7 — Async Python
 
 Especially important because you're working with FastAPI:
 
-74. Synchronous vs Asynchronous
-75. Blocking vs Non-blocking
-76. Coroutine
-77. async
-78. await
-79. asyncio
-80. Event Loop
-81. Task
-82. Future
-83. gather()
-84. create_task()
-85. Async Context Manager
-86. Async Generator
-87. Async Iterator
+1.  Synchronous vs Asynchronous
+2.  Blocking vs Non-blocking
+3.  Coroutine
+4.  async
+5.  await
+6.  asyncio
+7.  Event Loop
+8.  Task
+9.  Future
+10. gather()
+11. create_task()
+12. Async Context Manager
+13. Async Generator
+14. Async Iterator
+
+
 PART 8 — Backend Python
 
 Then move into the stuff directly relevant to your work:
 
-88. Virtual Environment
-89. pip
-90. requirements.txt
-91. pyproject.toml
-92. Type Hints
-93. Pydantic
-94. FastAPI
-95. Dependency Injection
-96. Middleware
-97. Background Tasks
-98. SQLAlchemy
-99. Async SQLAlchemy
-100. pytest
-101. Logging
-102. Configuration / .env
+1.  Virtual Environment
+2.  pip
+3.  requirements.txt
+4.  pyproject.toml
+5.  Type Hints
+6.  Pydantic
+7.  FastAPI
+8.  Dependency Injection
+9.  Middleware
+10. Background Tasks
+11. SQLAlchemy
+12. Async SQLAlchemy
+13.  pytest
+14.  Logging
+15.  Configuration / .env
